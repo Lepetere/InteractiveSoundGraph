@@ -4,9 +4,9 @@ var newSound = new buzz.sound("audio-samples/Adb_Clp.wav", {
 });
 
 // play as soon as possible on load
-newSound.bind( "canplay", function () {
+/*newSound.bind( "canplay", function () {
 	newSound.play();
-} );
+} );*/
 
 document.addEventListener("keyup", function (event) {
     if (!event) event = window.event;

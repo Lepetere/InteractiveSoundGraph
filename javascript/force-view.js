@@ -1,5 +1,5 @@
-var width = 960,
-    height = 500,
+var width = window.innerWidth - 4,
+    height = window.innerHeight - 4,
     fill = d3.scale.category20();
 
 // mouse event vars
@@ -10,7 +10,7 @@ var selected_node = null,
     mouseup_node = null;
 
 // init svg
-var outer = d3.select("#chart")
+var outer = d3.select("#graph")
   .append("svg:svg")
     .attr("width", width)
     .attr("height", height)
@@ -28,7 +28,7 @@ var vis = outer
 vis.append('svg:rect')
     .attr('width', width)
     .attr('height', height)
-    .attr('fill', 'white');
+    .attr('fill', 'black');
 
 // init force layout
 var force = d3.layout.force()
@@ -159,7 +159,7 @@ function redraw() {
 
   node.enter().insert("circle")
       .attr("class", "node")
-      .attr("r", 5)
+      .attr("r", 8)
       .on("mousedown", 
         function(d) { 
           // disable zoom
@@ -206,7 +206,7 @@ function redraw() {
     .transition()
       .duration(750)
       .ease("elastic")
-      .attr("r", 6.5);
+      .attr("r", 8);
 
   node.exit().transition()
       .attr("r", 0)
