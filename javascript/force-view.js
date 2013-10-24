@@ -164,7 +164,7 @@ function redraw() {
         function(d) { 
           // disable zoom
           vis.call(d3.behavior.zoom().on("zoom"), null);
-console.log("zoom");
+
           mousedown_node = d;
           if (mousedown_node == selected_node) selected_node = null;
           else selected_node = mousedown_node; 
