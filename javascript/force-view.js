@@ -1,4 +1,5 @@
-var width = window.innerWidth - 4,
+(function () {
+  var width = window.innerWidth - 4,
     height = window.innerHeight - 4,
     fill = d3.scale.category20();
 
@@ -8,6 +9,9 @@ var selected_node = null,
     mousedown_link = null,
     mousedown_node = null,
     mouseup_node = null;
+
+// layout property vars
+var nodes, links, node, link;
 
 // init svg
 var outer = d3.select("#graph")
@@ -30,28 +34,18 @@ vis.append('svg:rect')
     .attr('height', height)
     .attr('fill', 'black');
 
-// init force layout
-var force = d3.layout.force()
-    .size([width, height])
-    .nodes([{}]) // initialize with a single node
-    .linkDistance(50)
-    .charge(-200)
-    .on("tick", tick);
+var graphElementsGroup = vis.append('svg:g');
 
+// init force layout
+var force = initForceLayout();
 
 // line displayed when dragging new nodes
-var drag_line = vis.append("line")
+var drag_line = graphElementsGroup.append("line")
     .attr("class", "drag_line")
     .attr("x1", 0)
     .attr("y1", 0)
     .attr("x2", 0)
     .attr("y2", 0);
-
-// get layout properties
-var nodes = force.nodes(),
-    links = force.links(),
-    node = vis.selectAll(".node"),
-    link = vis.selectAll(".link");
 
 // add keyboard callback
 d3.select(window)
@@ -60,12 +54,12 @@ d3.select(window)
 redraw();
 
 // focus on svg
-// vis.node().focus();
+// graphElementsGroup.node().focus();
 
-function mousedown() {
+var mousedown = function () {
   if (!mousedown_node && !mousedown_link) {
     // allow panning if nothing is selected
-    vis.call(d3.behavior.zoom().on("zoom"), rescale);
+    graphElementsGroup.call(d3.behavior.zoom().on("zoom"), rescale);
     return;
   }
 }
@@ -129,7 +123,7 @@ function rescale() {
   trans=d3.event.translate;
   scale=d3.event.scale;
 
-  vis.attr("transform",
+  graphElementsGroup.attr("transform",
       "translate(" + trans + ")"
       + " scale(" + scale + ")");
 }
@@ -163,7 +157,7 @@ function redraw() {
       .on("mousedown", 
         function(d) { 
           // disable zoom
-          vis.call(d3.behavior.zoom().on("zoom"), null);
+          graphElementsGroup.call(d3.behavior.zoom().on("zoom"), null);
 
           mousedown_node = d;
           if (mousedown_node == selected_node) selected_node = null;
@@ -199,7 +193,7 @@ function redraw() {
             selected_node = null;
 
             // enable zoom
-            vis.call(d3.behavior.zoom().on("zoom"), rescale);
+            graphElementsGroup.call(d3.behavior.zoom().on("zoom"), rescale);
             redraw();
           } 
         })
@@ -224,6 +218,25 @@ function redraw() {
 
   force.start();
 
+}
+
+function initForceLayout() {
+  var newForce = d3.layout.force()
+    .size([width, height])
+    .nodes([{}]) // initialize with a single node
+    .linkDistance(60)
+    .linkStrength(0.01)
+    .friction(0.65)
+    .charge(-600)
+    .on("tick", tick);
+
+    // get layout properties
+    nodes = newForce.nodes();
+    links = newForce.links();
+    node = graphElementsGroup.selectAll(".node");
+    link = graphElementsGroup.selectAll(".link");
+
+    return newForce;
 }
 
 function spliceLinksForNode(node) {
@@ -254,3 +267,9 @@ function keydown() {
     }
   }
 }
+
+document.getElementById('clear').onclick = function (e) {
+  // graphElementsGroup.selectAll("line, circle").remove();
+  force = initForceLayout();
+  redraw();
+};})();

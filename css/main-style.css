@@ -25,6 +25,23 @@ h1#headline {
 	margin: 0;
 }
 
+ul#menu {
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+	color: white;
+	font-size: 0.8em;
+	text-align: right;
+	list-style-type: none;
+	margin: 0;
+}
+
+ul#menu li {
+	float: left;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
 .node {
   fill: #CC0000;
   cursor: crosshair;
