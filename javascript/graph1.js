@@ -6,7 +6,7 @@ var fill = d3.scale.category20();
 var force = d3.layout.force()
     .size([width, height])
     .nodes([{}]) // initialize with a single node
-    .linkDistance(30)
+    .linkDistance(45)
     .charge(-60)
     .on("tick", tick);
 
@@ -74,7 +74,7 @@ function restart() {
 
   node.enter().insert("circle", ".cursor")
       .attr("class", "node")
-      .attr("r", 5)
+      .attr("r", 8)
       .call(force.drag);
 
   force.start();
