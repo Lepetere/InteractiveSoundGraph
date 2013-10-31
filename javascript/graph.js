@@ -1,5 +1,5 @@
 // immediate function
-document.graph = (function () {
+document.Graph = (function () {
 
   // module object; add all methods and properties that should be visible globally
   var module = {};

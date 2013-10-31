@@ -1,7 +1,7 @@
-console.log(document.graph);
-console.log(document.sound);
+console.log(document.Graph);
+console.log(document.Sound);
 
-document.addEventListener("keyup", function (event) {
+/*document.addEventListener("keyup", function (event) {
     if (!event) event = window.event;
     var keyCode = event.keyCode || event.which;
     if(keyCode == '13' ) { // enter key
@@ -10,7 +10,7 @@ document.addEventListener("keyup", function (event) {
     	}
         document.sound.sound.play();
     }
-});
+});*/
 
 // menu click events
 document.getElementById('soundOff').onclick = function (e) {
@@ -19,7 +19,7 @@ document.getElementById('soundOff').onclick = function (e) {
 
 document.getElementById('clear').onclick = function (e) {
   console.log("clear");
-  document.graph.restart();
+  document.Graph.restart();
 };
 
 document.getElementById('info').onclick = function (e) {
