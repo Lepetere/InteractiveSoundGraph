@@ -1,3 +1,6 @@
+console.log(document.graph);
+console.log(document.sound);
+
 document.addEventListener("keyup", function (event) {
     if (!event) event = window.event;
     var keyCode = event.keyCode || event.which;

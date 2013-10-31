@@ -1,7 +1,7 @@
 // immediate function
 document.graph = (function () {
 
-  // module object; add all methods and properties, that should be visible globally
+  // module object; add all methods and properties that should be visible globally
   var module = {};
 
   var width = window.innerWidth - 20;
@@ -86,6 +86,6 @@ document.graph = (function () {
     force.start();
   }
 
-  module.restart = restart();
+  module.restart = restart;
   return module;
 })();

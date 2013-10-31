@@ -1,9 +1,6 @@
 // immediate function
 document.sound = (function () {
 
-  // module object; add all methods and properties, that should be visible globally
-  var module = {};
-
     var newSound = new buzz.sound("audio-samples/CP.mp3", {
         preload: true,
         autoplay: false,
@@ -37,5 +34,7 @@ document.sound = (function () {
     }
     */
 
+    // module object; add all methods and properties that should be visible globally
+    var module = {};
     return module;
 })();
