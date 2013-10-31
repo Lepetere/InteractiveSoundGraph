@@ -1,5 +1,5 @@
 // immediate function
-(document.graph = function () {
+document.graph = (function () {
 
   // module object; add all methods and properties, that should be visible globally
   var module = {};
@@ -86,5 +86,6 @@
     force.start();
   }
 
+  module.restart = restart();
   return module;
 })();

@@ -1,5 +1,5 @@
 // immediate function
-(document.sound = function () {
+document.sound = (function () {
 
   // module object; add all methods and properties, that should be visible globally
   var module = {};

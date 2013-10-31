@@ -12,6 +12,7 @@ document.getElementById('soundOff').onclick = function (e) {
 
 document.getElementById('clear').onclick = function (e) {
   console.log("clear");
+  document.graph.restart();
 };
 
 document.getElementById('info').onclick = function (e) {
