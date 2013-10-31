@@ -1,5 +1,5 @@
-
-var width = 960,    height = 500;
+var width = window.innerWidth - 20;
+var height = window.innerHeight - 76;
 
 var fill = d3.scale.category20();
 

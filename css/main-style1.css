@@ -11,14 +11,6 @@ h1{
 	margin: 10px;
 }
 
-#section {
-	size:landscape ;
-}
-
-svg{
-	size:landscape;
-}
-
 #section menu{
 	position:relative ;
 }
@@ -44,8 +36,7 @@ svg{
 
 rect {
 	fill:black;
-	position:absolute ;
-	width:auto;
+	position:absolute;
 }
 
 .node {
