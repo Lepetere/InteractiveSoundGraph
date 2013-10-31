@@ -1,81 +1,90 @@
-var width = window.innerWidth - 20;
-var height = window.innerHeight - 76;
+// immediate function
+(document.graph = function () {
 
-var fill = d3.scale.category20();
+  // module object; add all methods and properties, that should be visible globally
+  var module = {};
 
-var force = d3.layout.force()
-    .size([width, height])
-    .nodes([{}]) // initialize with a single node
-    .linkDistance(45)
-    .charge(-60)
-    .on("tick", tick);
+  var width = window.innerWidth - 20;
+  var height = window.innerHeight - 76;
 
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height)
-    .on("mousemove", mousemove)
-    .on("mousedown", mousedown);
+  var fill = d3.scale.category20();
 
-svg.append("rect")
-    .attr("width", width)
-    .attr("height", height);
+  var force = d3.layout.force()
+      .size([width, height])
+      .nodes([{}]) // initialize with a single node
+      .linkDistance(45)
+      .charge(-60)
+      .on("tick", tick);
 
-var nodes = force.nodes(),
-    links = force.links(),
-    node = svg.selectAll(".node"),
-    link = svg.selectAll(".link");
+  var svg = d3.select("body").append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .on("mousemove", mousemove)
+      .on("mousedown", mousedown);
 
-var cursor = svg.append("circle")
-    .attr("r", 30)
-    .attr("transform", "translate(-100,-100)")
-    .attr("class", "cursor");
+  svg.append("rect")
+      .attr("width", width)
+      .attr("height", height);
 
-restart();
+  var nodes = force.nodes(),
+      links = force.links(),
+      node = svg.selectAll(".node"),
+      link = svg.selectAll(".link");
 
-function mousemove() {
-  cursor.attr("transform", "translate(" + d3.mouse(this) + ")");
-}
-
-function mousedown() {
-  var point = d3.mouse(this),
-      node = {x: point[0], y: point[1]},
-      n = nodes.push(node);
-
-
-  // add links to any nearby nodes
-  nodes.forEach(function(target) {
-    var x = target.x - node.x,
-        y = target.y - node.y;
-    if (Math.sqrt(x * x + y * y) < 30) {
-      links.push({source: node, target: target});
-    }
-  });
+  var cursor = svg.append("circle")
+      .attr("r", 30)
+      .attr("transform", "translate(-100,-100)")
+      .attr("class", "cursor");
 
   restart();
-}
 
-function tick() {
-  link.attr("x1", function(d) { return d.source.x; })
-      .attr("y1", function(d) { return d.source.y; })
-      .attr("x2", function(d) { return d.target.x; })
-      .attr("y2", function(d) { return d.target.y; });
+  function mousemove() {
+    cursor.attr("transform", "translate(" + d3.mouse(this) + ")");
+  }
 
-  node.attr("cx", function(d) { return d.x; })
-      .attr("cy", function(d) { return d.y; });
-}
+  function mousedown() {
+    var point = d3.mouse(this),
+        node = {x: point[0], y: point[1]},
+        n = nodes.push(node);
 
-function restart() {
-  link = link.data(links);
 
-  link.enter().insert("line", ".node")
-      .attr("class", "link");
+    // add links to any nearby nodes
+    nodes.forEach(function(target) {
+      var x = target.x - node.x,
+          y = target.y - node.y;
+      if (Math.sqrt(x * x + y * y) < 30) {
+        links.push({source: node, target: target});
+      }
+    });
 
-  node = node.data(nodes);
+    restart();
+  }
 
-  node.enter().insert("circle", ".cursor")
-      .attr("class", "node")
-      .attr("r", 8)
-      .call(force.drag);
+  function tick() {
+    link.attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
 
-  force.start();
-}
+    node.attr("cx", function(d) { return d.x; })
+        .attr("cy", function(d) { return d.y; });
+  }
+
+  function restart() {
+    link = link.data(links);
+
+    link.enter().insert("line", ".node")
+        .attr("class", "link");
+
+    node = node.data(nodes);
+
+    node.enter().insert("circle", ".cursor")
+        .attr("class", "node")
+        .attr("r", 7)
+        .call(force.drag);
+
+    force.start();
+  }
+
+  return module;
+})();
