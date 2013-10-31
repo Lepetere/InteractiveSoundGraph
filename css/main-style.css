@@ -1,75 +1,63 @@
+
 body {
 	padding: 0;
-	margin: 0;
-	font-family: arial, helvetica, sans-serif;
-	background-color: black;
+	margin: 10px;
+	background-color: rgb(90,90,90);
+	font-family: "Avenir Medium", sans-serif;
+	font-size:large;
 }
 
-svg {
-	padding: 0;
-	margin: 0;
+h1{
+	margin: 10px;
 }
 
-div#graph {
-	position: absolute;
-	top: 0;
-	left: 0;
+#section {
+	size:landscape ;
 }
 
-h1#headline {
-	position: absolute;
-	top: 20px;
-	left: 20px;
-	font-size: 2.5em;
-	color: white;
-	margin: 0;
+svg{
+	size:landscape;
 }
 
-ul#menu {
-	position: absolute;
-	bottom: 20px;
+#section menu{
+	position:relative ;
+}
+
+#menu{
+	color:white;
+	top: 10px;
 	right: 20px;
-	color: white;
-	font-size: 0.8em;
+	left:inherit;
+	position: absolute;
 	text-align: right;
 	list-style-type: none;
-	margin: 0;
 }
 
-ul#menu li {
+#menu li {
 	float: left;
-	margin-left: 10px;
-	cursor: pointer;
+	margin-right: 30px;
+	margin-top: 40px;
+	cursor: pointer;	
+}
+
+#menu li:hover { color:grey;}
+
+rect {
+	fill:black;
+	position:absolute ;
+	width:auto;
 }
 
 .node {
-  fill: #CC0000;
-  cursor: crosshair;
+  fill: green;
 }
 
-.node_selected {
-  fill: #3333CC;
-  stroke: #3333CC;
-}
-
-.drag_line {
-  stroke: #CCC;
-  stroke-width: 3;
-  pointer-events: none;
-}
-
-.drag_line_hidden {
-  stroke: #CCC;
-  stroke-width: 0;
-  pointer-events: none;
+.cursor {
+  fill: none;
+  stroke: white;
 }
 
 .link {
-  stroke: #CCC;
-  stroke-width: 3;
-  cursor: crosshair;
+  stroke: white;
 }
 
-.link_selected {
-  stroke: #3333CC;
-}

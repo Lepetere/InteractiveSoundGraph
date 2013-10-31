@@ -1,17 +1,34 @@
-var newSound = new buzz.sound("audio-samples/Adb_Clp.wav", {
+// main js module 
+
+var newSound = new buzz.sound("audio-samples/CP.mp3", {
     preload: true,
     autoplay: false,
 });
 
-// play as soon as possible on load
-/*newSound.bind( "canplay", function () {
-	newSound.play();
-} );*/
+var myGroup = new buzz.group([ 
+    new buzz.sound("audio-samples/CP.mp3"),
+    new buzz.sound("audio-samples/BD0000.mp3"),
+    new buzz.sound("audio-samples/BD0010.mp3"),
+    new buzz.sound("audio-samples/Adb_Clp.wav")
+]);
 
-document.addEventListener("keyup", function (event) {
-    if (!event) event = window.event;
-    var keyCode = event.keyCode || event.which;
-    if(keyCode == '13' ) { // enter key
-        newSound.play();
-    }
-});
+//myGroup.loop().play().fadeIn();
+
+/*
+myGroup.bind( "canplay", function () {
+	myGroup.play();
+} );
+
+/*
+var myGroup = new buzz.group([ 
+    new buzz.sound("/audio-samples/Adb_Clp.wav"),
+    new buzz.sound("/audio-samples/BD0000"),
+    new buzz.sound("/audio-samples/BD0010"),
+    new buzz.sound("/audio-samples/CP")
+]);
+
+
+for (var i in buzz.group){
+	buzz.group[i].play();
+}
+*/

@@ -21,17 +21,25 @@
 
 		<script src="http://d3js.org/d3.v2.min.js"></script>
 		<script src="javascript/buzz.min.js" charset="UTF-8"></script>
+		<script src="javascript/buzz.js" charset="UTF-8"></script> 
 		<script src="javascript/main.js" charset="UTF-8" defer></script>
-		<script src="javascript/force-view.js" charset="UTF-8" defer></script>
-		<link rel="stylesheet" type="text/css" href="css/main-style.css">
+		<script src="javascript/graph.js" charset="UTF-8" defer></script>  
+		<link rel="stylesheet" type="text/css" href="css/main-style.css"> 
+		
+		
 	</head>
 	
 	<body id="body" lang="en">
-		<div id="graph"></div>
-		<h1 id="headline">Interactive Sound Graph</h1>
-		<ul id="menu">
-			<li id="clear">clear</li>
-			<li>info</li>
-		</ul>
+		<article>
+			<h1 id="title" class="editable">Interactive Sound Graph</h1>
+			<section id="field">  
+					<ul id="menu">
+						<li id="soundOff">soundOff</li>
+						<li id="clear">clear</li>
+						<li id="info">info</li>
+						
+					</ul>
+			</section>
+		</article>
 	</body>
 </html>
