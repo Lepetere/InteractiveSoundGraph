@@ -1,0 +1,63 @@
+
+body {
+	padding: 0;
+	margin: 10px;
+	background-color: rgb(90,90,90);
+	font-family: "Avenir Medium", sans-serif;
+	font-size:large;
+}
+
+h1{
+	margin: 10px;
+}
+
+#section {
+	size:landscape ;
+}
+
+svg{
+	size:landscape;
+}
+
+#section menu{
+	position:relative ;
+}
+
+#menu{
+	color:white;
+	top: 10px;
+	right: 20px;
+	left:inherit;
+	position: absolute;
+	text-align: right;
+	list-style-type: none;
+}
+
+#menu li {
+	float: left;
+	margin-right: 30px;
+	margin-top: 40px;
+	cursor: pointer;	
+}
+
+#menu li:hover { color:grey;}
+
+rect {
+	fill:black;
+	position:absolute ;
+	width:auto;
+}
+
+.node {
+  fill: green;
+}
+
+.cursor {
+  fill: none;
+  stroke: white;
+}
+
+.link {
+  stroke: white;
+}
+
