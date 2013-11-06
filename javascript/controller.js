@@ -1,5 +1,3 @@
-console.log(document.graph);
-console.log(document.sound);
 
 document.addEventListener("keyup", function (event) {
     if (!event) event = window.event;
@@ -15,7 +13,7 @@ document.getElementById('soundOff').onclick = function (e) {
 
 document.getElementById('clear').onclick = function (e) {
   console.log("clear");
-  document.graph.restart();
+  document.graph.clear();
 };
 
 document.getElementById('info').onclick = function (e) {
