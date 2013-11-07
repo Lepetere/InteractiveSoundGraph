@@ -3,7 +3,7 @@ document.Sound = (function () {
 
     // browser console cheat sheet:
     // new buzz.sound("audio-samples/sinusSynth4/gis4.mp3", {preload: true, autoplay: true});
-    // 
+    // document.Sound.sounds[0]["samples"][0]["buzzObject"].play();
 
     var BUZZ_NEW_SOUND_OPTIONS = {
         preload: true,
@@ -43,7 +43,7 @@ document.Sound = (function () {
     }
 
     var playAllSounds = function (banch, index) {
-        console.log("banch: " + banch + "   index: " + index);
+
         if (document.Sound.sounds[banch]["samples"][index]["buzzObject"] != undefined) {
             document.Sound.sounds[banch]["samples"][index]["buzzObject"].play();
         }
@@ -53,7 +53,7 @@ document.Sound = (function () {
 
         var newIndex = index + 1;
       if (newIndex < document.Sound.sounds[banch]["samples"].length) {
-        setTimeout(playAllSounds(banch, newIndex), 400);
+        setTimeout(playAllSounds(banch, newIndex), 1000);
       }
     }
 

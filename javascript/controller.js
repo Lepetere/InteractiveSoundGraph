@@ -1,5 +1,6 @@
 console.log("Graph module: " + document.Graph);
 console.log("Sound module: " + document.Sound);
+console.log("UI module: " + document.UI);
 
 /*document.addEventListener("keyup", function (event) {
     if (!event) event = window.event;
