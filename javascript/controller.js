@@ -1,5 +1,5 @@
-console.log(document.Graph);
-console.log(document.Sound);
+console.log("Graph module: " + document.Graph);
+console.log("Sound module: " + document.Sound);
 
 /*document.addEventListener("keyup", function (event) {
     if (!event) event = window.event;
@@ -24,4 +24,8 @@ document.getElementById('clear').onclick = function (e) {
 
 document.getElementById('info').onclick = function (e) {
   console.log("info");
+};
+
+window.onload = function () {
+  document.Sound.playAllSounds(1, 0);
 };

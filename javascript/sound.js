@@ -3,7 +3,7 @@ document.Sound = (function () {
 
     // browser console cheat sheet:
     // new buzz.sound("audio-samples/sinusSynth4/gis4.mp3", {preload: true, autoplay: true});
-    // document.Sound.playAllSounds();
+    // 
 
     var BUZZ_NEW_SOUND_OPTIONS = {
         preload: true,
@@ -17,7 +17,7 @@ document.Sound = (function () {
                             sampleNames : ["c3", "cis3", "d3", "dis3", "e3", "f3", "fis3", "g3", "gis3", "a3", "ais3", "b3"]
                         },
                         {
-                            groupName : "sinusSynth3", 
+                            groupName : "sinusSynth4", 
                             sampleNames : ["c4", "cis4", "d4", "dis4", "e4", "f4", "fis4", "g4", "gis4", "a4", "ais4", "b4"]
                         },
                      ];
@@ -42,8 +42,23 @@ document.Sound = (function () {
         sounds.push(group);
     }
 
+    var playAllSounds = function (banch, index) {
+        console.log("banch: " + banch + "   index: " + index);
+        if (document.Sound.sounds[banch]["samples"][index]["buzzObject"] != undefined) {
+            document.Sound.sounds[banch]["samples"][index]["buzzObject"].play();
+        }
+        else {
+            console.log("undefinded sound; index " + index);
+        }
+
+        var newIndex = index + 1;
+      if (newIndex < document.Sound.sounds[banch]["samples"].length) {
+        setTimeout(playAllSounds(banch, newIndex), 400);
+      }
+    }
+
     function getSoundObject (group, name) {
-        console.log("get sound: " + group + "/" + name + ".mp3");
+        // console.log("get sound: " + group + "/" + name + ".mp3");
         return new buzz.sound("audio-samples/" + group + "/" + name + ".mp3", BUZZ_NEW_SOUND_OPTIONS);
     }
 
@@ -51,5 +66,6 @@ document.Sound = (function () {
     var module = {};
     module.sounds = sounds;
     module.getSoundObject = getSoundObject;
+    module.playAllSounds = playAllSounds;
     return module;
 })();
