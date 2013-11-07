@@ -13,7 +13,7 @@ document.Sound = (function () {
     // initialize an array containing sound objects for a scale
     var soundNames = [
                         {
-                            groupName : "sinusSynth3", 
+                            groupName : "sinusSynth3",
                             sampleNames : ["c3", "cis3", "d3", "dis3", "e3", "f3", "fis3", "g3", "gis3", "a3", "ais3", "b3"]
                         },
                         {
@@ -21,28 +21,25 @@ document.Sound = (function () {
                             sampleNames : ["c4", "cis4", "d4", "dis4", "e4", "f4", "fis4", "g4", "gis4", "a4", "ais4", "b4"]
                         },
                      ];
-    var sounds = [];
+    var sounds = {};
     for (var i = soundNames.length; i--; ) {
 
         var groupName = soundNames[i]["groupName"];
-
-        var group = {};
-        group["groupName"] = groupName; 
-        group["samples"] = [];
+        var samples = [];
         
         for (var j = soundNames[i]["sampleNames"].length; j--; ) {
             var sampleName = soundNames[i]["sampleNames"][j];
             
-            group["samples"].push({
+            samples.push({
                 buzzObject: getSoundObject(groupName, sampleName),
                 name: sampleName
             });
         }
 
-        sounds.push(group);
+        sounds[groupName] = samples;
     }
 
-    var playAllSounds = function (banch, index) {
+    var playAllSounds = function (banch, index) { // TO DO: fix
 
         if (document.Sound.sounds[banch]["samples"][index]["buzzObject"] != undefined) {
             document.Sound.sounds[banch]["samples"][index]["buzzObject"].play();

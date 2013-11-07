@@ -28,5 +28,9 @@ document.getElementById('info').onclick = function (e) {
 };
 
 window.onload = function () {
-  document.Sound.playAllSounds(0, 0);
+  // document.Sound.playAllSounds(0, 0);
 };
+
+$(document).ready(function () {
+  document.UI.init();
+});
