@@ -27,10 +27,6 @@ document.getElementById('info').onclick = function (e) {
   console.log("info");
 };
 
-window.onload = function () {
-  // document.Sound.playAllSounds(0, 0);
-};
-
 $(document).ready(function () {
   document.UI.init();
 });

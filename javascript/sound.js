@@ -27,7 +27,7 @@ document.Sound = (function () {
         var groupName = soundNames[i]["groupName"];
         var samples = [];
         
-        for (var j = soundNames[i]["sampleNames"].length; j--; ) {
+        for (var j = 0; j < soundNames[i]["sampleNames"].length; j++) {
             var sampleName = soundNames[i]["sampleNames"][j];
             
             samples.push({
@@ -39,21 +39,6 @@ document.Sound = (function () {
         sounds[groupName] = samples;
     }
 
-    var playAllSounds = function (banch, index) { // TO DO: fix
-
-        if (document.Sound.sounds[banch]["samples"][index]["buzzObject"] != undefined) {
-            document.Sound.sounds[banch]["samples"][index]["buzzObject"].play();
-        }
-        else {
-            console.log("undefinded sound; index " + index);
-        }
-
-        var newIndex = index + 1;
-      if (newIndex < document.Sound.sounds[banch]["samples"].length) {
-        setTimeout(function () {playAllSounds(banch, newIndex)}, 250);
-      }
-    }
-
     function getSoundObject (group, name) {
         // console.log("get sound: " + group + "/" + name + ".mp3");
         return new buzz.sound("audio-samples/" + group + "/" + name + ".mp3", BUZZ_NEW_SOUND_OPTIONS);
@@ -63,6 +48,6 @@ document.Sound = (function () {
     var module = {};
     module.sounds = sounds;
     module.getSoundObject = getSoundObject;
-    module.playAllSounds = playAllSounds;
+    module.currentSelection = {groupName: undefined, sampleName: undefined};
     return module;
 })();
