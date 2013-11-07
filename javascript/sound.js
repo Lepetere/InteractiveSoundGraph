@@ -53,7 +53,7 @@ document.Sound = (function () {
 
         var newIndex = index + 1;
       if (newIndex < document.Sound.sounds[banch]["samples"].length) {
-        setTimeout(playAllSounds(banch, newIndex), 1000);
+        setTimeout(function () {playAllSounds(banch, newIndex)}, 250);
       }
     }
 
