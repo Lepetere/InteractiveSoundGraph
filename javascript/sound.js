@@ -44,10 +44,18 @@ document.Sound = (function () {
         return new buzz.sound("audio-samples/" + group + "/" + name + ".mp3", BUZZ_NEW_SOUND_OPTIONS);
     }
 
+    function getNewSoundObjectForCurrentSound () {
+        return getSoundObject(
+            document.Sound.currentSelection["groupName"],
+            document.Sound.currentSelection["sampleName"]
+            );
+    }
+
     // module object; add all methods and properties that should be visible globally
     var module = {};
     module.sounds = sounds;
     module.getSoundObject = getSoundObject;
+    module.getNewSoundObjectForCurrentSound = getNewSoundObjectForCurrentSound;
     module.currentSelection = {groupName: undefined, sampleName: undefined};
     return module;
 })();
