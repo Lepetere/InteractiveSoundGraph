@@ -11,14 +11,6 @@ h1{
 	margin: 10px;
 }
 
-#section {
-	size:landscape ;
-}
-
-svg{
-	size:landscape;
-}
-
 #section menu{
 	position:relative ;
 }
@@ -61,3 +53,36 @@ rect {
   stroke: white;
 }
 
+/* sound-selection-interface */
+
+div#sound-selection-interface {
+	position: absolute;
+	bottom: 28px;
+	left: 42px;
+}
+
+select#banch-select {
+	display: inline-block;
+	float: left;
+	width: 110px;
+	margin: 8px 0 8px 0;
+}
+
+ul#sound-list {
+	list-style-type: none;
+	margin: 0 0 0 110px;
+	height: 35px;
+	line-height: 35px;
+	color: white;
+	font-size: 0.85em;
+}
+
+ul#sound-list li {
+	margin-right: 22px;
+	float: left;
+	cursor: pointer;
+}
+
+ul#sound-list li:hover {
+	color: red;
+}
