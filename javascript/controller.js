@@ -18,7 +18,7 @@ document.getElementById('soundOff').onclick = function (e) {
 
 document.getElementById('clear').onclick = function (e) {
   console.log("clear");
-  document.Graph.restart();
+  document.graph.clear();
 
 };
 
