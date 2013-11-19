@@ -86,3 +86,51 @@ ul#sound-list li {
 ul#sound-list li:hover {
 	color: red;
 }
+
+#popup {
+    display: none;
+    z-index: 2;
+    position: fixed;
+    width:450px;
+    height:500px;
+    top: 20%;
+    left: 50%;
+    margin-left: -250px;
+    background-color: rgb(100,100,100);
+    background-origin: padding-box;
+    background-size: 30%;
+    border: 8px solid #ccc;
+    border-radius: 5px 5px 5px 5px;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 14px;
+    color: #000;
+}
+
+
+.schliessen {
+    position: relative;
+    height: 30px;
+    width: 30px;
+    background-image: url("./img/X.png") ;
+    background-repeat: no-repeat;
+    background-size: 60%;
+    background-origin: padding-box;
+    float: right;
+    cursor: pointer;
+}
+ 
+#popupHintergrund {
+    display:none;
+    z-index:1;
+    position: fixed;
+    height:100%;
+    width:100%;
+    top:0px;
+    left:0px;
+    background:#000000;
+}
+ 
+#popup_inhalt {
+    margin: 14px;
+    color: white;
+}
