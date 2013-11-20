@@ -1,6 +1,6 @@
 // debugging: get time for loading the module
 var start =  new Date().getTime();
-console.log("controller.js start :"+ start);
+//console.log("controller.js start :"+ start);
 
 	/*
 	 *menu click events
@@ -23,7 +23,7 @@ console.log("controller.js start :"+ start);
 	});
 	
 	$(loop).mousedown(function () {
-		console.log("loop - klick");
+		console.log("loop - On/Off");
 		document.graph.setLoopFlag();
 		});
 //////////////////////////////////// some effects //////////////////////////////////////////////////////////////
@@ -64,6 +64,6 @@ console.log("controller.js start :"+ start);
 
 // debugging: get time for loading the module
 var end = new Date().getTime();
-console.log("controller.js end:"+  end );
+//console.log("controller.js end:"+  end );
 var time = end - start;
-console.log("time controller.js :   " + time);
+console.log("loading time for controller.js :   " + time);
