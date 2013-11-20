@@ -120,8 +120,11 @@ document.graph = (function startGraph() {
 			var nodeIndex =  loopGraph(module.current);
 				console.log("node index : " + nodeIndex);
 				console.log("node color. : " + nodes[nodeIndex].color);
+				document.UI.theSounds[nodeIndex].play();
+				// TODO sounds[nodeIndex]play();
+				
 				console.log();
-			}, 2500);
+			}, 700);
 		}else clearInterval(module.timeVar);
 	}
 

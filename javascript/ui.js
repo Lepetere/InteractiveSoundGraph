@@ -1,6 +1,10 @@
 // immediate function
 document.UI = (function () {
-
+	
+	// module object; add all methods and properties that should be visible globally
+    var module = {};
+	module.theSounds = [];
+	
 	var updateSoundList = function () {
 
 		$('ul#sound-list').empty();
@@ -11,11 +15,13 @@ document.UI = (function () {
 		$('.sound-item').click(soundClickHandler);
 		document.Sound.currentSelection["groupName"] = groupName;
 	};
-
+	
 	var soundClickHandler = function () {
 		var currentGroupName = document.Sound.currentSelection["groupName"];
 		document.Sound.currentSelection["sampleName"] = document.Sound.sounds[currentGroupName][$(this).attr('value')]["name"];
 		document.Sound.sounds[currentGroupName][$(this).attr('value')]["buzzObject"].play();
+		var s = document.Sound.sounds[currentGroupName][$(this).attr('value')]["buzzObject"]
+		module.theSounds.push(s);
 	};
 
 	var init = function () {
@@ -33,8 +39,6 @@ document.UI = (function () {
 		$('select#banch-select').change(updateSoundList);
 	};
 
-	// module object; add all methods and properties that should be visible globally
-    var module = {};
     module.init = init;
     return module;
 })();
