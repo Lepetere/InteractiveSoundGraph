@@ -134,3 +134,11 @@ ul#sound-list li:hover {
     margin: 14px;
     color: white;
 }
+
+#instructionField{
+	float:left;
+}
+#instructionText{
+	color: white;
+	display: none;
+}

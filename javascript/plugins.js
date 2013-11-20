@@ -3,7 +3,7 @@
  */
 
  // set coordinates of html element to change its position
-$.fn.makeAbsolute = function(rebase, x, y){
+$.fn.setCoords = function(rebase, x, y){
     return this.each(function() {
         var el = $(this);
         var pos = el.position();

@@ -1,9 +1,12 @@
+// debugging: get time for loading the module
+var start =  new Date().getTime();
+console.log("graph.js start: "+ start);
 
 document.graph = (function startGraph() {
 
 	// module object; add all methods and properties that should be visible globally
 	var module = {};
-
+	module.loopFlag = false;
 	var width = window.innerWidth - 20;
 	var height = window.innerHeight - 76;
 
@@ -11,7 +14,7 @@ document.graph = (function startGraph() {
 
 	var force = d3.layout.force()
 		.size([width, height])
-		.nodes([{}])// initialize with a single node
+		//.nodes([{}])// initialize with a single node
 		.linkDistance(45).charge(-60).on("tick", tick);
 
 	var svg = d3.select("body")
@@ -48,7 +51,7 @@ document.graph = (function startGraph() {
 				y : point[1]
 			}, 
 			n = nodes.push(node);
-
+	
 		// add links to any nearby nodes
 		nodes.forEach(function(target) {
 			var x = target.x - node.x, y = target.y - node.y;
@@ -83,7 +86,32 @@ document.graph = (function startGraph() {
 		d3.select("svg").remove();
 		startGraph();
 	}
+	// start and stop  loop functions
+	var setLoopFlag = function(){
+		module.loopFlag = !module.loopFlag;
+		if(module.loopFlag){
+			loopGraph();
+			module.timeVar = setInterval(function () {loopGraph();}, 2500);
+		}else clearInterval(module.timeVar);
+	}
+	
+	//set loop
+	var loopGraph = function () {
+		// loop over nodes function
+		nodes.forEach(function(node) {
+				console.log("node:" + node.x +  node.y);
+				console.log();
+			});
+	};
+	
+	module.setLoopFlag = setLoopFlag;
 
 	module.clear = clear;
 	return module;
 })(); 
+
+// debugging: get time for loading the module
+var end = new Date().getTime();
+console.log("graph.js end: "+  end );
+var time = end - start;
+console.log("time graph.js: " + time);
