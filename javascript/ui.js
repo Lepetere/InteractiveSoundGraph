@@ -38,6 +38,25 @@ document.UI = (function () {
 
 		// assign event handlers
 		$('select#banch-select').change(updateSoundList);
+
+		/*
+		 *menu click events
+		 */
+
+		$('#loopToggle').click(function (e) {
+			document.graph.setLoopFlag();
+			$('#loopOn, #loopOff').toggle();
+		});
+
+		$('#soundToggle').click(function (e) {
+			$('#soundOn, #soundOff').toggle();
+		});
+
+		$('#clear').click(function (e) {
+			console.log("clear");
+			document.graph.clear();
+		});
+
 	};
 
     module.init = init;

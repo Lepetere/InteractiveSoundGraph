@@ -3,30 +3,10 @@
 var start2 =  new Date().getTime();
 //console.log("controller.js start :"+ start);
 
-	/*
-	 *menu click events
-	 */
-	document.getElementById('soundOff').onclick = function (e) {
-	  console.log("soundOff");
-	};
-
-	document.getElementById('clear').onclick = function (e) {
-	  console.log("clear");
-	  document.graph.clear();
-	};
-
-	document.getElementById('info').onclick = function (e) {
-	  console.log("info");
-	};
-
-	$(document).ready(function () {
-	  document.UI.init();
-	});
+$(document).ready(function () {
+  document.UI.init();
+});
 	
-	$(loop).mousedown(function () {
-		console.log("loop - On/Off");
-		document.graph.setLoopFlag();
-		});
 //////////////////////////////////// some effects //////////////////////////////////////////////////////////////
 	// show short instructions on mouse move 
 	var instrFlag = false;
