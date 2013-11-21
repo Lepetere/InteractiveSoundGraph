@@ -4,15 +4,6 @@
  D3's force layout uses the Barnes–Hut approximation to compute repulsive charge forces between all nodes efficiently. Links are implemented as geometric constraints on top of position Verlet integration, offering greater stability. A virtual spring between each node and the center of the chart prevents nodes from drifting into space
  *
  */
-// help function 
-var getRandomColor =  function() {
-		var letters = '0123456789ABCDEF'.split('');
-		var color = '#';
-		for (var i = 0; i < 6; i++ ) {
-			color += letters[Math.round(Math.random() * 15)];
-		}
-    return color;
-};
 
 // debugging: get time for loading the module
 var start =  new Date().getTime();
