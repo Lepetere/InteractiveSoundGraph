@@ -15,6 +15,25 @@ $.fn.setCoords = function(rebase, x, y){
     });
 };
 
+document.plugin = (function () {
+
+	// module object; add all methods and properties that should be visible globally
+	var module = {};
+
+	module.getRandomColor =  function () {
+
+		var letters = '0123456789ABCDEF'.split('');
+		var color = '#';
+		for (var i = 0; i < 6; i++ ) {
+			color += letters[Math.round(Math.random() * 15)];
+		}
+
+    	return color;
+	};
+
+	return module;
+})();
+
 
 
 

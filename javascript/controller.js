@@ -1,4 +1,5 @@
 // debugging: get time for loading the module
+//var start =  new Date().getTime();
 var start2 =  new Date().getTime();
 //console.log("controller.js start :"+ start);
 
