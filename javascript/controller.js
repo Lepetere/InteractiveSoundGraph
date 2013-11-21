@@ -1,5 +1,6 @@
 // debugging: get time for loading the module
 //var start =  new Date().getTime();
+var start2 =  new Date().getTime();
 //console.log("controller.js start :"+ start);
 
 	/*
@@ -63,7 +64,7 @@
 	    });
 
 // debugging: get time for loading the module
-var end = new Date().getTime();
+var end2 = new Date().getTime();
 //console.log("controller.js end:"+  end );
-var time = end - start;
-console.log("loading time for controller.js :   " + time);
+var time2 = end2 - start2;
+console.log("loading time for controller.js :   " + time2);

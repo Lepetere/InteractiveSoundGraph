@@ -8,6 +8,7 @@
 // debugging: get time for loading the module
 var start =  new Date().getTime();
 //console.log("graph.js start: "+ start);
+var graph = "graph";
 
 document.graph = (function startGraph() {
 
