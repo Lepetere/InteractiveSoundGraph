@@ -64,7 +64,7 @@ document.graph = (function startGraph() {
 			node = { 	x : point[0],
 							y : point[1],
 					  sound : module.nextSound ,
-					  color   : getRandomColor()
+					  color   : document.plugin.getRandomColor()
 			}, 		
 			n = nodes.push(node);
 		// add links to any nearby nodes
