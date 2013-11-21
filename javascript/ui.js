@@ -50,6 +50,7 @@ document.UI = (function () {
 
 		$('#soundToggle').click(function (e) {
 			$('#soundOn, #soundOff').toggle();
+			document.Sound.toggleSound();
 		});
 
 		$('#clear').click(function (e) {

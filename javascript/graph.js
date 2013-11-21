@@ -114,11 +114,11 @@ document.graph = (function startGraph() {
 				console.log("node index : " + nodeIndex);
 				console.log("node color. : " + nodes[nodeIndex].color);
 				console.log(nodes[nodeIndex].sound);
-				nodes[nodeIndex].sound.play();
-				//document.UI.theSounds[nodeIndex].play();
-				// TODO sounds[nodeIndex]play();
+
+				if (document.Sound.isSoundOn) {
+					nodes[nodeIndex].sound.play();
+				}
 				
-				console.log();
 			}, 700);
 		}else clearInterval(module.timeVar);
 	}

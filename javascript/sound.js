@@ -51,11 +51,18 @@ document.Sound = (function () {
             );
     }
 
+    function toggleSound () {
+        module.isSoundOn = !module.isSoundOn;
+        console.log("sound " + module.isSoundOn);
+    }
+
     // module object; add all methods and properties that should be visible globally
     var module = {};
     module.sounds = sounds;
     module.getSoundObject = getSoundObject;
     module.getNewSoundObjectForCurrentSound = getNewSoundObjectForCurrentSound;
     module.currentSelection = {groupName: undefined, sampleName: undefined};
+    module.isSoundOn = true;
+    module.toggleSound = toggleSound;
     return module;
 })();
