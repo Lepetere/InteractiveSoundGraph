@@ -21,6 +21,7 @@ document.UI = (function () {
 		document.Sound.currentSelection["sampleName"] = document.Sound.sounds[currentGroupName][$(this).attr('value')]["name"];
 		document.Sound.sounds[currentGroupName][$(this).attr('value')]["buzzObject"].play();
 		var s = document.Sound.sounds[currentGroupName][$(this).attr('value')]["buzzObject"]
+		//save last played(on klick) sound in array
 		module.theSounds.push(s);
 	};
 
