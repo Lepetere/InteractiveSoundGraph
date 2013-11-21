@@ -57,6 +57,41 @@ document.UI = (function () {
 			document.graph.clear();
 		});
 
+		// show short instructions on mouse move 
+		var instrFlag = false;
+		$("body").hover(function() {
+			if(instrFlag == false) {
+				$("#instructionText").fadeIn("normal");
+		           instrFlag = true;
+		        }
+		    });
+		$("rect").mousedown(function() {
+		        if(instrFlag == true) {
+					$("#instructionText").fadeOut("normal");
+		            //instrFlag = false;
+		        }	
+		    });
+		/*
+		 * popup for info
+		 */
+		var popupFlag = false;
+			$("#info").click(function() {
+		        if(popupFlag == false) {
+		            $("#popup").fadeIn("normal");
+		            popupFlag = true;
+		        }
+				return false;
+		    }); 
+		 	//close popup, set msg object to the left side
+		    $(".schliessen").click(function() {
+		        if(popupFlag == true) {
+					$("#popup").fadeOut("normal");
+		            $("#popupHintergrund").fadeOut("normal");
+		            popupFlag = false;
+		            $("#msg").makeAbsolute(true, 10, 90);
+		        }	
+		    });
+
 	};
 
     module.init = init;
