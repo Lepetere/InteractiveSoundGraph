@@ -63,7 +63,7 @@ document.graph = (function startGraph() {
 		var point = d3.mouse(this), 
 			node = { 	x : point[0],
 							y : point[1],
-					  sound : module.nextSound ,
+					 sound : document.Sound.getNewSoundObjectForCurrentSound() ,
 					  color   : document.plugin.getRandomColor()
 			}, 		
 			n = nodes.push(node);
@@ -92,6 +92,7 @@ document.graph = (function startGraph() {
 		link.enter().insert("line", ".node").attr("class", "link");
 		node = node.data(nodes);
 		node.enter().insert("circle", ".cursor").attr("class", "node").attr("r", 7).call(force.drag);
+		//node.enter().insert("circle", ".cursor").css("fill", "white").call(force.drag);
 		force.start();
 	}
 	
@@ -112,7 +113,9 @@ document.graph = (function startGraph() {
 			var nodeIndex =  loopGraph(module.current);
 				console.log("node index : " + nodeIndex);
 				console.log("node color. : " + nodes[nodeIndex].color);
-				document.UI.theSounds[nodeIndex].play();
+				console.log(nodes[nodeIndex].sound);
+				nodes[nodeIndex].sound.play();
+				//document.UI.theSounds[nodeIndex].play();
 				// TODO sounds[nodeIndex]play();
 				
 				console.log();
