@@ -136,9 +136,12 @@ ul#sound-list li:hover {
 }
 
 #instructionField{
-	float:left;
+	position: absolute;
+	top: 70px;
+	left: 22px;
 }
 #instructionText{
+	margin: 0;
 	color: white;
 	display: none;
 }
