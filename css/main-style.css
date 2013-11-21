@@ -1,75 +1,144 @@
+
 body {
 	padding: 0;
-	margin: 0;
-	font-family: arial, helvetica, sans-serif;
-	background-color: black;
+	margin: 10px;
+	background-color: rgb(90,90,90);
+	font-family: "Avenir Medium", sans-serif;
+	font-size:large;
 }
 
-svg {
-	padding: 0;
-	margin: 0;
+h1{
+	margin: 10px;
 }
 
-div#graph {
-	position: absolute;
-	top: 0;
-	left: 0;
+#section menu{
+	position:relative ;
 }
 
-h1#headline {
-	position: absolute;
-	top: 20px;
-	left: 20px;
-	font-size: 2.5em;
-	color: white;
-	margin: 0;
-}
-
-ul#menu {
-	position: absolute;
-	bottom: 20px;
+#menu{
+	color:white;
+	top: 10px;
 	right: 20px;
-	color: white;
-	font-size: 0.8em;
+	left:inherit;
+	position: absolute;
 	text-align: right;
 	list-style-type: none;
-	margin: 0;
 }
 
-ul#menu li {
+#menu li {
 	float: left;
-	margin-left: 10px;
-	cursor: pointer;
+	margin-right: 30px;
+	margin-top: 40px;
+	cursor: pointer;	
+}
+
+#menu li:hover { color:grey;}
+
+rect {
+	fill:black;
+	position:absolute ;
+	width:auto;
 }
 
 .node {
-  fill: #CC0000;
-  cursor: crosshair;
+  fill: green;
 }
 
-.node_selected {
-  fill: #3333CC;
-  stroke: #3333CC;
-}
-
-.drag_line {
-  stroke: #CCC;
-  stroke-width: 3;
-  pointer-events: none;
-}
-
-.drag_line_hidden {
-  stroke: #CCC;
-  stroke-width: 0;
-  pointer-events: none;
+.cursor {
+  fill: none;
+  stroke: white;
 }
 
 .link {
-  stroke: #CCC;
-  stroke-width: 3;
-  cursor: crosshair;
+  stroke: white;
 }
 
-.link_selected {
-  stroke: #3333CC;
+/* sound-selection-interface */
+
+div#sound-selection-interface {
+	position: absolute;
+	bottom: 28px;
+	left: 42px;
+}
+
+select#banch-select {
+	display: inline-block;
+	float: left;
+	width: 110px;
+	margin: 8px 0 8px 0;
+}
+
+ul#sound-list {
+	list-style-type: none;
+	margin: 0 0 0 110px;
+	height: 35px;
+	line-height: 35px;
+	color: white;
+	font-size: 0.85em;
+}
+
+ul#sound-list li {
+	margin-right: 22px;
+	float: left;
+	cursor: pointer;
+}
+
+ul#sound-list li:hover {
+	color: red;
+}
+
+#popup {
+    display: none;
+    z-index: 2;
+    position: fixed;
+    width:450px;
+    height:500px;
+    top: 20%;
+    left: 50%;
+    margin-left: -250px;
+    background-color: rgb(100,100,100);
+    background-origin: padding-box;
+    background-size: 30%;
+    border: 8px solid #ccc;
+    border-radius: 5px 5px 5px 5px;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 14px;
+    color: #000;
+}
+
+
+.schliessen {
+    position: relative;
+    height: 30px;
+    width: 30px;
+    background-image: url("./img/X.png") ;
+    background-repeat: no-repeat;
+    background-size: 60%;
+    background-origin: padding-box;
+    float: right;
+    cursor: pointer;
+}
+ 
+#popupHintergrund {
+    display:none;
+    z-index:1;
+    position: fixed;
+    height:100%;
+    width:100%;
+    top:0px;
+    left:0px;
+    background:#000000;
+}
+ 
+#popup_inhalt {
+    margin: 14px;
+    color: white;
+}
+
+#instructionField{
+	float:left;
+}
+#instructionText{
+	color: white;
+	display: none;
 }

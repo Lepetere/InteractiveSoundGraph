@@ -1,1 +1,12 @@
-to do
+Peter:
+- Toneingabe; man kann eine Note auswählen, die dem nächsten Knoten, den man eingibt, zugewiesen wird
+
+Ina:
+- clear/restart Funktion implementieren
+- den Graphen traversieren, Loopen
+
+----------
+
+danach:
+
+- ...

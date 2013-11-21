@@ -18,20 +18,47 @@
 		<meta property="og:url" content="">
 
 		<title>Interactive Sound Graph</title>
-
-		<script src="http://d3js.org/d3.v2.min.js"></script>
-		<script src="javascript/buzz.min.js" charset="UTF-8"></script>
-		<script src="javascript/main.js" charset="UTF-8" defer></script>
-		<script src="javascript/force-view.js" charset="UTF-8" defer></script>
-		<link rel="stylesheet" type="text/css" href="css/main-style.css">
+		
+		
+		<!-- <script language="JavaScript" type="text/javascript" src="javascript/lib/jquery.js" charset="UTF-8"></script> -->
+		<!-- <script language="JavaScript" type="text/javascript" src="javascript/lib/d3_v3_min.js" charset="UTF-8"></script> -->
+		 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script> 
+		<script src="http://d3js.org/d3.v2.min.js"></script> 
+		<script language="JavaScript" type="text/javascript" src="javascript/lib/buzz_min.js" charset="UTF-8"></script>
+		<script src="javascript/sound.js" charset="UTF-8" defer></script>
+		<script src="javascript/graph.js" charset="UTF-8" defer></script>
+		<script src="javascript/controller.js" charset="UTF-8" defer></script>
+		<script src="javascript/ui.js" charset="UTF-8" defer></script>
+		<script src="javascript/plugins.js" charset="UTF-8" defer></script>
+		<link rel="stylesheet" type="text/css" href="css/main-style.css"> 
+		
 	</head>
 	
 	<body id="body" lang="en">
-		<div id="graph"></div>
-		<h1 id="headline">Interactive Sound Graph</h1>
+		<h1 id="title" class="editable">Interactive Sound Graph</h1>
 		<ul id="menu">
+		<li id="loop">loop</li>
+			<li id="soundOff">soundOff</li>
 			<li id="clear">clear</li>
-			<li>info</li>
+			<li id="info">info</li>
 		</ul>
+		
+		<div id="instructionField">
+			<p id="instructionText">  choose sound an then klick on the black canvas to create new node</p>
+		</div>
+
+		<div id="sound-selection-interface">
+			<select id="banch-select" size="1">
+			</select>
+			<ul id="sound-list">
+			</ul>
+		</div>
+		
+		<!-- popup -->
+			<div id="popup">
+        		<div class="schliessen"> </div>
+	        	<div id="popup_inhalt"> choose sound an then cklick on the canvas - make new node </div>
+				<div id="popupHintergrund"> </div>
+    		</div>
 	</body>
 </html>
