@@ -1,5 +1,5 @@
 Peter:
-- Toneingabe; man kann eine Note auswählen, die dem nächsten Knoten, den man eingibt, zugewiesen wird
+- DONE Toneingabe; man kann eine Note auswählen, die dem nächsten Knoten, den man eingibt, zugewiesen wird
 - DONE module
 Ina:
 DONE: - clear/restart Funktion implementieren
@@ -7,8 +7,15 @@ DONE: - den Graphen traversieren, Loopen
 
 ----------
 TODO:
-- try to bind Color to the d3 visualized elements
+Peter:
+	- new sounds -drums
+	- node loop order
 - UI: 
 	- put instruction Text over the black canvas
-	- color the last choosen sound
-- ...
+	- color the last chosen sound	
+	
+	
+- try to bind Color to the d3 visualized elements, hover: info, highlight node on play
+
+
+	
