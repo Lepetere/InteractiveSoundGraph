@@ -3,7 +3,6 @@ document.UI = (function () {
 	
 	// module object; add all methods and properties that should be visible globally
     var module = {};
-	module.theSounds = [];
 	
 	var updateSoundList = function () {
 
@@ -14,15 +13,25 @@ document.UI = (function () {
 		});
 		$('.sound-item').click(soundClickHandler);
 		document.Sound.currentSelection["groupName"] = groupName;
+
+		// select and highlight first sound
+		soundClickHandler.call($('.sound-item[value=0]'));
+	};
+
+	var highlightSelection = function (elementToHighlight) {
+		$('#sound-list').children().each(function (counter, element) {
+			$(element).css("color", "white");
+		});
+		$(elementToHighlight).css("color", "red");
 	};
 	
 	var soundClickHandler = function () {
 		var currentGroupName = document.Sound.currentSelection["groupName"];
 		document.Sound.currentSelection["sampleName"] = document.Sound.sounds[currentGroupName][$(this).attr('value')]["name"];
 		document.Sound.sounds[currentGroupName][$(this).attr('value')]["buzzObject"].play();
-		var s = document.Sound.sounds[currentGroupName][$(this).attr('value')]["buzzObject"]
-		//save last played(on klick) sound in array
-		module.theSounds.push(s);
+		var s = document.Sound.sounds[currentGroupName][$(this).attr('value')]["buzzObject"];
+
+		highlightSelection(this);
 	};
 
 	var init = function () {
