@@ -16,7 +16,8 @@ Peter:
 	- node loop order	
 	
 	
-- try to bind Color to the d3 visualized elements, hover: info, highlight node on play
+- bind Color to the d3 visualized elements, hover: node info, highlight node on play
 
-
+Ina
+- instruction Text by hover  on "Info" menü 
 	
