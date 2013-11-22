@@ -14,7 +14,7 @@ document.graph = (function startGraph() {
 
 	// module object; add all methods and properties that should be visible globally
 	var module = {};
-	module.playLoop = false;
+	module.play_flag = false;
 	
 	// TODO: bind variables
 	module.nextSound = undefined;
@@ -107,9 +107,9 @@ document.graph = (function startGraph() {
 	// start and stop loop functions
 	var toggleLoop = function(){
 
-		module.playLoop = !module.playLoop;
+		module.play_flag = !module.play_flag;
 
-		if (module.playLoop) {
+		if (module.play_flag) {
 			updateLoopPosition();
 			module.interval = setInterval(function () {
 			var nodeIndex =  updateLoopPosition(module.currentLoopPosition);
