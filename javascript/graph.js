@@ -14,7 +14,7 @@ document.graph = (function startGraph() {
 
 	// module object; add all methods and properties that should be visible globally
 	var module = {};
-	module.loopFlag = false;
+	module.playLoop = false;
 	
 	// TODO: bind variables
 	module.nextSound = undefined;
@@ -104,13 +104,15 @@ document.graph = (function startGraph() {
 		startGraph();
 	}
 	
-	// start and stop  loop functions
-	var setLoopFlag = function(){
-		module.loopFlag = !module.loopFlag;
-		if(module.loopFlag){
-			loopGraph();
-			module.timeVar = setInterval(function () {
-			var nodeIndex =  loopGraph(module.current);
+	// start and stop loop functions
+	var toggleLoop = function(){
+
+		module.playLoop = !module.playLoop;
+
+		if (module.playLoop) {
+			updateLoopPosition();
+			module.interval = setInterval(function () {
+			var nodeIndex =  updateLoopPosition(module.currentLoopPosition);
 				console.log("node index : " + nodeIndex);
 				console.log("node color. : " + nodes[nodeIndex].color);
 				console.log(nodes[nodeIndex].sound);
@@ -120,19 +122,23 @@ document.graph = (function startGraph() {
 				}
 				
 			}, 700);
-		}else clearInterval(module.timeVar);
+		}
+		else {
+			// if loop turned off, clear loop
+			clearInterval(module.interval);
+		}
 	}
 
 	//set loop
-	module.current=0;
-	var loopGraph = function (current) {
-		if(nodes.length <= module.current){
-			module.current = 0;
+	module.currentLoopPosition=0;
+	var updateLoopPosition = function (currentLoopPosition) {
+		if(nodes.length <= module.currentLoopPosition){
+			module.currentLoopPosition = 0;
 		}
-		return module.current++;
+		return module.currentLoopPosition++;
 	};
 	
-	module.setLoopFlag = setLoopFlag;
+	module.toggleLoop = toggleLoop;
 	module.clear = clear;
 	return module;
 })(); 

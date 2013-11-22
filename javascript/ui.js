@@ -53,7 +53,7 @@ document.UI = (function () {
 		 */
 
 		$('#loopToggle').click(function (e) {
-			document.graph.setLoopFlag();
+			document.graph.toggleLoop();
 			$('#loopOn, #loopOff').toggle();
 		});
 
