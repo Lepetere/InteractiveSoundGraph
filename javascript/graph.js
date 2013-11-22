@@ -1,10 +1,3 @@
-/*
- * module to build a graph, using the force d3.js library
- *
- D3's force layout uses the Barnes–Hut approximation to compute repulsive charge forces between all nodes efficiently. Links are implemented as geometric constraints on top of position Verlet integration, offering greater stability. A virtual spring between each node and the center of the chart prevents nodes from drifting into space
- *
- */
-
 // debugging: get time for loading the module
 var start =  new Date().getTime();
 //console.log("graph.js start: "+ start);
@@ -61,11 +54,12 @@ document.graph = (function startGraph() {
 	
 	function mousedown() {
 		var point = d3.mouse(this), 
-			node = { 	x : point[0],
-							y : point[1],
-					 sound : document.Sound.getNewSoundObjectForCurrentSound() ,
-					  color   : document.plugin.getRandomColor()
-			}, 		
+			node = { 	
+				x : point[0],
+				y : point[1],
+				sound : document.Sound.getNewSoundObjectForCurrentSound(),
+				color   : document.plugin.getRandomColor()
+				}, 		
 			n = nodes.push(node);
 		// add links to any nearby nodes
 		nodes.forEach(function(target) {
@@ -76,6 +70,28 @@ document.graph = (function startGraph() {
 		});
 		restart();
 	}
+
+	/*
+	Graphdurchlauf Pseudocode:
+
+	// all nodes that should be played in the current step
+	nextNodesArray = [];
+	// all nodes that should be played in the next step
+	nextStepNodesArray = [];
+	nextNodesArray.push( ersterKnoten );
+
+	while ( module.playLoop ) { // timeout
+		nextNodesArray.forEach {
+			links.forEach {
+				// filter all links where current node is involved and get linkNode, the other node of the edge
+				nextStepNodesArray.push(linkNode);
+			}
+		}
+
+		nextNodesArray = nextStepNodesArray;
+	}
+
+	*/
 
 	function tick() {
 		link.attr("x1", function(d) {return d.source.x;})
