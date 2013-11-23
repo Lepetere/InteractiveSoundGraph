@@ -104,7 +104,8 @@ document.graph = (function startGraph() {
 
 		module.playLoop = !module.playLoop;
 
-		if (module.playLoop) {
+		// TO DO: if nodes.length == 0 show message 'insert nodes first' and leave the switch untoggled
+		if (module.playLoop && nodes.length > 0) {
 
 			// all nodes that should be played in the current step
 			nextNodesArray = [];
