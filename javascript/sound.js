@@ -1,10 +1,6 @@
 // immediate function
 document.Sound = (function () {
 
-    // browser console cheat sheet:
-    // new buzz.sound("audio-samples/sinusSynth4/gis4.mp3", {preload: true, autoplay: true});
-    // document.Sound.sounds[0]["samples"][0]["buzzObject"].play();
-
     var BUZZ_NEW_SOUND_OPTIONS = {
         preload: true,
         autoplay: false,

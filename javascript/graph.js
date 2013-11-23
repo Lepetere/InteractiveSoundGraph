@@ -71,28 +71,6 @@ document.graph = (function startGraph() {
 		restart();
 	}
 
-	/*
-	Graphdurchlauf Pseudocode:
-
-	// all nodes that should be played in the current step
-	nextNodesArray = [];
-	// all nodes that should be played in the next step
-	nextStepNodesArray = [];
-	nextNodesArray.push( ersterKnoten );
-
-	while ( module.playLoop ) { // timeout
-		nextNodesArray.forEach {
-			links.forEach {
-				// filter all links where current node is involved and get linkNode, the other node of the edge
-				nextStepNodesArray.push(linkNode);
-			}
-		}
-
-		nextNodesArray = nextStepNodesArray;
-	}
-
-	*/
-
 	function tick() {
 		link.attr("x1", function(d) {return d.source.x;})
 			.attr("y1", function(d) {return d.source.y;})
@@ -119,23 +97,43 @@ document.graph = (function startGraph() {
 		d3.select("svg").remove();
 		startGraph();
 	}
-	
-	// start and stop loop functions
+
 	var toggleLoop = function(){
 
 		module.playLoop = !module.playLoop;
 
 		if (module.playLoop) {
-			updateLoopPosition();
-			module.interval = setInterval(function () {
-			var nodeIndex =  updateLoopPosition(module.currentLoopPosition);
-				console.log("node index : " + nodeIndex);
-				console.log("node color. : " + nodes[nodeIndex].color);
-				console.log(nodes[nodeIndex].sound);
 
-				if (document.Sound.isSoundOn) {
-					nodes[nodeIndex].sound.play();
-				}
+			// all nodes that should be played in the current step
+			nextNodesArray = [];
+			// get first node for the first play-step
+			nextNodesArray.push(nodes[0]);
+
+			module.interval = setInterval(function () {
+
+				// array to collect the nodes that will be played in the next step
+				var nextStepNodesArray = [];
+
+				nextNodesArray.forEach(function (node) {
+
+					// first play sound
+					if (document.Sound.isSoundOn) {
+						node.sound.play();
+					}
+
+					// now check for connections to other nodes and collect nodes for the next step
+					links.forEach(function (link) {
+						// check if one of the nodes in the edge is the current node
+						if (link.source == node) {
+							nextStepNodesArray.push(link.target);	
+						}
+						else if (link.target == node) {
+							nextStepNodesArray.push(link.source);	
+						}
+					});
+				});
+
+				nextNodesArray = nextStepNodesArray;
 				
 			}, 700);
 		}
@@ -145,15 +143,6 @@ document.graph = (function startGraph() {
 		}
 	}
 
-	//set loop
-	module.currentLoopPosition=0;
-	var updateLoopPosition = function (currentLoopPosition) {
-		if(nodes.length <= module.currentLoopPosition){
-			module.currentLoopPosition = 0;
-		}
-		return module.currentLoopPosition++;
-	};
-	
 	module.toggleLoop = toggleLoop;
 	module.clear = clear;
 	return module;

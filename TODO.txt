@@ -15,8 +15,13 @@ Peter:
 	- new sounds -drums
 	- node loop order	
 	
-	
+- several unlinked graphs should be able to play
 - try to bind Color to the d3 visualized elements, hover: info, highlight node on play
+- Koten sollten löschbar sein
 
+----------
+# Ideen
 
-	
+* erster Knoten sollte eine besondere Farbe erhalten
+* zwei Abspiel-Modi: "Hin und her" und "von vorne bis hinten (und wieder beim ersten Knoten anfangen)"
+* man könnte auch Abspielmodi im Sinne der Breiten- und Tiefensuche machen
