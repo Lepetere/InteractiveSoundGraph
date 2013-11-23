@@ -34,7 +34,8 @@ document.graph = (function startGraph() {
 		.attr("width", width)
 		.attr("height", height);
 
-	var nodes = force.nodes(), 
+	var nodes = force.nodes(),
+		startNodes = [],
 		links = force.links(), 
 		node = svg.selectAll(".node"), 
 		link = svg.selectAll(".link");
@@ -61,15 +62,22 @@ document.graph = (function startGraph() {
 				color   : document.plugin.getRandomColor()
 				}, 		
 			n = nodes.push(node);
+		var isNewNodeConnected = false;
 		// add links to any nearby nodes
 		nodes.forEach(function(target) {
 			if (! (node == target) ) {
 				var x = target.x - node.x, y = target.y - node.y;
 				if (Math.sqrt(x * x + y * y) < 30) {
 					links.push({source : node, target : target});
+					isNewNodeConnected = true;
+					// TO DO: if a just connected node is inside the startNodes collection, delete it from there
 				}
 			}
 		});
+		// if there is no connection to other nodes add the node to the array of start nodes
+		if (!isNewNodeConnected) {
+			startNodes.push(node);
+		}
 		restart();
 	}
 
@@ -109,8 +117,10 @@ document.graph = (function startGraph() {
 
 			// all nodes that should be played in the current step
 			nextNodesArray = [];
-			// get first node for the first play-step
-			nextNodesArray.push(nodes[0]);
+			// get nodes for the first play-step
+			startNodes.forEach(function(node) {
+				nextNodesArray.push(node);
+			});
 
 			module.interval = setInterval(function () {
 
