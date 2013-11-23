@@ -63,9 +63,11 @@ document.graph = (function startGraph() {
 			n = nodes.push(node);
 		// add links to any nearby nodes
 		nodes.forEach(function(target) {
-			var x = target.x - node.x, y = target.y - node.y;
-			if (Math.sqrt(x * x + y * y) < 30) {
-				links.push({source : node, target : target});
+			if (! (node == target) ) {
+				var x = target.x - node.x, y = target.y - node.y;
+				if (Math.sqrt(x * x + y * y) < 30) {
+					links.push({source : node, target : target});
+				}
 			}
 		});
 		restart();
