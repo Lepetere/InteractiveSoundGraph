@@ -76,7 +76,6 @@ document.graph = (function startGraph() {
 				if (Math.sqrt(x * x + y * y) < 30) {
 					links.push({source : node, target : target});
 					isNewNodeConnected = true;
-					// TO DO: if a just connected node is inside the startNodes collection, delete it from there
 				}
 			}
 		});
@@ -132,6 +131,10 @@ document.graph = (function startGraph() {
 					if (document.Sound.isSoundOn) {
 						node.sound.play();
 					}
+					// highlight node
+					console.log(node);
+					console.log(d3.select(node));
+					d3.select(node).attr("fill", "white").transition();
 
 					// now check for connections to other nodes and collect nodes for the next step
 					var hasNodeAnyConnection = false;
