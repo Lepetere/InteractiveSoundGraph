@@ -5,6 +5,9 @@ var graph = "graph";
 
 document.graph = (function startGraph() {
 
+	// "constants"; do not change during following code
+	var LOOP_DURATION = 500;
+
 	// module object; add all methods and properties that should be visible globally
 	var module = {};
 	module.playLoop = false;
@@ -12,6 +15,9 @@ document.graph = (function startGraph() {
 	// TODO: bind variables
 	module.nextSound = undefined;
 	module.nextColor = undefined;
+
+	// all nodes that should be played in the current step
+	var nextNodesArray = [];
 	
 	var width = window.innerWidth - 20;
 	var height = window.innerHeight - 76;
@@ -40,7 +46,7 @@ document.graph = (function startGraph() {
 		node = svg.selectAll(".node"), 
 		link = svg.selectAll(".link");
 		
-	module.node = node;
+	module.node = node; // brauchen wir das?
 	
 	var cursor = svg.append("circle")
 		.attr("r", 30)
@@ -74,9 +80,9 @@ document.graph = (function startGraph() {
 				}
 			}
 		});
-		// if there is no connection to other nodes add the node to the array of start nodes
+		// if there is no connection to other nodes add the node to the array of nodes to play next
 		if (!isNewNodeConnected) {
-			startNodes.push(node);
+			nextNodesArray.push(node);
 		}
 		restart();
 	}
@@ -115,13 +121,6 @@ document.graph = (function startGraph() {
 		// TO DO: if nodes.length == 0 show message 'insert nodes first' and leave the switch untoggled
 		if (module.playLoop && nodes.length > 0) {
 
-			// all nodes that should be played in the current step
-			nextNodesArray = [];
-			// get nodes for the first play-step
-			startNodes.forEach(function(node) {
-				nextNodesArray.push(node);
-			});
-
 			module.interval = setInterval(function () {
 
 				// array to collect the nodes that will be played in the next step
@@ -135,6 +134,7 @@ document.graph = (function startGraph() {
 					}
 
 					// now check for connections to other nodes and collect nodes for the next step
+					var hasNodeAnyConnection = false;
 					links.forEach(function (link) {
 						// check if one of the nodes in the edge is the current node
 						if (link.source == node) {
@@ -144,11 +144,15 @@ document.graph = (function startGraph() {
 							nextStepNodesArray.push(link.source);	
 						}
 					});
+					// if the node has no connection at all, re-insert him to the nodesToPlay array
+					if (!hasNodeAnyConnection) {
+						nextStepNodesArray.push(node);
+					}
 				});
 
 				nextNodesArray = nextStepNodesArray;
 				
-			}, 700);
+			}, LOOP_DURATION);
 		}
 		else {
 			// if loop turned off, clear loop
