@@ -92,10 +92,10 @@ document.graph = (function startGraph() {
 		link.attr("x1", function(d) {return d.source.x;})
 			.attr("y1", function(d) {return d.source.y;})
 			.attr("x2", function(d) {return d.target.x;})
-			.attr("y2", function(d) {return d.target.y;}) ;
+			.attr("y2", function(d) {return d.target.y;});
 		node.attr("cx", function(d) {return d.x;})
 			.attr("cy", function(d) {return d.y;})
-			.attr("style",  function(d) {return d.fill;})
+			.attr("style",  function(d) {return d.fill;});
 	}
 
 	function restart() {
@@ -104,8 +104,6 @@ document.graph = (function startGraph() {
 		node = node.data(nodes);
 		node.enter().insert("circle", ".cursor").attr("class", "node").attr("r", 7).attr("fill", NODE_FILL).call(force.drag);
 		force.start();
-		console.log("node:");
-		console.log(node);
 	}
 	
 //////////////////////// new functions 
@@ -124,6 +122,7 @@ document.graph = (function startGraph() {
 		if (module.playLoop && nodes.length > 0) {
 
 			module.interval = setInterval(function () {
+				console.log("nodes to play:  " + nextNodesArray.length);
 
 				// array to collect the nodes that will be played in the next step
 				var nextStepNodesArray = [];
@@ -132,13 +131,15 @@ document.graph = (function startGraph() {
 
 					// first play sound
 					if (document.Sound.isSoundOn) {
+						if (!currentNode.sound.isEnded()) {
+							currentNode.sound.stop();	
+						}
 						currentNode.sound.play();
 					}
 					// highlight node
 					// node[0] gets array of d3 circles
 					d3.select(node[0][index]).attr("fill", NODE_FILL_HIGHLIGHT).transition()
 						.attr("fill", NODE_FILL).transition();
-					console.log(node[0][index]);
 
 					// now check for connections to other nodes and collect nodes for the next step
 					var hasNodeAnyConnection = false;
