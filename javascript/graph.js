@@ -69,7 +69,8 @@ document.graph = (function startGraph() {
 				x : point[0],
 				y : point[1],
 				sound : document.Sound.getNewSoundObjectForCurrentSound(),
-				color   : document.plugin.getRandomColor()
+				color   : document.plugin.getRandomColor(),
+				previousNode : undefined
 				}, 		
 			n = nodes.push(node);
 		var isNewNodeConnected = false;
@@ -151,25 +152,24 @@ document.graph = (function startGraph() {
 					// then highlight node
 					// node[0] gets array of d3 circles
 					d3.select(node[0][index]).attr("fill", NODE_FILL_HIGHLIGHT).transition()
-						.attr("fill", NODE_FILL).transition();
+						.attr("fill", NODE_FILL).transition(); // TO DO: check if the indices in the node and the nodes arrays are always identical, because there are problems with the highlighting
 
 					// now check for connections to other nodes and collect nodes for the next step
-					var hasNodeAnyConnection = false;
 					links.forEach(function (link) {
 						// check if one of the nodes in the edge is the current node
 						if (link.source == currentNode) {
-							nextStepNodesArray.push(link.target);
-							hasNodeAnyConnection = true;
+							nextStepNodesArray.push(link.target); // TO DO: eliminate duplicates AND: check if the linked node is the same as previous node, in this case only add it if it's the only connection of the current node
+							link.target.previousNode = currentNode;
 							nodeConnectionCounter++;
 						}
 						else if (link.target == currentNode) {
-							nextStepNodesArray.push(link.source);
-							hasNodeAnyConnection = true;
+							nextStepNodesArray.push(link.source); // TO DO: eliminate duplicates AND: check if the linked node is the same as previous node, in this case only add it if it's the only connection of the current node
+							link.source.previousNode = currentNode;
 							nodeConnectionCounter++;
 						}
 					});
 					// if the node has no connection at all, re-insert him to the nodesToPlay array
-					if (!hasNodeAnyConnection) {
+					if (nodeConnectionCounter == 0) {
 						nextStepNodesArray.push(currentNode);
 					}
 
