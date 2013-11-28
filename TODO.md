@@ -23,6 +23,7 @@ Peter:
 # Ideen
 
 * erster Knoten sollte eine besondere Farbe erhalten
-* zwei Abspiel-Modi: "Hin und her" und "von vorne bis hinten (und wieder beim ersten Knoten anfangen)"
 * man könnte auch Abspielmodi im Sinne der Breiten- und Tiefensuche machen
 * Pausen-Knoten für Spielpause
+* Eingabefeld für Abspieltempo
+* Knoten und Kanten sollten löschbar sein

@@ -20,6 +20,8 @@ document.graph = (function startGraph() {
 
 	// all nodes that should be played in the current step
 	var nextNodesArray = [];
+	// all nodes that should be appended to the above array after the next play interval
+	var appendToNextNodesArray = [];
 	
 	var width = window.innerWidth - 20;
 	var height = window.innerHeight - 76;
@@ -83,7 +85,14 @@ document.graph = (function startGraph() {
 		});
 		// if there is no connection to other nodes add the node to the array of nodes to play next
 		if (!isNewNodeConnected) {
-			nextNodesArray.push(node);
+			if (!module.playLoop) {
+				// when loop is not playing, just push the new node to the nextNodesArray
+				nextNodesArray.push(node);
+			}
+			else {
+				// loop is playing; push the new node to an array that will be appended to nextNodesArray after the next play interval
+				appendToNextNodesArray.push(node);
+			}
 		}
 		restart();
 	}
@@ -159,6 +168,10 @@ document.graph = (function startGraph() {
 					}
 				});
 
+				// append possibly newly entered nodes to the nodes to play array
+				appendToNextNodesArray.forEach(function (nodeToAppend) {
+					nextStepNodesArray.push(nodeToAppend);
+				});
 				nextNodesArray = nextStepNodesArray;
 				
 			}, LOOP_DURATION);
