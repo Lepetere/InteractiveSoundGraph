@@ -39,10 +39,10 @@ rect {
 	position:absolute ;
 	width:auto;
 }
-
+/*
 .node {
   fill: green;
-}
+}*/
 
 .cursor {
   fill: none;

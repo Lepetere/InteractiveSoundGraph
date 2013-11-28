@@ -7,6 +7,8 @@ document.graph = (function startGraph() {
 
 	// "constants"; do not change during following code
 	var LOOP_DURATION = 500;
+	var NODE_FILL = "green";
+	var NODE_FILL_HIGHLIGHT = "white";
 
 	// module object; add all methods and properties that should be visible globally
 	var module = {};
@@ -100,9 +102,10 @@ document.graph = (function startGraph() {
 		link = link.data(links);
 		link.enter().insert("line", ".node").attr("class", "link");
 		node = node.data(nodes);
-		node.enter().insert("circle", ".cursor").attr("class", "node").attr("r", 7).call(force.drag);
-		//node.enter().insert("circle", ".cursor").css("fill", "white").call(force.drag);
+		node.enter().insert("circle", ".cursor").attr("class", "node").attr("r", 7).attr("fill", NODE_FILL).call(force.drag);
 		force.start();
+		console.log("node:");
+		console.log(node);
 	}
 	
 //////////////////////// new functions 
@@ -125,31 +128,32 @@ document.graph = (function startGraph() {
 				// array to collect the nodes that will be played in the next step
 				var nextStepNodesArray = [];
 
-				nextNodesArray.forEach(function (node) {
+				nextNodesArray.forEach(function (currentNode, index) {
 
 					// first play sound
 					if (document.Sound.isSoundOn) {
-						node.sound.play();
+						currentNode.sound.play();
 					}
 					// highlight node
-					console.log(node);
-					console.log(d3.select(node));
-					d3.select(node).attr("fill", "white").transition();
+					// node[0] gets array of d3 circles
+					d3.select(node[0][index]).attr("fill", NODE_FILL_HIGHLIGHT).transition()
+						.attr("fill", NODE_FILL).transition();
+					console.log(node[0][index]);
 
 					// now check for connections to other nodes and collect nodes for the next step
 					var hasNodeAnyConnection = false;
 					links.forEach(function (link) {
 						// check if one of the nodes in the edge is the current node
-						if (link.source == node) {
+						if (link.source == currentNode) {
 							nextStepNodesArray.push(link.target);	
 						}
-						else if (link.target == node) {
+						else if (link.target == currentNode) {
 							nextStepNodesArray.push(link.source);	
 						}
 					});
 					// if the node has no connection at all, re-insert him to the nodesToPlay array
 					if (!hasNodeAnyConnection) {
-						nextStepNodesArray.push(node);
+						nextStepNodesArray.push(currentNode);
 					}
 				});
 
