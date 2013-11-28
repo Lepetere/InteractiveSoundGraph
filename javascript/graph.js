@@ -139,6 +139,8 @@ document.graph = (function startGraph() {
 
 				nextNodesArray.forEach(function (currentNode, index) {
 
+					var nodeConnectionCounter = 0;
+
 					// first play sound
 					if (document.Sound.isSoundOn) {
 						if (!currentNode.sound.isEnded()) {
@@ -146,7 +148,7 @@ document.graph = (function startGraph() {
 						}
 						currentNode.sound.play();
 					}
-					// highlight node
+					// then highlight node
 					// node[0] gets array of d3 circles
 					d3.select(node[0][index]).attr("fill", NODE_FILL_HIGHLIGHT).transition()
 						.attr("fill", NODE_FILL).transition();
@@ -156,22 +158,29 @@ document.graph = (function startGraph() {
 					links.forEach(function (link) {
 						// check if one of the nodes in the edge is the current node
 						if (link.source == currentNode) {
-							nextStepNodesArray.push(link.target);	
+							nextStepNodesArray.push(link.target);
+							hasNodeAnyConnection = true;
+							nodeConnectionCounter++;
 						}
 						else if (link.target == currentNode) {
-							nextStepNodesArray.push(link.source);	
+							nextStepNodesArray.push(link.source);
+							hasNodeAnyConnection = true;
+							nodeConnectionCounter++;
 						}
 					});
 					// if the node has no connection at all, re-insert him to the nodesToPlay array
 					if (!hasNodeAnyConnection) {
 						nextStepNodesArray.push(currentNode);
 					}
+
+					console.log("node " + index + "  has " + nodeConnectionCounter + " connections");
 				});
 
 				// append possibly newly entered nodes to the nodes to play array
 				appendToNextNodesArray.forEach(function (nodeToAppend) {
 					nextStepNodesArray.push(nodeToAppend);
 				});
+				appendToNextNodesArray = [];
 				nextNodesArray = nextStepNodesArray;
 				
 			}, LOOP_DURATION);
