@@ -109,9 +109,10 @@ document.graph = (function startGraph() {
 //////////////////////// new functions 
 	// clear the svg content from the graph, restart graph
 	function clear() {
-		console.log("Function clear");
 		d3.select("svg").remove();
 		startGraph();
+		// stop graph traversal
+		nextNodesArray = [];
 	}
 
 	var toggleLoop = function(){
