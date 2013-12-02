@@ -138,7 +138,6 @@ document.graph = (function startGraph() {
 		if (module.playLoop && nodes.length > 0) {
 
 			module.interval = setInterval(function () {
-				console.log("nodes to play:  " + nextNodesArray.length);
 
 				// array to collect the nodes that will be played in the next step
 				var nextStepNodesArray = [];
@@ -172,6 +171,7 @@ document.graph = (function startGraph() {
 							}
 						}
 					});
+					console.log("currentNodeHasConnection: " + currentNodeHasConnection + " - currentNodeHasMoreThanOneConnection: " + currentNodeHasMoreThanOneConnection + " - previousNode: " + currentNode.previousNode);
 
 					// if the node has no connection at all, re-insert him to the nodesToPlay array
 					if (!currentNodeHasConnection) {
@@ -183,7 +183,14 @@ document.graph = (function startGraph() {
 							// check if one of the nodes in the edge is the current node
 							if (link.source == currentNode) {
 								// check if the linked node is the same as previous node, in this case only add it if it's the only connection of the current node
-								if (!currentNodeHasMoreThanOneConnection || !(link.target.previousNode == currentNode)) {
+								if (link.target == currentNode.previousNode) {
+									if (!currentNodeHasMoreThanOneConnection) {
+										// push node
+										nextStepNodesArray.push(link.target);
+										link.target.previousNode = currentNode;
+									}
+								}
+								else {
 									// push node
 									nextStepNodesArray.push(link.target);
 									link.target.previousNode = currentNode;
@@ -191,7 +198,14 @@ document.graph = (function startGraph() {
 							}
 							else if (link.target == currentNode) {
 								// check if the linked node is the same as previous node, in this case only add it if it's the only connection of the current node
-								if (!currentNodeHasMoreThanOneConnection || !(link.source.previousNode == currentNode)) {
+								if (link.source == currentNode.previousNode) {
+									if (!currentNodeHasMoreThanOneConnection) {
+										// push node
+										nextStepNodesArray.push(link.source);
+										link.source.previousNode = currentNode;
+									}
+								}
+								else {
 									// push node
 									nextStepNodesArray.push(link.source);
 									link.source.previousNode = currentNode;
