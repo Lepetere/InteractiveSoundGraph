@@ -70,7 +70,8 @@ document.graph = (function startGraph() {
 				y : point[1],
 				sound : document.Sound.getNewSoundObjectForCurrentSound(),
 				color   : document.plugin.getRandomColor(),
-				previousNode : undefined
+				previousNode : undefined,
+				d3circleReference : undefined
 				}, 		
 			n = nodes.push(node);
 		var isNewNodeConnected = false;
@@ -113,6 +114,10 @@ document.graph = (function startGraph() {
 		link.enter().insert("line", ".node").attr("class", "link");
 		node = node.data(nodes);
 		node.enter().insert("circle", ".cursor").attr("class", "node").attr("r", 7).attr("fill", NODE_FILL).call(force.drag);
+		// traverse nodes array and push to each node a reference to the corresponding d3 circle
+		nodes.forEach(function (currentNode, index) {
+			currentNode.d3circleReference = node[0][index];
+		});
 		force.start();
 	}
 	
@@ -149,8 +154,8 @@ document.graph = (function startGraph() {
 					}
 					// then highlight node
 					// node[0] gets array of d3 circles
-					d3.select(node[0][index]).attr("fill", NODE_FILL_HIGHLIGHT).transition()
-						.attr("fill", NODE_FILL).transition(); // TO DO: check if the indices in the node and the nodes arrays are always identical, because there are problems with the highlighting
+					d3.select(currentNode.d3circleReference).attr("fill", NODE_FILL_HIGHLIGHT).transition()
+						.attr("fill", NODE_FILL).transition();
 
 					// run through the link array one first time to determine if the current node has more than one connection
 					var currentNodeHasConnection = false;
