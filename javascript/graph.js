@@ -100,6 +100,7 @@ document.graph = (function startGraph() {
 	}
 
 	function tick() {
+		try {
 		link.attr("x1", function(d) {return d.source.x;})
 			.attr("y1", function(d) {return d.source.y;})
 			.attr("x2", function(d) {return d.target.x;})
@@ -107,6 +108,11 @@ document.graph = (function startGraph() {
 		node.attr("cx", function(d) {return d.x;})
 			.attr("cy", function(d) {return d.y;})
 			.attr("style",  function(d) {return d.fill;});
+		}
+		catch (err) {
+			// an error can occur here when clear button is pressed shortly after loop has stopped
+			console.log("tick error");
+		}
 	}
 
 	function restart() {
@@ -131,7 +137,7 @@ document.graph = (function startGraph() {
 		nodes = [];
 		nextNodesArray = [];
 		appendToNextNodesArray = [];
-		startGraph();
+		document.graph = startGraph();
 	}
 
 	var toggleLoop = function(){
