@@ -32,7 +32,18 @@ h1{
 	cursor: pointer;	
 }
 
-#menu li:hover { color:grey;}
+#menu li:hover {
+	color:grey;
+}
+
+#menu .deactivate {
+	color: #333;
+	cursor: default;
+}
+
+#menu .deactivate:hover {
+	color: #333;
+}
 
 rect {
 	fill:black;

@@ -13,13 +13,12 @@ DONE: - den Graphen traversieren, Loopen
 TODO:
 Peter:
 	- new sounds -drums
-	- node loop order	
 	
-- hover: info, highlight node on play
-- graph.js, line 132: // TO DO: if nodes.length == 0 show message 'insert nodes first' and leave the switch untoggled
+- graph.js, line 137: // TO DO: if nodes.length == 0 show message 'insert nodes first' and leave the switch untoggled
 
 Ina
 - instruction Text by hover  on "Info" menu
+- bind Color to the d3 visualized elements, hover: node info
 
 ----------
 # Ideen

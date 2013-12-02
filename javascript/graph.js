@@ -125,9 +125,13 @@ document.graph = (function startGraph() {
 	// clear the svg content from the graph, restart graph
 	function clear() {
 		d3.select("svg").remove();
-		startGraph();
-		// stop graph traversal
+		// stop loop
+		clearInterval(module.interval);
+		node = [];
+		nodes = [];
 		nextNodesArray = [];
+		appendToNextNodesArray = [];
+		startGraph();
 	}
 
 	var toggleLoop = function(){

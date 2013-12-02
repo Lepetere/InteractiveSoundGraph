@@ -55,6 +55,9 @@ document.UI = (function () {
 		$('#loopToggle').click(function (e) {
 			document.graph.toggleLoop();
 			$('#loopOn, #loopOff').toggle();
+
+			// deactivate clear button
+			$('#clear').toggleClass('deactivate');
 		});
 
 		$('#soundToggle').click(function (e) {
@@ -63,8 +66,9 @@ document.UI = (function () {
 		});
 
 		$('#clear').click(function (e) {
-			console.log("clear");
-			document.graph.clear();
+			if (! $(this).hasClass('deactivate')) {
+				document.graph.clear();
+			}
 		});
 
 		// show short instructions on mouse move 
