@@ -106,27 +106,7 @@ document.graph = (function startGraph() {
 	
 	// start and stop loop functions
 	var toggleLoop = function(){
-
-		module.play_flag = !module.play_flag;
-
-		if (module.play_flag) {
-			updateLoopPosition();
-			module.interval = setInterval(function () {
-			var nodeIndex =  updateLoopPosition(module.currentLoopPosition);
-				console.log("node index : " + nodeIndex);
-				console.log("node color. : " + nodes[nodeIndex].color);
-				console.log(nodes[nodeIndex].sound);
-
-				if (document.Sound.isSoundOn) {
-					nodes[nodeIndex].sound.play();
-				}
-				
-			}, 700);
-		}
-		else {
-			// if loop turned off, clear loop
-			clearInterval(module.interval);
-		}
+		
 	}
 
 	//set loop
