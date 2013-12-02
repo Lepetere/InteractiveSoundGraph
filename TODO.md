@@ -23,8 +23,12 @@ Ina
 ----------
 # Ideen
 
-* erster Knoten sollte eine besondere Farbe erhalten
-* man könnte auch Abspielmodi im Sinne der Breiten- und Tiefensuche machen
+* unterschiedliche Farben für Gruppen
+* erster Knoten sollte eine besondere Farbe erhalten (am besten Ring drumrum?)
 * Pausen-Knoten für Spielpause
 * Eingabefeld für Abspieltempo
 * Knoten und Kanten sollten löschbar sein
+
+später vielleicht:
+* man könnte auch Abspielmodi im Sinne der Breiten- und Tiefensuche machen
+* Extra Knoten für Loops
