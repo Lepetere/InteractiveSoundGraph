@@ -1,16 +1,14 @@
-/*
- * module to build a graph, using the force d3.js library
- *
- D3's force layout uses the Barnes–Hut approximation to compute repulsive charge forces between all nodes efficiently. Links are implemented as geometric constraints on top of position Verlet integration, offering greater stability. A virtual spring between each node and the center of the chart prevents nodes from drifting into space
- *
- */
-
 // debugging: get time for loading the module
 var start =  new Date().getTime();
 //console.log("graph.js start: "+ start);
 var graph = "graph";
 
 document.graph = (function startGraph() {
+
+	// "constants"; do not change during following code
+	var LOOP_DURATION = 500;
+	var NODE_FILL = "green";
+	var NODE_FILL_HIGHLIGHT = "white";
 
 	// module object; add all methods and properties that should be visible globally
 	var module = {};
@@ -19,6 +17,11 @@ document.graph = (function startGraph() {
 	// TODO: bind variables
 	module.nextSound = undefined;
 	module.nextColor = undefined;
+
+	// all nodes that should be played in the current step
+	var nextNodesArray = [];
+	// all nodes that should be appended to the above array after the next play interval
+	var appendToNextNodesArray = [];
 	
 	var width = window.innerWidth - 20;
 	var height = window.innerHeight - 76;
@@ -41,12 +44,13 @@ document.graph = (function startGraph() {
 		.attr("width", width)
 		.attr("height", height);
 
-	var nodes = force.nodes(), 
+	var nodes = force.nodes(),
+		startNodes = [],
 		links = force.links(), 
 		node = svg.selectAll(".node"), 
 		link = svg.selectAll(".link");
 		
-	module.node = node;
+	module.node = node; // brauchen wir das?
 	
 	var cursor = svg.append("circle")
 		.attr("r", 30)
@@ -61,19 +65,37 @@ document.graph = (function startGraph() {
 	
 	function mousedown() {
 		var point = d3.mouse(this), 
-			node = { 	x : point[0],
-							y : point[1],
-					 sound : document.Sound.getNewSoundObjectForCurrentSound() ,
-					  color   : document.plugin.getRandomColor()
-			}, 		
+			node = { 	
+				x : point[0],
+				y : point[1],
+				sound : document.Sound.getNewSoundObjectForCurrentSound(),
+				color   : document.plugin.getRandomColor(),
+				previousNode : undefined,
+				d3circleReference : undefined
+				}, 		
 			n = nodes.push(node);
+		var isNewNodeConnected = false;
 		// add links to any nearby nodes
 		nodes.forEach(function(target) {
-			var x = target.x - node.x, y = target.y - node.y;
-			if (Math.sqrt(x * x + y * y) < 30) {
-				links.push({source : node, target : target});
+			if (! (node == target) ) {
+				var x = target.x - node.x, y = target.y - node.y;
+				if (Math.sqrt(x * x + y * y) < 30) {
+					links.push({source : node, target : target});
+					isNewNodeConnected = true;
+				}
 			}
 		});
+		// if there is no connection to other nodes add the node to the array of nodes to play next
+		if (!isNewNodeConnected) {
+			if (!module.playLoop) {
+				// when loop is not playing, just push the new node to the nextNodesArray
+				nextNodesArray.push(node);
+			}
+			else {
+				// loop is playing; push the new node to an array that will be appended to nextNodesArray after the next play interval
+				appendToNextNodesArray.push(node);
+			}
+		}
 		restart();
 	}
 
@@ -81,43 +103,139 @@ document.graph = (function startGraph() {
 		link.attr("x1", function(d) {return d.source.x;})
 			.attr("y1", function(d) {return d.source.y;})
 			.attr("x2", function(d) {return d.target.x;})
-			.attr("y2", function(d) {return d.target.y;}) ;
+			.attr("y2", function(d) {return d.target.y;});
 		node.attr("cx", function(d) {return d.x;})
 			.attr("cy", function(d) {return d.y;})
-			.attr("style",  function(d) {return d.fill;})
+			.attr("style",  function(d) {return d.fill;});
 	}
 
 	function restart() {
 		link = link.data(links);
 		link.enter().insert("line", ".node").attr("class", "link");
 		node = node.data(nodes);
-		node.enter().insert("circle", ".cursor").attr("class", "node").attr("r", 7).call(force.drag);
-		//node.enter().insert("circle", ".cursor").css("fill", "white").call(force.drag);
+		node.enter().insert("circle", ".cursor").attr("class", "node").attr("r", 7).attr("fill", NODE_FILL).call(force.drag);
+		// traverse nodes array and push to each node a reference to the corresponding d3 circle
+		nodes.forEach(function (currentNode, index) {
+			currentNode.d3circleReference = node[0][index];
+		});
 		force.start();
 	}
 	
 //////////////////////// new functions 
 	// clear the svg content from the graph, restart graph
 	function clear() {
-		console.log("Function clear");
 		d3.select("svg").remove();
 		startGraph();
-	}
-	
-	// start and stop loop functions
-	var toggleLoop = function(){
-		
+		// stop graph traversal
+		nextNodesArray = [];
 	}
 
-	//set loop
-	module.currentLoopPosition=0;
-	var updateLoopPosition = function (currentLoopPosition) {
-		if(nodes.length <= module.currentLoopPosition){
-			module.currentLoopPosition = 0;
+	var toggleLoop = function(){
+
+		module.playLoop = !module.playLoop;
+
+		// TO DO: if nodes.length == 0 show message 'insert nodes first' and leave the switch untoggled
+		if (module.playLoop && nodes.length > 0) {
+
+			module.interval = setInterval(function () {
+
+				// array to collect the nodes that will be played in the next step
+				var nextStepNodesArray = [];
+
+				nextNodesArray.forEach(function (currentNode, index) {
+
+					// first play sound
+					if (document.Sound.isSoundOn) {
+						if (!currentNode.sound.isEnded()) {
+							currentNode.sound.stop();	
+						}
+						currentNode.sound.play();
+					}
+					// then highlight node
+					// node[0] gets array of d3 circles
+					d3.select(currentNode.d3circleReference).attr("fill", NODE_FILL_HIGHLIGHT).transition()
+						.attr("fill", NODE_FILL).transition();
+
+					// run through the link array one first time to determine if the current node has more than one connection
+					var currentNodeHasConnection = false;
+					var currentNodeHasMoreThanOneConnection = false;
+					$(links).each(function (index, link) {
+						// check if one of the nodes in the edge is the current node
+						if (link.source == currentNode || link.target == currentNode) {
+							if (currentNodeHasConnection) {
+								currentNodeHasMoreThanOneConnection = true;
+								return false;
+							}
+							else {
+								currentNodeHasConnection = true;
+							}
+						}
+					});
+
+					// if the node has no connection at all, re-insert him to the nodesToPlay array
+					if (!currentNodeHasConnection) {
+						nextStepNodesArray.push(currentNode);
+					}
+					else {
+						// otherwise check for connections to other nodes and collect nodes for the next step
+						links.forEach(function (link) {
+							// check if one of the nodes in the edge is the current node
+							if (link.source == currentNode) {
+								// check if the linked node is the same as previous node, in this case only add it if it's the only connection of the current node
+								if (link.target == currentNode.previousNode) {
+									if (!currentNodeHasMoreThanOneConnection) {
+										// push node
+										nextStepNodesArray.push(link.target);
+										link.target.previousNode = currentNode;
+									}
+								}
+								else {
+									// push node
+									nextStepNodesArray.push(link.target);
+									link.target.previousNode = currentNode;
+								}
+							}
+							else if (link.target == currentNode) {
+								// check if the linked node is the same as previous node, in this case only add it if it's the only connection of the current node
+								if (link.source == currentNode.previousNode) {
+									if (!currentNodeHasMoreThanOneConnection) {
+										// push node
+										nextStepNodesArray.push(link.source);
+										link.source.previousNode = currentNode;
+									}
+								}
+								else {
+									// push node
+									nextStepNodesArray.push(link.source);
+									link.source.previousNode = currentNode;
+								}
+							}
+						});
+					}
+				});
+
+				// append possibly newly entered nodes to the nodes to play array
+				appendToNextNodesArray.forEach(function (nodeToAppend) {
+					nextStepNodesArray.push(nodeToAppend);
+				});
+				appendToNextNodesArray = [];
+
+				nextNodesArray = [];
+				// eliminate duplicates
+				nextStepNodesArray.forEach(function (currentNode, index) {
+					if($.inArray(currentNode, nextNodesArray) == -1) {
+						nextNodesArray.push(currentNode);
+					}
+				});
+				
+			}, LOOP_DURATION);
 		}
-		return module.currentLoopPosition++;
-	};
-	
+		else {
+			// if loop turned off, clear loop
+			clearInterval(module.interval);
+		}
+	}
+
 	module.toggleLoop = toggleLoop;
 	module.clear = clear;
 	return module;
