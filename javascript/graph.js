@@ -140,8 +140,6 @@ document.graph = (function startGraph() {
 
 				nextNodesArray.forEach(function (currentNode, index) {
 
-					var nodeConnectionCounter = 0;
-
 					// first play sound
 					if (document.Sound.isSoundOn) {
 						if (!currentNode.sound.isEnded()) {
@@ -154,26 +152,48 @@ document.graph = (function startGraph() {
 					d3.select(node[0][index]).attr("fill", NODE_FILL_HIGHLIGHT).transition()
 						.attr("fill", NODE_FILL).transition(); // TO DO: check if the indices in the node and the nodes arrays are always identical, because there are problems with the highlighting
 
-					// now check for connections to other nodes and collect nodes for the next step
-					links.forEach(function (link) {
+					// run through the link array one first time to determine if the current node has more than one connection
+					var currentNodeHasConnection = false;
+					var currentNodeHasMoreThanOneConnection = false;
+					$(links).each(function (index, link) {
 						// check if one of the nodes in the edge is the current node
-						if (link.source == currentNode) {
-							nextStepNodesArray.push(link.target); // TO DO: eliminate duplicates AND: check if the linked node is the same as previous node, in this case only add it if it's the only connection of the current node
-							link.target.previousNode = currentNode;
-							nodeConnectionCounter++;
-						}
-						else if (link.target == currentNode) {
-							nextStepNodesArray.push(link.source); // TO DO: eliminate duplicates AND: check if the linked node is the same as previous node, in this case only add it if it's the only connection of the current node
-							link.source.previousNode = currentNode;
-							nodeConnectionCounter++;
+						if (link.source == currentNode || link.target == currentNode) {
+							if (currentNodeHasConnection) {
+								currentNodeHasMoreThanOneConnection = true;
+								return false;
+							}
+							else {
+								currentNodeHasConnection = true;
+							}
 						}
 					});
+
 					// if the node has no connection at all, re-insert him to the nodesToPlay array
-					if (nodeConnectionCounter == 0) {
+					if (!currentNodeHasConnection) {
 						nextStepNodesArray.push(currentNode);
 					}
-
-					console.log("node " + index + "  has " + nodeConnectionCounter + " connections");
+					else {
+						// otherwise check for connections to other nodes and collect nodes for the next step
+						links.forEach(function (link) {
+							// check if one of the nodes in the edge is the current node
+							if (link.source == currentNode) {
+								// check if the linked node is the same as previous node, in this case only add it if it's the only connection of the current node
+								if (!currentNodeHasMoreThanOneConnection || !(link.target.previousNode == currentNode)) {
+									// push node
+									nextStepNodesArray.push(link.target);
+									link.target.previousNode = currentNode;
+								}
+							}
+							else if (link.target == currentNode) {
+								// check if the linked node is the same as previous node, in this case only add it if it's the only connection of the current node
+								if (!currentNodeHasMoreThanOneConnection || !(link.source.previousNode == currentNode)) {
+									// push node
+									nextStepNodesArray.push(link.source);
+									link.source.previousNode = currentNode;
+								}
+							}
+						});
+					}
 				});
 
 				// append possibly newly entered nodes to the nodes to play array
@@ -181,7 +201,14 @@ document.graph = (function startGraph() {
 					nextStepNodesArray.push(nodeToAppend);
 				});
 				appendToNextNodesArray = [];
-				nextNodesArray = nextStepNodesArray;
+
+				nextNodesArray = [];
+				// eliminate duplicates
+				nextStepNodesArray.forEach(function (currentNode, index) {
+					if($.inArray(currentNode, nextNodesArray) == -1) {
+						nextNodesArray.push(currentNode);
+					}
+				});
 				
 			}, LOOP_DURATION);
 		}
