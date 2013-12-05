@@ -12,23 +12,23 @@ DONE: - den Graphen traversieren, Loopen
 ----------
 TODO:
 Peter:
-	- new sounds -drums
+	- Extra Knoten für Loops
 	
-- graph.js, line 137: // TO DO: if nodes.length == 0 show message 'insert nodes first' and leave the switch untoggled
+- graph.js, line 137: // TO DO: if nodes.length == 0 show message 'insert nodes first' and leave the switch untoggled;
+	-> wenn man auf Loop drückt und es gibt noch keinen Knoten, funktioniert es nicht
 
 Ina
+- hover: node info
+- Pausen-Knoten für Spielpausen
+- Eingabefeld oder Slider für Abspieltempo
 - instruction Text by hover  on "Info" menu
-- bind Color to the d3 visualized elements, hover: node info
 
 ----------
 # Ideen
 
 * unterschiedliche Farben für Gruppen
 * erster Knoten sollte eine besondere Farbe erhalten (am besten Ring drumrum?)
-* Pausen-Knoten für Spielpause
-* Eingabefeld für Abspieltempo
 * Knoten und Kanten sollten löschbar sein
 
 später vielleicht:
 * man könnte auch Abspielmodi im Sinne der Breiten- und Tiefensuche machen
-* Extra Knoten für Loops
