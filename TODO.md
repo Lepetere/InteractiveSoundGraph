@@ -12,7 +12,7 @@ Ina:
 DONE: - clear/restart Funktion implementieren
 DONE: - den Graphen traversieren, Loopen
 DONE: - instruction Text by hover on "Info" menu
-
+DONE: - different order for the sound groups in the menu. start with base ... end with voice-sounds
 ----------
 TODO:
 
