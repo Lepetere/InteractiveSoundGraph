@@ -91,7 +91,24 @@ document.UI = (function () {
 		/*
 		 * show long instructions on mouse move over the info-button-element
 		 */
-		$("#info").hover(function() { $("#infoTextOnHover").fadeIn("normal"); },  function() { $("#infoTextOnHover").fadeOut("normal"); }  );
+		
+		 
+		$("#info").hover(function() { 
+			 var y = $(window).height() - 350 ;
+			var x = $(window).width()  - 350;
+			console.log("x,y"+ x  +" ," +y);
+			
+			//$("#infoTextOnHover").css({ position: "absolute", marginLeft: 10, marginTop: 10, top: y, left: x });
+			
+			$("#infoTextOnHover").css({ position: "absolute", left: x, bottom: y, width: "auto", height: "auto" });
+			$("#infoTextOnHover").remove().appendTo("body");
+			//
+			$("#infoTextOnHover").fadeIn("normal"); 	
+			console.log("fadeIn");
+			},  function() {
+					$("#infoTextOnHover").fadeOut("normal"); 
+					console.log("fadeOut");
+			}  );
 		
 		/*
 		 * popup window containing informations by click on info-button-element 
@@ -113,7 +130,13 @@ document.UI = (function () {
 		            $("#msg").makeAbsolute(true, 10, 90);
 		        }	
 		    });
-
+		
+		/*
+		 * hover action on node
+		 */
+		
+		$(".node").hover(function() { console.log("hover on node mouse enter");  },  function() { console.log("hover on node mouse leave");  }  );
+		
 	};
 
     module.init = init;
