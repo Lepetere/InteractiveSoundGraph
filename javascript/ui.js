@@ -72,7 +72,7 @@ document.UI = (function () {
 		});
 
 		/*
-		 * show short instructions on mouse move 
+		 * show short instructions on mouse move over body element
 		 */
 		var instrFlag = false;
 		$("body").hover(function() {
@@ -87,20 +87,22 @@ document.UI = (function () {
 		            //instrFlag = false;
 		        }	
 		    });
+			
 		/*
-		 * shoe long instructions on mouse move over the ifo-button
+		 * show long instructions on mouse move over the info-button-element
 		 */
 		infoHoverFlag = true;
 		$("#info").hover(function() {
-			console.log("hover on info-button");
-			if (infoHoverFlag){
 			
+			if (infoHoverFlag){
+				console.log("hover on info-button");
+				//.popup-text
 			}
 			infoHoverFlag = !infoHoverFlag;
 		});
 		
 		/*
-		 * popup window containing informations on info-button-click
+		 * popup window containing informations by click on info-button-element 
 		 */
 		var popupFlag = false;
 			$("#info").click(function() {
