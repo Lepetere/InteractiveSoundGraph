@@ -71,7 +71,9 @@ document.UI = (function () {
 			}
 		});
 
-		// show short instructions on mouse move 
+		/*
+		 * show short instructions on mouse move 
+		 */
 		var instrFlag = false;
 		$("body").hover(function() {
 			if(instrFlag == false) {
@@ -86,7 +88,19 @@ document.UI = (function () {
 		        }	
 		    });
 		/*
-		 * popup for info
+		 * shoe long instructions on mouse move over the ifo-button
+		 */
+		infoHoverFlag = true;
+		$("#info").hover(function() {
+			console.log("hover on info-button");
+			if (infoHoverFlag){
+			
+			}
+			infoHoverFlag = !infoHoverFlag;
+		});
+		
+		/*
+		 * popup window containing informations on info-button-click
 		 */
 		var popupFlag = false;
 			$("#info").click(function() {
@@ -96,7 +110,7 @@ document.UI = (function () {
 		        }
 				return false;
 		    }); 
-		 	//close popup, set msg object to the left side
+		 	// close
 		    $(".schliessen").click(function() {
 		        if(popupFlag == true) {
 					$("#popup").fadeOut("normal");
