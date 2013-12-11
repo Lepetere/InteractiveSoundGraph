@@ -1,16 +1,21 @@
 Peter:
 - DONE Toneingabe; man kann eine Note auswählen, die dem nächsten Knoten, den man eingibt, zugewiesen wird
-- DONE module
+- DONE modules
 - DONE put instruction Text over the black canvas
 - DONE color the last chosen sound
 - DONE automatically select the first sound per batch
+- DONE traverse the graph in right way
+- DONE - new sounds -drums
+- DONE - write instruction text
 
 Ina:
 DONE: - clear/restart Funktion implementieren
 DONE: - den Graphen traversieren, Loopen
+DONE: - instruction Text by hover on "Info" menu
 
 ----------
 TODO:
+
 Peter:
 	- Extra Knoten für Loops
 	

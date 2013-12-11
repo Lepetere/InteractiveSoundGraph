@@ -104,9 +104,10 @@ ul#sound-list li:hover {
     position: fixed;
     width:450px;
     height:500px;
-    top: 20%;
+    top: 50%;
+    margin-top: -250px;
     left: 50%;
-    margin-left: -250px;
+    margin-left: -225px;
     background-color: rgb(100,100,100);
     background-origin: padding-box;
     background-size: 30%;
@@ -141,9 +142,15 @@ ul#sound-list li:hover {
     background:#000000;
 }
  
-#popup_inhalt {
+.popup-text {
     margin: 14px;
     color: white;
+}
+
+.popup-text a {
+	text-decoration: none;
+	font-weight: bold;
+	color: white;
 }
 
 #instructionField{
