@@ -91,15 +91,7 @@ document.UI = (function () {
 		/*
 		 * show long instructions on mouse move over the info-button-element
 		 */
-		infoHoverFlag = true;
-		$("#info").hover(function() {
-			
-			if (infoHoverFlag){
-				console.log("hover on info-button");
-				//.popup-text
-			}
-			infoHoverFlag = !infoHoverFlag;
-		});
+		$("#info").hover(function() { $("#popup").fadeIn("normal"); },  function() { $("#popup").fadeOut("normal"); }  );
 		
 		/*
 		 * popup window containing informations by click on info-button-element 
