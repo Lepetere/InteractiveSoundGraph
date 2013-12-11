@@ -8,6 +8,10 @@ document.Sound = (function () {
 
     // initialize an array containing sound objects for a scale
     var soundNames = [
+	{
+                            groupName : "#pause", 
+                            sampleNames : ["#pause"]
+                        },
                         {
                             groupName : "voiceFX1", 
                             sampleNames : ["ChoirHit", "HeyBuddy"]
