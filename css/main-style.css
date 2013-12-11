@@ -163,3 +163,14 @@ ul#sound-list li:hover {
 	color: white;
 	display: none;
 }
+
+#infoTextOnHover{
+	font-size:13px;
+	color:white;
+	display:none;
+	position: absolute;
+	float:right;
+	top: 150px;
+	left: 1000px;
+	padding:15px;
+}

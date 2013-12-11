@@ -91,7 +91,7 @@ document.UI = (function () {
 		/*
 		 * show long instructions on mouse move over the info-button-element
 		 */
-		$("#info").hover(function() { $("#popup").fadeIn("normal"); },  function() { $("#popup").fadeOut("normal"); }  );
+		$("#info").hover(function() { $("#infoTextOnHover").fadeIn("normal"); },  function() { $("#infoTextOnHover").fadeOut("normal"); }  );
 		
 		/*
 		 * popup window containing informations by click on info-button-element 

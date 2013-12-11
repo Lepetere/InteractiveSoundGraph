@@ -12,8 +12,10 @@ Ina:
 DONE: - clear/restart Funktion implementieren
 DONE: - den Graphen traversieren, Loopen
 DONE: - instruction Text by hover on "Info" menu
-DONE: - different order for the sound groups in the menu. start with base ... end with voice-sounds
-----------
+DONE: - different order for the sound groups in the menu. start with base ... end with voice-sounds and pause
+DONE: - Pausen-Knoten für Spielpausen
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 TODO:
 
 Peter:
@@ -24,7 +26,6 @@ Peter:
 
 Ina
 - hover: node info
-- Pausen-Knoten für Spielpausen
 - Eingabefeld oder Slider für Abspieltempo
 - instruction Text by hover  on "Info" menu
 
@@ -34,6 +35,8 @@ Ina
 * unterschiedliche Farben für Gruppen
 * erster Knoten sollte eine besondere Farbe erhalten (am besten Ring drumrum?)
 * Knoten und Kanten sollten löschbar sein
+
+* anstatt dropdown Menü, zeige alle sound Gruppen an --> schellere Auswahl 
 
 später vielleicht:
 * man könnte auch Abspielmodi im Sinne der Breiten- und Tiefensuche machen
