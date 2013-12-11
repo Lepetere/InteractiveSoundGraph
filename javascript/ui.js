@@ -1,6 +1,7 @@
+
 // immediate function
 document.UI = (function () {
-	
+	var loopDuration = 500;
 	// module object; add all methods and properties that should be visible globally
     var module = {};
 	
@@ -71,6 +72,18 @@ document.UI = (function () {
 			}
 		});
 
+		// speed up/ down
+		$('#speedUpButton').click(function (e) {
+			console.log("speed UP");
+			loopDuration -= 100;
+			document.graph.setLoopDuration(loopDuration);
+		});
+		$('#speedDownButton').click(function (e) {
+			console.log("speed UP");
+			loopDuration += 100;
+			document.graph.setLoopDuration(loopDuration);
+		});
+		
 		/*
 		 * show short instructions on mouse move over body element
 		 */
@@ -91,24 +104,20 @@ document.UI = (function () {
 		/*
 		 * show long instructions on mouse move over the info-button-element
 		 */
-		
-		 
-		$("#info").hover(function() { 
-			 var y = $(window).height() - 350 ;
-			var x = $(window).width()  - 350;
-			console.log("x,y"+ x  +" ," +y);
-			
-			//$("#infoTextOnHover").css({ position: "absolute", marginLeft: 10, marginTop: 10, top: y, left: x });
-			
-			$("#infoTextOnHover").css({ position: "absolute", left: x, bottom: y, width: "auto", height: "auto" });
-			$("#infoTextOnHover").remove().appendTo("body");
-			//
-			$("#infoTextOnHover").fadeIn("normal"); 	
-			console.log("fadeIn");
-			},  function() {
-					$("#infoTextOnHover").fadeOut("normal"); 
-					console.log("fadeOut");
-			}  );
+		$("#info").hover(
+			// function on mouse enter
+			function() { 
+				 //prepare position coord and set position
+				var y = $(window).height() - 350 ;
+				var x = $(window).width()  - 350;
+				$("#infoTextOnHover").css({ position: "absolute", left: x, bottom: y, width: "auto", height: "auto" });
+				$("#infoTextOnHover").remove().appendTo("body");
+				// fade in 
+				$("#infoTextOnHover").fadeIn("normal"); 
+			},  
+			// function on mouse leave - fade out
+			function() { $("#infoTextOnHover").fadeOut("normal");  } 
+		);
 		
 		/*
 		 * popup window containing informations by click on info-button-element 
@@ -127,7 +136,7 @@ document.UI = (function () {
 					$("#popup").fadeOut("normal");
 		            $("#popupHintergrund").fadeOut("normal");
 		            popupFlag = false;
-		            $("#msg").makeAbsolute(true, 10, 90);
+		            $("#msg").setCoords(true, 10, 90);
 		        }	
 		    });
 		
@@ -138,7 +147,13 @@ document.UI = (function () {
 		$(".node").hover(function() { console.log("hover on node mouse enter");  },  function() { console.log("hover on node mouse leave");  }  );
 		
 	};
-
+	
+	var getLoopDuration = function(){
+			return loopDuration;
+		}
+	
+	
+	module.getLoopDuration = getLoopDuration;
     module.init = init;
     return module;
 })();

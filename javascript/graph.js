@@ -133,18 +133,9 @@ document.graph = (function startGraph() {
 		appendToNextNodesArray = [];
 		document.graph = startGraph();
 	}
-
-	var toggleLoop = function(){
-
-		module.playLoop = !module.playLoop;
-
-		// TO DO: if nodes.length == 0 show message 'insert nodes first' and leave the switch untoggled
-		if (module.playLoop && nodes.length > 0) {
-			// 
-			module.interval = setInterval(function () {
-				// TODO: Peters code in einer neuen funktion packen, hier - func(); - Aufruf
-				
-				// array to collect the nodes that will be played in the next step
+	
+	var traverseGraph = function(){
+					// array to collect the nodes that will be played in the next step
 				var nextStepNodesArray = [];
 
 				nextNodesArray.forEach(function (currentNode, index) {
@@ -232,7 +223,25 @@ document.graph = (function startGraph() {
 						nextNodesArray.push(currentNode);
 					}
 				});
-				
+	}
+	
+	function setLoopDuration (d){
+		LOOP_DURATION = d;
+		toggleLoop();
+		toggleLoop();
+	};
+	
+	var toggleLoop = function(){
+
+		module.playLoop = !module.playLoop;
+
+		// TO DO: if nodes.length == 0 show message 'insert nodes first' and leave the switch untoggled
+		if (module.playLoop && nodes.length > 0) {
+			// 
+			module.interval = setInterval(function () {
+				// traverse our graph
+				traverseGraph();
+	
 			}, LOOP_DURATION);
 		}
 		else {
@@ -241,6 +250,7 @@ document.graph = (function startGraph() {
 		}
 	}
 
+	module.setLoopDuration = setLoopDuration;
 	module.toggleLoop = toggleLoop;
 	module.clear = clear;
 	return module;
