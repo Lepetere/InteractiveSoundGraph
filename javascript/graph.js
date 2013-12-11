@@ -14,10 +14,6 @@ document.graph = (function startGraph() {
 	var module = {};
 	module.play_flag = false;
 	
-	// TODO: bind variables
-	module.nextSound = undefined;
-	module.nextColor = undefined;
-
 	// all nodes that should be played in the current step
 	var nextNodesArray = [];
 	// all nodes that should be appended to the above array after the next play interval
@@ -25,8 +21,6 @@ document.graph = (function startGraph() {
 	
 	var width = window.innerWidth - 20;
 	var height = window.innerHeight - 76;
-
-	//var fill = d3.scale.category20();
 
 	var force = d3.layout.force()
 		.size([width, height])
@@ -146,9 +140,10 @@ document.graph = (function startGraph() {
 
 		// TO DO: if nodes.length == 0 show message 'insert nodes first' and leave the switch untoggled
 		if (module.playLoop && nodes.length > 0) {
-
+			// 
 			module.interval = setInterval(function () {
-
+				// TODO: Peters code in einer neuen funktion packen, hier - func(); - Aufruf
+				
 				// array to collect the nodes that will be played in the next step
 				var nextStepNodesArray = [];
 
