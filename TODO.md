@@ -33,8 +33,8 @@ Ina
 - hover: node info
 - Eingabefeld oder Slider für Abspieltempo
 
-
 - fix application in Firefox
+- integrate Example sound configurations (save graphs)
 
 ----------
 # Ideen
