@@ -1,7 +1,7 @@
 
 // immediate function
 document.UI = (function () {
-	var loopDuration = 500;
+	var loopTempo = 120;
 	// module object; add all methods and properties that should be visible globally
     var module = {};
 	
@@ -74,16 +74,14 @@ document.UI = (function () {
 
 		// speed up/ down
 		$('#speedUpButton').click(function (e) {
-			console.log("speed UP");
-			loopDuration -= 10;
-			document.graph.setLoopDuration(loopDuration);
-			updateTimeDisplay(loopDuration);
+			loopTempo += 2;
+			document.graph.setLoopDuration(convertBPMtoMilliseconds(loopTempo));
+			updateTimeDisplay(loopTempo);
 		});
 		$('#speedDownButton').click(function (e) {
-			console.log("speed UP");
-			loopDuration += 10;
-			document.graph.setLoopDuration(loopDuration);
-			updateTimeDisplay(loopDuration);
+			loopTempo -= 2;
+			document.graph.setLoopDuration(convertBPMtoMilliseconds(loopTempo));
+			updateTimeDisplay(loopTempo);
 		});
 		
 		/*
@@ -148,19 +146,22 @@ document.UI = (function () {
 		
 		$(".node").hover(function() { console.log("hover on node mouse enter");  },  function() { console.log("hover on node mouse leave");  }  );
 
-		updateTimeDisplay(loopDuration);
+		updateTimeDisplay(loopTempo);
 	};
 	
-	var getLoopDuration = function () {
-		return loopDuration;
+	var getLoopTempo = function () {
+		return loopTempo;
 	};
 
-	var updateTimeDisplay = function (time) {
-		var bpm = Math.round(1000/time * 60);
+	var convertBPMtoMilliseconds = function (bpm) {
+		return Math.round((60 / bpm) * 1000);
+	};
+
+	var updateTimeDisplay = function (bpm) {
 		$('#speed').text(bpm + " bpm");
 	};
 	
-	module.getLoopDuration = getLoopDuration;
+	module.getLoopTempo = getLoopTempo;
     module.init = init;
     return module;
 })();

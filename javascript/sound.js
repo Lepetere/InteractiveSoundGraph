@@ -60,7 +60,7 @@ document.Sound = (function () {
     }
 
     function getSoundObject (group, name) {
-        console.log("get sound: " + group + "/" + name + ".mp3");
+        //console.log("get sound: " + group + "/" + name + ".mp3");
         return new buzz.sound("audio-samples/" + group + "/" + name + ".mp3", BUZZ_NEW_SOUND_OPTIONS);
     }
 
@@ -73,7 +73,6 @@ document.Sound = (function () {
 
     function toggleSound () {
         module.isSoundOn = !module.isSoundOn;
-        console.log("sound " + module.isSoundOn);
     }
 
     // module object; add all methods and properties that should be visible globally
