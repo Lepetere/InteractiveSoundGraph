@@ -33,6 +33,9 @@ Ina
 - hover: node info
 - Eingabefeld oder Slider für Abspieltempo
 
+
+- fix application in Firefox
+
 ----------
 # Ideen
 

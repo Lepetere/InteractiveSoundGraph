@@ -75,13 +75,15 @@ document.UI = (function () {
 		// speed up/ down
 		$('#speedUpButton').click(function (e) {
 			console.log("speed UP");
-			loopDuration -= 100;
+			loopDuration -= 10;
 			document.graph.setLoopDuration(loopDuration);
+			updateTimeDisplay(loopDuration);
 		});
 		$('#speedDownButton').click(function (e) {
 			console.log("speed UP");
-			loopDuration += 100;
+			loopDuration += 10;
 			document.graph.setLoopDuration(loopDuration);
+			updateTimeDisplay(loopDuration);
 		});
 		
 		/*
@@ -145,13 +147,17 @@ document.UI = (function () {
 		 */
 		
 		$(".node").hover(function() { console.log("hover on node mouse enter");  },  function() { console.log("hover on node mouse leave");  }  );
-		
+
+		updateTimeDisplay(loopDuration);
 	};
 	
-	var getLoopDuration = function(){
-			return loopDuration;
-		}
-	
+	var getLoopDuration = function () {
+		return loopDuration;
+	};
+
+	var updateTimeDisplay = function (time) {
+		$('#speed').text(time);
+	};
 	
 	module.getLoopDuration = getLoopDuration;
     module.init = init;
