@@ -156,7 +156,8 @@ document.UI = (function () {
 	};
 
 	var updateTimeDisplay = function (time) {
-		$('#speed').text(time);
+		var bpm = Math.round(1000/time * 60);
+		$('#speed').text(bpm + " bpm");
 	};
 	
 	module.getLoopDuration = getLoopDuration;
