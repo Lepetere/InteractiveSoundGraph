@@ -12,9 +12,12 @@ To create a sound node just click on the canvas and a node representing the soun
 
 You can connect nodes by clicking on the canvas with already existing nodes inside the cursor's outer circle. A new node will then be added with connections to the other nodes. Connected nodes will be played one after another, while graphs that are not connected will all be playing at the same time.
 
+
 ## Demo
 
 Check out the live demo at 
-http://peterfessel.com/InteractiveSoundGraph/
+[www.peterfessel.com/InteractiveSoundGraph/](http://peterfessel.com/InteractiveSoundGraph/)
+
+##
 
 Made by Peter Fessel and Ina Bankova.
