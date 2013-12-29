@@ -26,6 +26,7 @@ TODO:
 
 Peter:
 	- Extra Knoten für Loops	
+	- display pause node differently
 - graph.js, line 137: // TO DO: if nodes.length == 0 show message 'insert nodes first' and leave the switch untoggled;
 	-> wenn man auf Loop drückt und es gibt noch keinen Knoten, funktioniert es nicht
 
