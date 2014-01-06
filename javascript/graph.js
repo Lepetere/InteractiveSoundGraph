@@ -113,15 +113,15 @@ document.graph = (function startGraph() {
 		link = link.data(links);
 		link.enter().insert("line", ".node").attr("class", "link");
 		node = node.data(nodes);
-		node.enter().insert("circle", ".cursor").attr("class", "node").attr("r", 7).attr("fill", NODE_FILL).call(force.drag);
+		node.enter().insert("circle", ".cursor").attr("class", "node").attr("r", 7).call(force.drag);
 		// traverse nodes array and push to each node a reference to the corresponding d3 circle
 		nodes.forEach(function (currentNode, index) {
 			currentNode.d3circleReference = node[0][index];
+			d3.select(currentNode.d3circleReference).attr("fill", currentNode.color);
 		});
 		force.start();
 	}
 	
-//////////////////////// new functions 
 	// clear the svg content from the graph, restart graph
 	function clear() {
 		d3.select("svg").remove();
@@ -150,7 +150,7 @@ document.graph = (function startGraph() {
 					// then highlight node
 					// node[0] gets array of d3 circles
 					d3.select(currentNode.d3circleReference).attr("fill", NODE_FILL_HIGHLIGHT).transition()
-						.attr("fill", NODE_FILL).transition();
+						.attr("fill", currentNode.color).transition();
 
 					// run through the link array one first time to determine if the current node has more than one connection
 					var currentNodeHasConnection = false;
