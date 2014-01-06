@@ -105,11 +105,22 @@ document.graph = (function startGraph() {
 		}
 	}
 
+	function nodeHoverInHandler (node) {
+		console.log("hover in: " + node.name);
+	}
+
+	function nodeHoverOutHandler (node) {
+		console.log("hover out: " + node.name);
+	}
+
 	function restart() {
 		link = link.data(links);
 		link.enter().insert("line", ".node").attr("class", "link");
 		node = node.data(nodes);
-		node.enter().insert("circle", ".cursor").attr("class", "node").attr("r", 7).call(force.drag);
+		node.enter().insert("circle", ".cursor").attr("class", "node").attr("r", 7)
+			.on("mouseover", nodeHoverInHandler)
+			.on("mouseout", nodeHoverOutHandler)
+			.call(force.drag);
 		// traverse nodes array and push to each node a reference to the corresponding d3 circle
 		nodes.forEach(function (currentNode, index) {
 			currentNode.d3circleReference = node[0][index];
