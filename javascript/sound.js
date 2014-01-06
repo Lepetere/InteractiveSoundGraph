@@ -67,6 +67,10 @@ document.Sound = (function () {
             );
     }
 
+    function getFillColorForCurrentSound () {
+        return undefined;
+    }
+
     function toggleSound () {
         module.isSoundOn = !module.isSoundOn;
         console.log("sound " + module.isSoundOn);
@@ -77,6 +81,7 @@ document.Sound = (function () {
     module.sounds = sounds;
     module.getSoundObject = getSoundObject;
     module.getNewSoundObjectForCurrentSound = getNewSoundObjectForCurrentSound;
+    module.getFillColorForCurrentSound = getFillColorForCurrentSound;
     module.currentSelection = {groupName: undefined, sampleName: undefined};
     module.isSoundOn = true;
     module.toggleSound = toggleSound;

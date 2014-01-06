@@ -69,7 +69,7 @@ document.graph = (function startGraph() {
 				x : point[0],
 				y : point[1],
 				sound : document.Sound.getNewSoundObjectForCurrentSound(),
-				color   : document.plugin.getRandomColor(),
+				color   : document.Sound.getFillColorForCurrentSound(),
 				previousNode : undefined,
 				d3circleReference : undefined
 				}, 		
