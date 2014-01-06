@@ -1,4 +1,3 @@
-
 // immediate function
 document.UI = (function () {
 	var loopTempo = 120;

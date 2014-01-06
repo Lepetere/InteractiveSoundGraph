@@ -57,8 +57,9 @@ document.graph = (function startGraph() {
 			node = { 	
 				x : point[0],
 				y : point[1],
+				name : document.Sound.currentSelection["sampleName"],
 				sound : document.Sound.getNewSoundObjectForCurrentSound(),
-				color   : document.Sound.getFillColorForCurrentSound(),
+				color : document.Sound.getFillColorForCurrentSound(),
 				previousNode : undefined,
 				d3circleReference : undefined
 				}, 		
@@ -112,7 +113,13 @@ document.graph = (function startGraph() {
 		// traverse nodes array and push to each node a reference to the corresponding d3 circle
 		nodes.forEach(function (currentNode, index) {
 			currentNode.d3circleReference = node[0][index];
-			d3.select(currentNode.d3circleReference).attr("fill", currentNode.color);
+			if (currentNode.name == "pause") {
+				d3.select(currentNode.d3circleReference).attr("stroke", currentNode.color).attr("stroke-width", 2);
+				d3.select(currentNode.d3circleReference).attr("fill", "black");
+			}
+			else {
+				d3.select(currentNode.d3circleReference).attr("fill", currentNode.color);
+			}
 		});
 		force.start();
 	}
@@ -143,9 +150,11 @@ document.graph = (function startGraph() {
 						currentNode.sound.play();
 					}
 					// then highlight node
+					var color = currentNode.color;
+					if (currentNode.name == "pause") color = "black";
 					// node[0] gets array of d3 circles
 					d3.select(currentNode.d3circleReference).attr("fill", NODE_FILL_HIGHLIGHT).transition()
-						.attr("fill", currentNode.color).transition();
+						.attr("fill", color).transition();
 
 					// run through the link array one first time to determine if the current node has more than one connection
 					var currentNodeHasConnection = false;
