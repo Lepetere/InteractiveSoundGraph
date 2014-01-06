@@ -124,7 +124,7 @@ ul#sound-list li:hover {
     position: relative;
     height: 30px;
     width: 30px;
-    background-image: url("./img/X.png") ;
+    background-image: url("./img/x.png") ;
     background-repeat: no-repeat;
     background-size: 60%;
     background-origin: padding-box;
