@@ -107,12 +107,12 @@ document.graph = (function startGraph() {
 
 	function nodeHoverInHandler (node) {
 		$('#soundNameField').fadeIn();
-		console.log("hover in: " + node.name);
+		$('#soundNameField').css("color", node.color);
+		$('#soundName').text(node.name);
 	}
 
 	function nodeHoverOutHandler (node) {
 		$('#soundNameField').fadeOut();
-		console.log("hover out: " + node.name);
 	}
 
 	function restart() {

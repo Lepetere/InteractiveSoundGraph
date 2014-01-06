@@ -174,7 +174,7 @@ ul#sound-list li:hover {
 
 #soundNameField {
 	position: relative;
-	top: 20px;
+	top: 10px;
 	color: red;
 	display: none;
 }
