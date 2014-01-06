@@ -172,7 +172,14 @@ ul#sound-list li:hover {
 	padding:15px;
 }
 
-#speedField{
+#soundNameField {
+	position: relative;
+	top: 20px;
+	color: red;
+	display: none;
+}
+
+#speedField {
 	border:thin;
 	color: white;
 	font-size: 13px;

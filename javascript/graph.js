@@ -106,10 +106,12 @@ document.graph = (function startGraph() {
 	}
 
 	function nodeHoverInHandler (node) {
+		$('#soundNameField').fadeIn();
 		console.log("hover in: " + node.name);
 	}
 
 	function nodeHoverOutHandler (node) {
+		$('#soundNameField').fadeOut();
 		console.log("hover out: " + node.name);
 	}
 
