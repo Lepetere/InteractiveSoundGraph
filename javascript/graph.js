@@ -136,97 +136,97 @@ document.graph = (function startGraph() {
 		document.graph = startGraph();
 	}
 	
-	var traverseGraph = function(){
-					// array to collect the nodes that will be played in the next step
-				var nextStepNodesArray = [];
+	var traverseGraph = function () {
+		// array to collect the nodes that will be played in the next step
+		var nextStepNodesArray = [];
 
-				nextNodesArray.forEach(function (currentNode, index) {
+		nextNodesArray.forEach(function (currentNode, index) {
 
-					// first play sound
-					if (document.Sound.isSoundOn) {
-						if (!currentNode.sound.isEnded()) {
-							currentNode.sound.stop();	
-						}
-						currentNode.sound.play();
-					}
-					// then highlight node
-					var color = currentNode.color;
-					if (currentNode.name == "pause") color = "black";
-					// node[0] gets array of d3 circles
-					d3.select(currentNode.d3circleReference).attr("fill", NODE_FILL_HIGHLIGHT).transition()
-						.attr("fill", color).transition();
+			// first play sound
+			if (document.Sound.isSoundOn) {
+				if (!currentNode.sound.isEnded()) {
+					currentNode.sound.stop();	
+				}
+				currentNode.sound.play();
+			}
+			// then highlight node
+			var color = currentNode.color;
+			if (currentNode.name == "pause") color = "black";
+			// node[0] gets array of d3 circles
+			d3.select(currentNode.d3circleReference).attr("fill", NODE_FILL_HIGHLIGHT).transition()
+				.attr("fill", color).transition();
 
-					// run through the link array one first time to determine if the current node has more than one connection
-					var currentNodeHasConnection = false;
-					var currentNodeHasMoreThanOneConnection = false;
-					$(links).each(function (index, link) {
-						// check if one of the nodes in the edge is the current node
-						if (link.source == currentNode || link.target == currentNode) {
-							if (currentNodeHasConnection) {
-								currentNodeHasMoreThanOneConnection = true;
-								return false;
-							}
-							else {
-								currentNodeHasConnection = true;
-							}
-						}
-					});
-
-					// if the node has no connection at all, re-insert him to the nodesToPlay array
-					if (!currentNodeHasConnection) {
-						nextStepNodesArray.push(currentNode);
+			// run through the link array one first time to determine if the current node has more than one connection
+			var currentNodeHasConnection = false;
+			var currentNodeHasMoreThanOneConnection = false;
+			$(links).each(function (index, link) {
+				// check if one of the nodes in the edge is the current node
+				if (link.source == currentNode || link.target == currentNode) {
+					if (currentNodeHasConnection) {
+						currentNodeHasMoreThanOneConnection = true;
+						return false;
 					}
 					else {
-						// otherwise check for connections to other nodes and collect nodes for the next step
-						links.forEach(function (link) {
-							// check if one of the nodes in the edge is the current node
-							if (link.source == currentNode) {
-								// check if the linked node is the same as previous node, in this case only add it if it's the only connection of the current node
-								if (link.target == currentNode.previousNode) {
-									if (!currentNodeHasMoreThanOneConnection) {
-										// push node
-										nextStepNodesArray.push(link.target);
-										link.target.previousNode = currentNode;
-									}
-								}
-								else {
-									// push node
-									nextStepNodesArray.push(link.target);
-									link.target.previousNode = currentNode;
-								}
+						currentNodeHasConnection = true;
+					}
+				}
+			});
+
+			// if the node has no connection at all, re-insert him to the nodesToPlay array
+			if (!currentNodeHasConnection) {
+				nextStepNodesArray.push(currentNode);
+			}
+			else {
+				// otherwise check for connections to other nodes and collect nodes for the next step
+				links.forEach(function (link) {
+					// check if one of the nodes in the edge is the current node
+					if (link.source == currentNode) {
+						// check if the linked node is the same as previous node, in this case only add it if it's the only connection of the current node
+						if (link.target == currentNode.previousNode) {
+							if (!currentNodeHasMoreThanOneConnection) {
+								// push node
+								nextStepNodesArray.push(link.target);
+								link.target.previousNode = currentNode;
 							}
-							else if (link.target == currentNode) {
-								// check if the linked node is the same as previous node, in this case only add it if it's the only connection of the current node
-								if (link.source == currentNode.previousNode) {
-									if (!currentNodeHasMoreThanOneConnection) {
-										// push node
-										nextStepNodesArray.push(link.source);
-										link.source.previousNode = currentNode;
-									}
-								}
-								else {
-									// push node
-									nextStepNodesArray.push(link.source);
-									link.source.previousNode = currentNode;
-								}
+						}
+						else {
+							// push node
+							nextStepNodesArray.push(link.target);
+							link.target.previousNode = currentNode;
+						}
+					}
+					else if (link.target == currentNode) {
+						// check if the linked node is the same as previous node, in this case only add it if it's the only connection of the current node
+						if (link.source == currentNode.previousNode) {
+							if (!currentNodeHasMoreThanOneConnection) {
+								// push node
+								nextStepNodesArray.push(link.source);
+								link.source.previousNode = currentNode;
 							}
-						});
+						}
+						else {
+							// push node
+							nextStepNodesArray.push(link.source);
+							link.source.previousNode = currentNode;
+						}
 					}
 				});
+			}
+		});
 
-				// append possibly newly entered nodes to the nodes to play array
-				appendToNextNodesArray.forEach(function (nodeToAppend) {
-					nextStepNodesArray.push(nodeToAppend);
-				});
-				appendToNextNodesArray = [];
+		// append possibly newly entered nodes to the nodes to play array
+		appendToNextNodesArray.forEach(function (nodeToAppend) {
+			nextStepNodesArray.push(nodeToAppend);
+		});
+		appendToNextNodesArray = [];
 
-				nextNodesArray = [];
-				// eliminate duplicates
-				nextStepNodesArray.forEach(function (currentNode, index) {
-					if($.inArray(currentNode, nextNodesArray) == -1) {
-						nextNodesArray.push(currentNode);
-					}
-				});
+		nextNodesArray = [];
+		// eliminate duplicates
+		nextStepNodesArray.forEach(function (currentNode, index) {
+			if($.inArray(currentNode, nextNodesArray) == -1) {
+				nextNodesArray.push(currentNode);
+			}
+		});
 	}
 	
 	function setLoopDuration (d){
