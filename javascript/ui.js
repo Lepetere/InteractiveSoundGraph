@@ -1,6 +1,7 @@
+
 // immediate function
 document.UI = (function () {
-	
+	var loopTempo = 120;
 	// module object; add all methods and properties that should be visible globally
     var module = {};
 	
@@ -71,7 +72,21 @@ document.UI = (function () {
 			}
 		});
 
-		// show short instructions on mouse move 
+		// speed up/ down
+		$('#speedUpButton').click(function (e) {
+			loopTempo += 2;
+			document.graph.setLoopDuration(convertBPMtoMilliseconds(loopTempo));
+			updateTimeDisplay(loopTempo);
+		});
+		$('#speedDownButton').click(function (e) {
+			loopTempo -= 2;
+			document.graph.setLoopDuration(convertBPMtoMilliseconds(loopTempo));
+			updateTimeDisplay(loopTempo);
+		});
+		
+		/*
+		 * show short instructions on mouse move over body element
+		 */
 		var instrFlag = false;
 		$("body").hover(function() {
 			if(instrFlag == false) {
@@ -85,8 +100,27 @@ document.UI = (function () {
 		            //instrFlag = false;
 		        }	
 		    });
+			
 		/*
-		 * popup for info
+		 * show long instructions on mouse move over the info-button-element
+		 */
+		$("#info").hover(
+			// function on mouse enter
+			function() { 
+				 //prepare position coord and set position
+				var y = $(window).height() - 350 ;
+				var x = $(window).width()  - 350;
+				$("#infoTextOnHover").css({ position: "absolute", left: x, bottom: y, width: "auto", height: "auto" });
+				$("#infoTextOnHover").remove().appendTo("body");
+				// fade in 
+				$("#infoTextOnHover").fadeIn("normal"); 
+			},  
+			// function on mouse leave - fade out
+			function() { $("#infoTextOnHover").fadeOut("normal");  } 
+		);
+		
+		/*
+		 * popup window containing informations by click on info-button-element 
 		 */
 		var popupFlag = false;
 			$("#info").click(function() {
@@ -96,18 +130,38 @@ document.UI = (function () {
 		        }
 				return false;
 		    }); 
-		 	//close popup, set msg object to the left side
+		 	// close
 		    $(".schliessen").click(function() {
 		        if(popupFlag == true) {
 					$("#popup").fadeOut("normal");
 		            $("#popupHintergrund").fadeOut("normal");
 		            popupFlag = false;
-		            $("#msg").makeAbsolute(true, 10, 90);
+		            $("#msg").setCoords(true, 10, 90);
 		        }	
 		    });
+		
+		/*
+		 * hover action on node
+		 */
+		
+		$(".node").hover(function() { console.log("hover on node mouse enter");  },  function() { console.log("hover on node mouse leave");  }  );
 
+		updateTimeDisplay(loopTempo);
+	};
+	
+	var getLoopTempo = function () {
+		return loopTempo;
 	};
 
+	var convertBPMtoMilliseconds = function (bpm) {
+		return Math.round((60 / bpm) * 1000);
+	};
+
+	var updateTimeDisplay = function (bpm) {
+		$('#speed').text(bpm + " bpm");
+	};
+	
+	module.getLoopTempo = getLoopTempo;
     module.init = init;
     return module;
 })();

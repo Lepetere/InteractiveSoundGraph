@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="author" content="Ina Bankova, Peter Fessel">
-		<meta name="description" content="">
+		<meta name="description" content="InteractiveSoundGraph is an interactive Browser application. It uses a visual representation in form of a graph to create music.">
 		<!--<link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">-->
 
 		<!-- google -->
@@ -47,6 +47,15 @@
 			<p id="instructionText">  choose sound an then klick on the black canvas to create new node</p>
 		</div>
 
+		<div id="speedField"> 
+			<ul> speed <span id="speed"></span></ul>
+			<ul>
+				<li id ="speedUpButton"> UP </li>	
+				<li id="speedDownButton"> DOWN </li>
+			</ul>
+		</div>
+
+		
 		<div id="sound-selection-interface">
 			<select id="banch-select" size="1">
 			</select>
@@ -55,16 +64,28 @@
 		</div>
 		
 		<!-- popup -->
-			<div id="popup">
-        		<div class="schliessen"> </div>
-	        	<div class="popup-text">
-	        		<strong>InteractiveSoundGraph</strong> is an interactive Browser application. It uses a visual representation in form of a <a target="_blank" href="http://en.wikipedia.org/wiki/Graph_(mathematics)">graph</a> to create music.<br><br>
-					You can <strong>select different sounds in the bottom area</strong>. The sounds are grouped in batches that each represent certain sound categories like drum sounds, synthesizer sounds, fx sounds and so on. The sound with the red label is the currently selected one. Initially this is the most left sound of the batch.<br><br>
-					To <strong>create a sound node</strong> just click on the canvas and a node representing the sound that is currently selected will be placed on the canvas. If you click 'loopOn' the sound will start to play in a loop.<br><br>
-					You can <strong>connect nodes</strong> by clicking on the canvas with already existing nodes inside the cursor's outer circle. A new node will then be added with connections to the other nodes. Connected nodes will be played one after another, while graphs that are not connected will all be playing at the same time.<br><br>
-					Made by <a target="_blank" href="https://github.com/Lepetere">Peter Fessel</a> and <a target="_blank" href="https://github.com/inaaa">Ina Bankova</a>. This project is open source! Go to it's <a target="_blank" href="https://github.com/Lepetere/InteractiveSoundGraph">Github Repository</a> to check out the code.
-				</div>
-				<div id="popup-background"> </div>
-    		</div>
+		<div id="popup">
+			<div class="schliessen"> </div>
+			<div class="popup-text">
+				<strong>InteractiveSoundGraph</strong> is an interactive Browser application. It uses a visual representation in form of a <a target="_blank" href="http://en.wikipedia.org/wiki/Graph_(mathematics)">graph</a> to create music.<br><br>
+				You can <strong>select different sounds in the bottom area</strong>. The sounds are grouped in batches that each represent certain sound categories like drum sounds, synthesizer sounds, fx sounds and so on. The sound with the red label is the currently selected one. Initially this is the most left sound of the batch.<br><br>
+				To <strong>create a sound node</strong> just click on the canvas and a node representing the sound that is currently selected will be placed on the canvas. If you click 'loopOn' the sound will start to play in a loop.<br><br>
+				You can <strong>connect nodes</strong> by clicking on the canvas with already existing nodes inside the cursor's outer circle. A new node will then be added with connections to the other nodes. Connected nodes will be played one after another, while graphs that are not connected will all be playing at the same time.<br><br>
+				Made by <a target="_blank" href="http://www.peterfessel.com">Peter Fessel</a> and <a target="_blank" href="https://github.com/inaaa">Ina Bankova</a>. This project is open source! Go to it's <a target="_blank" href="https://github.com/Lepetere/InteractiveSoundGraph">Github Repository</a> to check out the code.
+			</div>
+			<div id="popup-background"> </div>
+		</div>
+		
+		<!-- info text, shown when hovering with the mouse over the info-button -->
+		
+			
+		<div  id="infoTextOnHover" class="infoText">
+			You can <strong>select different sounds in the bottom area</strong>. The sounds are grouped in batches that each represent certain sound categories like drum sounds, synthesizer sounds, fx sounds and so on. The sound with the red label is the currently selected one. Initially this is the most left sound of the batch.<br><br>
+			To <strong>create a sound node</strong> just click on the canvas and a node representing the sound that is currently selected will be placed on the canvas. If you click 'loopOn' the sound will start to play in a loop.
+		</div>
+			
+		
+			
+		
 	</body>
 </html>

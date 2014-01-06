@@ -163,3 +163,45 @@ ul#sound-list li:hover {
 	color: white;
 	display: none;
 }
+
+#infoTextOnHover{
+	font-size: 10px;
+	color:white;
+	display:none;
+	padding:15px;
+}
+
+#speedField{
+	border:thin;
+	color: white;
+	font-size: 13px;
+	font-weight:bold;
+	padding: 5px;
+	height: 150px;
+	width: 45px;
+	position: absolute;
+	bottom: 70px;
+	left: 10px;
+	/*
+	background-image: url("./img/speedNarrows.png") ;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-origin: padding-box;
+	*/
+}
+
+#speedField li {
+list-style-type: none;
+	float: left;
+	margin-right: 10px;
+	margin-top: 10px;
+	cursor: pointer;	
+}
+
+#speedField li:hover {
+	color:grey;
+}
+
+#speedButton{
+	cursor:none;
+}

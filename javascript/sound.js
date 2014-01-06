@@ -8,25 +8,13 @@ document.Sound = (function () {
 
     // initialize an array containing sound objects for a scale
     var soundNames = [
+	{
+                            groupName : "pause1", 
+                            sampleNames : ["pause"]
+                        },
                         {
                             groupName : "voiceFX1", 
                             sampleNames : ["ChoirHit", "HeyBuddy"]
-                        },
-                        {
-                            groupName : "percussion1", 
-                            sampleNames : ["Timpani", "Ting", "TrapPerc2"]
-                        },
-                        {
-                            groupName : "HH1", 
-                            sampleNames : ["HH1", "HH2", "HH3", "YChopHat3"]
-                        },
-                        {
-                            groupName : "Snare1", 
-                            sampleNames : ["BasicClap2", "Clap1", "Snare1", "Snare2", "Snare5", "TrapClap4", "YoungChopSnr7"]
-                        },
-                        {
-                            groupName : "Base1", 
-                            sampleNames : ["Kick1", "Kick2", "Kick3", "Stomp", "YchopHardKick5"]
                         },
                         {
                             groupName : "sinusSynth4", 
@@ -35,6 +23,22 @@ document.Sound = (function () {
                         {
                             groupName : "sinusSynth3",
                             sampleNames : ["c3", "cis3", "d3", "dis3", "e3", "f3", "fis3", "g3", "gis3", "a3", "ais3", "b3"]
+                        },
+						{
+                            groupName : "Snare1", 
+                            sampleNames : ["BasicClap2", "Clap1", "Snare1", "Snare2", "Snare5", "TrapClap4", "YoungChopSnr7"]
+                        },
+						 {
+                            groupName : "HH1", 
+                            sampleNames : ["HH1", "HH2", "HH3", "YChopHat3"]
+                        },
+						{
+                            groupName : "percussion1", 
+                            sampleNames : ["Timpani", "Ting", "TrapPerc2"]
+                        },
+						{
+                            groupName : "Base1", 
+                            sampleNames : ["Kick1", "Kick2", "Kick3", "Stomp", "YchopHardKick5"]
                         }
                      ];
     var sounds = {};
@@ -56,7 +60,7 @@ document.Sound = (function () {
     }
 
     function getSoundObject (group, name) {
-        console.log("get sound: " + group + "/" + name + ".mp3");
+        //console.log("get sound: " + group + "/" + name + ".mp3");
         return new buzz.sound("audio-samples/" + group + "/" + name + ".mp3", BUZZ_NEW_SOUND_OPTIONS);
     }
 
@@ -73,7 +77,6 @@ document.Sound = (function () {
 
     function toggleSound () {
         module.isSoundOn = !module.isSoundOn;
-        console.log("sound " + module.isSoundOn);
     }
 
     // module object; add all methods and properties that should be visible globally

@@ -14,10 +14,6 @@ document.graph = (function startGraph() {
 	var module = {};
 	module.play_flag = false;
 	
-	// TODO: bind variables
-	module.nextSound = undefined;
-	module.nextColor = undefined;
-
 	// all nodes that should be played in the current step
 	var nextNodesArray = [];
 	// all nodes that should be appended to the above array after the next play interval
@@ -25,8 +21,6 @@ document.graph = (function startGraph() {
 	
 	var width = window.innerWidth - 20;
 	var height = window.innerHeight - 76;
-
-	//var fill = d3.scale.category20();
 
 	var force = d3.layout.force()
 		.size([width, height])
@@ -139,17 +133,9 @@ document.graph = (function startGraph() {
 		appendToNextNodesArray = [];
 		document.graph = startGraph();
 	}
-
-	var toggleLoop = function(){
-
-		module.playLoop = !module.playLoop;
-
-		// TO DO: if nodes.length == 0 show message 'insert nodes first' and leave the switch untoggled
-		if (module.playLoop && nodes.length > 0) {
-
-			module.interval = setInterval(function () {
-
-				// array to collect the nodes that will be played in the next step
+	
+	var traverseGraph = function(){
+					// array to collect the nodes that will be played in the next step
 				var nextStepNodesArray = [];
 
 				nextNodesArray.forEach(function (currentNode, index) {
@@ -237,7 +223,25 @@ document.graph = (function startGraph() {
 						nextNodesArray.push(currentNode);
 					}
 				});
-				
+	}
+	
+	function setLoopDuration (d){
+		LOOP_DURATION = d;
+		toggleLoop();
+		toggleLoop();
+	};
+	
+	var toggleLoop = function(){
+
+		module.playLoop = !module.playLoop;
+
+		// TO DO: if nodes.length == 0 show message 'insert nodes first' and leave the switch untoggled
+		if (module.playLoop && nodes.length > 0) {
+			// 
+			module.interval = setInterval(function () {
+				// traverse our graph
+				traverseGraph();
+	
 			}, LOOP_DURATION);
 		}
 		else {
@@ -246,6 +250,7 @@ document.graph = (function startGraph() {
 		}
 	}
 
+	module.setLoopDuration = setLoopDuration;
 	module.toggleLoop = toggleLoop;
 	module.clear = clear;
 	return module;
