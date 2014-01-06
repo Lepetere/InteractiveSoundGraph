@@ -10,6 +10,9 @@ Peter:
 - traverse the graph in right way
 - new sounds -drums
 - write instruction text
+- display pause node differently
+- hover: node info
+- different colors for different sound groups
 
 Ina:
  - clear/restart Funktion implementieren
@@ -25,22 +28,20 @@ TODO:
 -------------------------------------------------------------------------------
 
 Peter:
-	- Extra Knoten für Loops	
-	- display pause node differently
-- graph.js, line 137: // TO DO: if nodes.length == 0 show message 'insert nodes first' and leave the switch untoggled;
-	-> wenn man auf Loop drückt und es gibt noch keinen Knoten, funktioniert es nicht
+	- Extra Knoten für Loops
 
 Ina
-- hover: node info
 - Eingabefeld oder Slider für Abspieltempo
 
+- graph.js, line 137: // TO DO: if nodes.length == 0 show message 'insert nodes first' and leave the switch untoggled;
+	-> wenn man auf Loop drückt und es gibt noch keinen Knoten, funktioniert es nicht
+	
 - fix application in Firefox
 - integrate Example sound configurations (save graphs)
 
 ----------
 # Ideen
 
-* unterschiedliche Farben für Gruppen
 * erster Knoten sollte eine besondere Farbe erhalten (am besten Ring drumrum?)
 * Knoten und Kanten sollten löschbar sein
 
