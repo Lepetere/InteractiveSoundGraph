@@ -1,8 +1,3 @@
-// debugging: get time for loading the module
-var start =  new Date().getTime();
-//console.log("graph.js start: "+ start);
-var graph = "graph";
-
 document.graph = (function startGraph() {
 
 	// "constants"; do not change during following code
@@ -254,10 +249,4 @@ document.graph = (function startGraph() {
 	module.toggleLoop = toggleLoop;
 	module.clear = clear;
 	return module;
-})(); 
-
-// debugging: get time for loading the module
-var end = new Date().getTime();
-//console.log("graph.js end: "+  end );
-var time = end - start;
-console.log("loading time for graph.js: " + time);
+})();
