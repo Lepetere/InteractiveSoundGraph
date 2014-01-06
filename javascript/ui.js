@@ -23,15 +23,16 @@ document.UI = (function () {
 		$('#sound-list').children().each(function (counter, element) {
 			$(element).css("color", "white");
 		});
-		$(elementToHighlight).css("color", "red");
+		$(elementToHighlight).css("color", document.Sound.getFillColorForCurrentSound());
 	};
 	
 	var soundClickHandler = function () {
 		var currentGroupName = document.Sound.currentSelection["groupName"];
 		document.Sound.currentSelection["sampleName"] = document.Sound.sounds[currentGroupName][$(this).attr('value')]["name"];
+		document.Sound.currentSelection["color"] = document.Sound.sounds[currentGroupName][$(this).attr('value')]["color"];
 		document.Sound.sounds[currentGroupName][$(this).attr('value')]["buzzObject"].play();
 		var s = document.Sound.sounds[currentGroupName][$(this).attr('value')]["buzzObject"];
-
+		// who needs the above variable 's'?
 		highlightSelection(this);
 	};
 

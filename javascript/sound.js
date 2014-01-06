@@ -10,41 +10,51 @@ document.Sound = (function () {
     var soundNames = [
 	{
                             groupName : "pause1", 
-                            sampleNames : ["pause"]
+                            sampleNames : ["pause"],
+                            groupColor : "yellow"
                         },
                         {
                             groupName : "voiceFX1", 
-                            sampleNames : ["ChoirHit", "HeyBuddy"]
+                            sampleNames : ["ChoirHit", "HeyBuddy"],
+                            groupColor : "blue"
                         },
                         {
                             groupName : "sinusSynth4", 
-                            sampleNames : ["c4", "cis4", "d4", "dis4", "e4", "f4", "fis4", "g4", "gis4", "a4", "ais4", "b4"]
+                            sampleNames : ["c4", "cis4", "d4", "dis4", "e4", "f4", "fis4", "g4", "gis4", "a4", "ais4", "b4"],
+                            groupColor : "green"
                         },
                         {
                             groupName : "sinusSynth3",
-                            sampleNames : ["c3", "cis3", "d3", "dis3", "e3", "f3", "fis3", "g3", "gis3", "a3", "ais3", "b3"]
+                            sampleNames : ["c3", "cis3", "d3", "dis3", "e3", "f3", "fis3", "g3", "gis3", "a3", "ais3", "b3"],
+                            groupColor : "green"
                         },
 						{
                             groupName : "Snare1", 
-                            sampleNames : ["BasicClap2", "Clap1", "Snare1", "Snare2", "Snare5", "TrapClap4", "YoungChopSnr7"]
+                            sampleNames : ["BasicClap2", "Clap1", "Snare1", "Snare2", "Snare5", "TrapClap4", "YoungChopSnr7"],
+                            groupColor : "red"
                         },
 						 {
                             groupName : "HH1", 
-                            sampleNames : ["HH1", "HH2", "HH3", "YChopHat3"]
+                            sampleNames : ["HH1", "HH2", "HH3", "YChopHat3"],
+                            groupColor : "red"
                         },
 						{
                             groupName : "percussion1", 
-                            sampleNames : ["Timpani", "Ting", "TrapPerc2"]
+                            sampleNames : ["Timpani", "Ting", "TrapPerc2"],
+                            groupColor : "red"
                         },
 						{
                             groupName : "Base1", 
-                            sampleNames : ["Kick1", "Kick2", "Kick3", "Stomp", "YchopHardKick5"]
+                            sampleNames : ["Kick1", "Kick2", "Kick3", "Stomp", "YchopHardKick5"],
+                            groupColor : "red"
                         }
                      ];
+    // build the sound datastructure
     var sounds = {};
     for (var i = soundNames.length; i--; ) {
 
         var groupName = soundNames[i]["groupName"];
+        var groupColor = soundNames[i]["groupColor"];
         var samples = [];
         
         for (var j = 0; j < soundNames[i]["sampleNames"].length; j++) {
@@ -52,7 +62,8 @@ document.Sound = (function () {
             
             samples.push({
                 buzzObject: getSoundObject(groupName, sampleName),
-                name: sampleName
+                name: sampleName,
+                color: groupColor
             });
         }
 
@@ -72,7 +83,7 @@ document.Sound = (function () {
     }
 
     function getFillColorForCurrentSound () {
-        return undefined;
+        return document.Sound.currentSelection["color"];
     }
 
     function toggleSound () {
