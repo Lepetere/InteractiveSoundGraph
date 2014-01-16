@@ -2,14 +2,15 @@
 DONE:
 -------------------------------------------------------------------------------
 Peter:
--  Toneingabe; man kann eine Note auswählen, die dem nächsten Knoten, den man eingibt, zugewiesen wird
--  modules
--  put instruction Text over the black canvas
--  color the last chosen sound
+- Toneingabe; man kann eine Note auswählen, die dem nächsten Knoten, den man eingibt, zugewiesen wird
+- modules
+- put instruction Text over the black canvas
+- color the last chosen sound
 - automatically select the first sound per batch
 - traverse the graph in right way
 - new sounds -drums
 - write instruction text
+- speed is shown to the user in bpm
 - display pause node differently
 - hover: node info
 - different colors for different sound groups
@@ -21,6 +22,7 @@ Ina:
 - different order for the sound groups in the menu. start with base ... end with voice-sounds and pause
  - Pausen-Knoten für Spielpausen
 - instruction Text by hover  on "Info" menu
+- Eingabefeld oder Slider für Abspieltempo
 
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
@@ -31,7 +33,6 @@ Peter:
 	- Extra Knoten für Loops
 
 Ina
-- Eingabefeld oder Slider für Abspieltempo
 
 - graph.js, line 137: // TO DO: if nodes.length == 0 show message 'insert nodes first' and leave the switch untoggled;
 	-> wenn man auf Loop drückt und es gibt noch keinen Knoten, funktioniert es nicht
@@ -47,5 +48,4 @@ Ina
 
 * anstatt dropdown Menü, zeige alle sound Gruppen an --> schellere Auswahl 
 
-später vielleicht:
-* man könnte auch Abspielmodi im Sinne der Breiten- und Tiefensuche machen
+* Graphen sind auswählbar und es kann die Abspieleinheit ausgewählt werden (Viertel, Achtel, 16tel etc.)
