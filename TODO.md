@@ -43,9 +43,9 @@ Ina
 ----------
 # Ideen
 
-* erster Knoten sollte eine besondere Farbe erhalten (am besten Ring drumrum?)
 * Knoten und Kanten sollten löschbar sein
 
 * anstatt dropdown Menü, zeige alle sound Gruppen an --> schellere Auswahl 
 
 * Graphen sind auswählbar und es kann die Abspieleinheit ausgewählt werden (Viertel, Achtel, 16tel etc.)
+* ODER besser: man wählt im Interface aus, welche Notenlänge die nächste einzugebene Note hat; der Wert wird dann durch die Größe der Knoten dargestellt;
