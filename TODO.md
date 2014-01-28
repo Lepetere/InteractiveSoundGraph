@@ -33,19 +33,13 @@ Peter:
 	- Extra Knoten für Loops
 
 Ina
-
-- graph.js, line 137: // TO DO: if nodes.length == 0 show message 'insert nodes first' and leave the switch untoggled;
-	-> wenn man auf Loop drückt und es gibt noch keinen Knoten, funktioniert es nicht
-	
+-Knoten und Kanten sollten löschbar sein
 - fix application in Firefox
 - integrate Example sound configurations (save graphs)
-
+-man wählt im Interface aus, welche Notenlänge die nächste einzugebene Note hat; der Wert wird dann durch die Größe der Knoten dargestellt;
 ----------
 # Ideen
-
-* Knoten und Kanten sollten löschbar sein
-
-* anstatt dropdown Menü, zeige alle sound Gruppen an --> schellere Auswahl 
-
+* pause nicht in der Liste mit sounds; 
+* anstatt dropdown Menü, zeige alle sound Gruppen an --> schnellere Auswahl 
 * Graphen sind auswählbar und es kann die Abspieleinheit ausgewählt werden (Viertel, Achtel, 16tel etc.)
 * ODER besser: man wählt im Interface aus, welche Notenlänge die nächste einzugebene Note hat; der Wert wird dann durch die Größe der Knoten dargestellt;
