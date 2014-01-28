@@ -1,5 +1,6 @@
 // immediate function
 document.UI = (function () {
+
 	var loopTempo = 120;
 	// module object; add all methods and properties that should be visible globally
     var module = {};
@@ -120,7 +121,7 @@ document.UI = (function () {
 		);
 		
 		/*
-		 * popup window containing informations by click on info-button-element 
+		 * popup field containing informations by click on info-button-element 
 		 */
 		var popupFlag = false;
 			$("#info").click(function() {
@@ -164,4 +165,8 @@ document.UI = (function () {
 	module.getLoopTempo = getLoopTempo;
     module.init = init;
     return module;
+	
+	/*
+	 * cklick action on node
+	 */
 })();

@@ -11,42 +11,42 @@ document.Sound = (function () {
 	   {
             groupName : "pause1", 
             sampleNames : ["pause"],
-            groupColor : "yellow"
+            groupColor :  "#E6FB04" 
         },
         {
             groupName : "voiceFX1", 
             sampleNames : ["ChoirHit", "HeyBuddy"],
-            groupColor : "blue"
+            groupColor : "#FF0000"
         },
         {
             groupName : "sinusSynth4", 
-            sampleNames : ["c4", "cis4", "d4", "dis4", "e4", "f4", "fis4", "g4", "gis4", "a4", "ais4", "b4"],
-            groupColor : "green"
+            sampleNames : ["c4", "cis4", "d4", "dis4", "e4", "f4", "fis4", "g4", "gis4", "a4", "ais4", "b4"],		
+            groupColor : "#9900FF"
         },
         {
             groupName : "sinusSynth3",
             sampleNames : ["c3", "cis3", "d3", "dis3", "e3", "f3", "fis3", "g3", "gis3", "a3", "ais3", "b3"],
-            groupColor : "green"
+            groupColor : "#FF00CC"
         },
 		{
             groupName : "Snare1", 
             sampleNames : ["BasicClap2", "Clap1", "Snare1", "Snare2", "Snare5", "TrapClap4", "YoungChopSnr7"],
-            groupColor : "red"
+            groupColor :  "#FFFF00"
         },
 		 {
             groupName : "HH1", 
             sampleNames : ["HH1", "HH2", "HH3", "YChopHat3"],
-            groupColor : "red"
+            groupColor : "#00FFFF"
         },
 		{
             groupName : "percussion1", 
             sampleNames : ["Timpani", "Ting", "TrapPerc2"],
-            groupColor : "red"
+            groupColor :  "#00FF66"
         },
 		{
             groupName : "Base1", 
             sampleNames : ["Kick1", "Kick2", "Kick3", "Stomp", "YchopHardKick5"],
-            groupColor : "red"
+            groupColor :  "#0033FF"
         }
     ];
     // build the sound datastructure
