@@ -40,83 +40,30 @@ document.graph = (function startGraph() {
 		link = svg.selectAll(".link");
 		
 	module.node = node; // brauchen wir das?
-		module.nodes = nodes; 
-			module.links = links; 
+	
 	var cursor = svg.append("circle")
 		.attr("r", 30)
 		.attr("transform", "translate(-100,-100)")
 		.attr("class", "cursor");
 		
 		restart();
-    //Load and Save Logic
-	function saveGraph() {
-		saved_nodes = [];
-		nodes.forEach(function(node) {
-			saved_nodes.push( {
-				x : node.x0, 
-				y : node.y0,
-				name: node.name,
-				group_name: node.group_name,
-				color : node.color,
-			});
-		});
-		localStorage["test"] = JSON.stringify(saved_nodes);
-		return saved_nodes;
-	}
-	
-	var load_node = function(node) {
-			console.log(node);
-			new_node = { 	
-				x :  node.x,
-				y : node.y,
-				x0 :  node.x,
-				y0 : node.y,
-				name : node.name,
-				group_name : node.group_name,
-				sound : document.Sound.getSoundObject(node.group_name, node.name),
-				color : node.color,
-				previousNode : undefined, 
-				d3circleReference : undefined
-				};
-			addNode(new_node);
-		}
-	
-	function loadGraph() {
-		var jsonData = JSON.parse(localStorage["test"]);
-		var index = 0;
-		if (index < jsonData.length) {
-			setTimeout(function() {
-				load_node(jsonData[index]);
-				index++;
-			}, 100);	
-		} 
-	}
-	module.save = saveGraph;
-	module.load = loadGraph;
+
 	function mousemove() {
 		cursor.attr("transform", "translate(" + d3.mouse(this) + ")");
 	}
 	
 	function mousedown() {
 		var point = d3.mouse(this), 
-			node = {
-				x : point[0],  
-				y : point[1], 			
-				x0 : point[0], //save 
-				y0 : point[1], //save
-				name : document.Sound.currentSelection["sampleName"], //save
-				group_name : document.Sound.currentSelection["groupName"], //save for sound
+			node = { 	
+				x : point[0],
+				y : point[1],
+				name : document.Sound.currentSelection["sampleName"],
 				sound : document.Sound.getNewSoundObjectForCurrentSound(),
-				color : document.Sound.getFillColorForCurrentSound(), //save 
-				previousNode : undefined, 
+				color : document.Sound.getFillColorForCurrentSound(),
+				previousNode : undefined,
 				d3circleReference : undefined
-				};
-				console.log(point[0]);
-			addNode(node);
-	}
-	
-	 function addNode(node){				
-		n = nodes.push(node);
+				}, 		
+			n = nodes.push(node);
 		var isNewNodeConnected = false;
 		// add links to any nearby nodes
 		nodes.forEach(function(target) {
