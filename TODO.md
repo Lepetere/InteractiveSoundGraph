@@ -23,7 +23,9 @@ Ina:
  - Pausen-Knoten für Spielpausen
 - instruction Text by hover  on "Info" menu
 - Eingabefeld oder Slider für Abspieltempo
-
+- neue neonfarben, unterschiedlich für jeden Knoten
+- info text on hover auf body, hat jetzt kleinere breite, um nicht mit den Menüpunkten zu übelappen
+- Knoten auswählbar, markiert mit weißer Farbe
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
 TODO:
@@ -36,12 +38,13 @@ Peter:
 	- Extra Knoten für Loops
 
 Ina
--Knoten und Kanten sollten löschbar sein
-- fix application in Firefox
-- integrate Example sound configurations (save graphs)
--man wählt im Interface aus, welche Notenlänge die nächste einzugebene Note hat; der Wert wird dann durch die Größe der Knoten dargestellt;
+- Knoten und Kanten sollten löschbar sein
+- save graphs in user's local storage
+
 ----------
 # Ideen
+* graph auswähbar - bei ausgewähltem Knoten + Key g -> select graph
+* man wählt im Interface aus, welche Notenlänge die nächste einzugebene Note hat; der Wert wird dann durch die Größe der Knoten dargestellt;
 * pause nicht in der Liste mit sounds; 
 * anstatt dropdown Menü, zeige alle sound Gruppen an --> schnellere Auswahl 
 * Graphen sind auswählbar und es kann die Abspieleinheit ausgewählt werden (Viertel, Achtel, 16tel etc.)
