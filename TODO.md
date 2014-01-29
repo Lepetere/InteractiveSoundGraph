@@ -26,21 +26,22 @@ Ina:
 - neue neonfarben, unterschiedlich für jeden Knoten
 - info text on hover auf body, hat jetzt kleinere breite, um nicht mit den Menüpunkten zu übelappen
 - Knoten auswählbar, markiert mit weißer Farbe
+- Knoten löschbar machen
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
 TODO:
 -------------------------------------------------------------------------------
-force graph building code:
-http://bl.ocks.org/mbostock/929623
-
+force graph building code credits:
+http://bl.ocks.org/mbostock/929623 - initialize a graph
+http://bl.ocks.org/rkirsling/5001347 - delete nodes
 
 Peter:
 	- Extra Knoten für Loops
 
 Ina
-- Knoten und Kanten sollten löschbar sein
+- Kanten sollten löschbar sein
 - save graphs in user's local storage
-
+- nachdem "clear" gedruckt wird, wete vom angezeigten speed aktualisieren
 ----------
 # Ideen
 * graph auswähbar - bei ausgewähltem Knoten + Key g -> select graph

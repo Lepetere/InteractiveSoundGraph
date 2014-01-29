@@ -40,7 +40,7 @@ document.Sound = (function () {
         },
 		{
             groupName : "percussion1", 
-            sampleNames : ["Timpani", "Ting", "TrapPerc2"],
+            sampleNames : [ "TrapPerc2", "Ting","Timpani"],
             groupColor :  "#00FF66"
         },
 		{

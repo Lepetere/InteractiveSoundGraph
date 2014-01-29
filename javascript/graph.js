@@ -29,10 +29,9 @@ document.graph = (function startGraph() {
 		.attr("height", height)
 		.on("mousemove", mousemove)
 		.on("mousedown", mousedown);
-
-	// add keyboard callback
-	d3.select(window).on("keydown", keyDown);	
 		
+		d3.select(window).on("keydown", keyDown);
+
 	svg.append("rect")
 		.attr("width", width)
 		.attr("height", height);
@@ -42,8 +41,6 @@ document.graph = (function startGraph() {
 		links = force.links(), 
 		node = svg.selectAll(".node"), 
 		link = svg.selectAll(".link");
-		
-	module.node = node; // brauchen wir das?
 	
 	var cursor = svg.append("circle")
 		.attr("r", 30)
@@ -55,9 +52,10 @@ document.graph = (function startGraph() {
 	function mousemove() {
 		cursor.attr("transform", "translate(" + d3.mouse(this) + ")");
 	}
-	
+	var idx = 0;
 	function newNode(point){
 		new_node = { 	
+			index : idx,
 			x : point[0],
 			y : point[1],
 			name : document.Sound.currentSelection["sampleName"],
@@ -66,6 +64,8 @@ document.graph = (function startGraph() {
 			previousNode : undefined,
 			d3circleReference : undefined
 		};
+		idx += 1;
+		curr_node = new_node
 		return new_node;
 	}
 	
@@ -75,17 +75,16 @@ document.graph = (function startGraph() {
 			n = nodes.push(node);
 		var isNewNodeConnected = false;
 		
-		curr_node = node;
-		
 		// add links to any nearby nodes
 		nodes.forEach(function(target) {
-			if (! (node == target) ) {
+			if (! (node.index == target.index) ) {
 				var x = target.x - node.x, y = target.y - node.y;
 				if (Math.sqrt(x * x + y * y) < 30) {
 					links.push({source : node, target : target});
 					isNewNodeConnected = true;
 				}
 			}
+			
 		});
 		// if there is no connection to other nodes add the node to the array of nodes to play next
 		if (!isNewNodeConnected) {
@@ -128,21 +127,14 @@ document.graph = (function startGraph() {
 	}
 
 	function nodeClickHandler(node) {
+		console.log(node.index);
 		curr_node = node;
-		switch (d3.event.keyCode) {
-			case 8: // backspace
-			case 46: { // delete
-				// delete function here
-				console.log("delete key pressed");
-			}
-		}
 		restart();
 	}
 	
 	function linkClickHandler(link) {
 		curr_link = link;
-		console.log("linkClickHandler()");
-		//d3.select(link.d3linkReference).attr("fill", "red");
+		// TODO change link color
 		restart();
 	}
 	
@@ -159,7 +151,6 @@ document.graph = (function startGraph() {
 		switch (d3.event.keyCode) {
 			case 8: // backspace
 			case 46: { // delete
-				console.log("delete key pressed");
 				 if (curr_node) {
 					nodes.splice(nodes.indexOf(curr_node), 1);
 					spliceLinksForNode(curr_node);
@@ -175,11 +166,19 @@ document.graph = (function startGraph() {
 	}
 	
 	function restart() {
-		link = link.data(links);
+		//link = link.data(links);
+		link = link.data(force.links(), function( d) {
+			return links.indexOf( d);
+		});
+		
 		link.enter().insert("line", ".node").attr("class", "link")
 			.on("mousedown", linkClickHandler);
 		link.exit().remove();
-		node = node.data(nodes);
+		//node = node.data(nodes);
+		node = node.data(force.nodes(), function( d) {
+			return nodes.indexOf( d);
+		});
+		
 		node.enter().insert("circle", ".cursor").attr("class", "node").attr("r", 7)
 			.on("mouseover", nodeHoverInHandler)
 			.on("mouseout", nodeHoverOutHandler)
@@ -197,12 +196,16 @@ document.graph = (function startGraph() {
 				d3.select(currentNode.d3circleReference).attr("fill", "black");
 			}
 			else {
-				d3.select(currentNode.d3circleReference).attr("fill", currentNode.color);
+				d3.select(currentNode.d3circleReference).attr("stroke", currentNode.color).attr("stroke-width", 2);
+				
+				if(curr_node && currentNode.index != curr_node.index) {
+					d3.select(currentNode.d3circleReference).attr("fill", currentNode.color);
+				}
 			}
 			
-			if(currentNode == curr_node) {
+			if(curr_node && currentNode.index == curr_node.index) {
 				d3.select(currentNode.d3circleReference).attr("stroke", currentNode.color).attr("stroke-width", 2);
-				d3.select(currentNode.d3circleReference).attr("fill", "white");
+				d3.select(currentNode.d3circleReference).attr("fill", "red");
 			}
 			
 		});
@@ -237,6 +240,8 @@ document.graph = (function startGraph() {
 			// then highlight node
 			var color = currentNode.color;
 			if (currentNode.name == "pause") color = "black";
+			if (curr_node && currentNode.index == curr_node.index) color = "red";
+			
 			// node[0] gets array of d3 circles
 			d3.select(currentNode.d3circleReference).attr("fill", NODE_FILL_HIGHLIGHT).transition()
 				.attr("fill", color).transition();
