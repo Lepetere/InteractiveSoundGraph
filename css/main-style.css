@@ -158,6 +158,7 @@ ul#sound-list li:hover {
 	position: absolute;
 	top: 70px;
 	left: 22px;
+	width: 280px;
 }
 #instructionText{
 	margin: 0;

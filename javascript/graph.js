@@ -14,6 +14,7 @@ document.graph = (function startGraph() {
 	// all nodes that should be appended to the above array after the next play interval
 	var appendToNextNodesArray = [];
 	
+	var curr_node = undefined;
 	var width = window.innerWidth - 20;
 	var height = window.innerHeight - 76;
 
@@ -52,19 +53,27 @@ document.graph = (function startGraph() {
 		cursor.attr("transform", "translate(" + d3.mouse(this) + ")");
 	}
 	
+	function newNode(point){
+		new_node = { 	
+			x : point[0],
+			y : point[1],
+			name : document.Sound.currentSelection["sampleName"],
+			sound : document.Sound.getNewSoundObjectForCurrentSound(),
+			color : document.Sound.getFillColorForCurrentSound(),
+			previousNode : undefined,
+			d3circleReference : undefined
+		};
+		return new_node;
+	}
+	
 	function mousedown() {
 		var point = d3.mouse(this), 
-			node = { 	
-				x : point[0],
-				y : point[1],
-				name : document.Sound.currentSelection["sampleName"],
-				sound : document.Sound.getNewSoundObjectForCurrentSound(),
-				color : document.Sound.getFillColorForCurrentSound(),
-				previousNode : undefined,
-				d3circleReference : undefined
-				}, 		
+			node = newNode(point); 		
 			n = nodes.push(node);
 		var isNewNodeConnected = false;
+		
+		curr_node = node;
+		
 		// add links to any nearby nodes
 		nodes.forEach(function(target) {
 			if (! (node == target) ) {
@@ -115,13 +124,49 @@ document.graph = (function startGraph() {
 		$('#soundNameField').fadeOut();
 	}
 
+	function nodeClickHandler (node) {
+		curr_node = node;
+		console.log("nodeClickHandler()");
+		keydown();
+		restart();
+	}
+	
+	function linkClickHandler (link) {
+		curr_link = link;
+		console.log("linkClickHandler()");
+		//d3.select(link.d3linkReference).attr("fill", "red");
+		restart();
+	}
+	
+	function keydown() {
+	  if (!curr_node && !curr_link) return;
+	  switch (d3.event.keyCode) {
+		case 8: // backspace
+		case 46: { // delete
+		  if (curr_node) {
+			nodes.splice(nodes.indexOf(curr_node), 1);
+			spliceLinksForNode(curr_node);
+		  }
+		  else if (curr_link) {
+			links.splice(links.indexOf(curr_link), 1);
+		  }
+		  curr_link = null;
+		  curr_node = null;
+		  restart();
+		  break;
+		}
+	  }
+}
+	
 	function restart() {
 		link = link.data(links);
-		link.enter().insert("line", ".node").attr("class", "link");
+		link.enter().insert("line", ".node").attr("class", "link")
+			.on("mousedown", linkClickHandler);
 		node = node.data(nodes);
 		node.enter().insert("circle", ".cursor").attr("class", "node").attr("r", 7)
 			.on("mouseover", nodeHoverInHandler)
 			.on("mouseout", nodeHoverOutHandler)
+			.on("mousedown", nodeClickHandler)
 			.call(force.drag);
 		// traverse nodes array and push to each node a reference to the corresponding d3 circle
 		nodes.forEach(function (currentNode, index) {
@@ -133,6 +178,12 @@ document.graph = (function startGraph() {
 			else {
 				d3.select(currentNode.d3circleReference).attr("fill", currentNode.color);
 			}
+			
+			if(currentNode == curr_node) {
+				d3.select(currentNode.d3circleReference).attr("stroke", currentNode.color).attr("stroke-width", 2);
+				d3.select(currentNode.d3circleReference).attr("fill", "white");
+			}
+			
 		});
 		force.start();
 	}

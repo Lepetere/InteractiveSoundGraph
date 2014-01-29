@@ -33,16 +33,18 @@ document.Plugins = (function () {
 	};
 
 	/*
-	 * provides the color, according to the parameter of this function
+	 * provides the html hex code of the color
 	 */
 	function  getColor(cName) {
-
 		switch(cName){
-			case "Chartreuse": 	c = "#7FFF00";
-			case "LawnGreen": 	c = "#7CFC00";
-			case "Lime":				c = "#00FF00";
-			case "DarkOrange":	c = "#FF8C00";
-			case "GreenYellow":  c = "#ADFF2F";
+			case "light_yellow":	c = "#E6FB04";
+			case "neon_red": 		c = "#FF0000";
+			case "neon_purple": 	c = "#7CFC00";
+			case "neon_pink":		c = "#FF00CC";
+			case "neon_yellow":	c = "#FFFF00";
+			case "neon_green":    c = "#00FF66";
+			case "light_blue":       c = "#00FFFF";
+			case "dark_blue":       c = "#0033FF";
 			default: 					c = '#FAEBD7';
 		}
     	return c;

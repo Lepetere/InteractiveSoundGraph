@@ -31,7 +31,7 @@ document.Sound = (function () {
 		{
             groupName : "Snare1", 
             sampleNames : ["BasicClap2", "Clap1", "Snare1", "Snare2", "Snare5", "TrapClap4", "YoungChopSnr7"],
-            groupColor :  "#FFFF00"
+            groupColor :  "#FF8000"
         },
 		 {
             groupName : "HH1", 

@@ -53,7 +53,6 @@ document.UI = (function () {
 		/*
 		 *menu click events
 		 */
-
 		$('#loopToggle').click(function (e) {
 			document.graph.toggleLoop();
 			$('#loopOn, #loopOff').toggle();
@@ -143,11 +142,22 @@ document.UI = (function () {
 		
 		/*
 		 * hover action on node
-		 */
-		
+		 */	
 		$(".node").hover(function() { console.log("hover on node mouse enter");  },  function() { console.log("hover on node mouse leave");  }  );
 
 		updateTimeDisplay(loopTempo);
+		
+		/*
+		 * buttons for save/ load graph in the browsers local storage
+		 */
+		$('#saveGraph').click(function (e) {
+			document.graph.save();
+		});
+		
+		$('#loadGraph').click(function (e) {
+			document.graph.load();
+		});
+		
 	};
 	
 	var getLoopTempo = function () {
