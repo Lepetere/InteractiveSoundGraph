@@ -27,6 +27,7 @@ Ina:
 - info text on hover auf body, hat jetzt kleinere breite, um nicht mit den Menüpunkten zu übelappen
 - Knoten auswählbar, markiert mit weißer Farbe
 - Knoten löschbar machen
+- save graphs in user's local storage
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
 TODO:
@@ -39,8 +40,7 @@ Peter:
 	- Extra Knoten für Loops
 
 Ina
-- Kanten sollten löschbar sein
-- save graphs in user's local storage
+- Kanten  löschbar 
 - nachdem "clear" gedruckt wird, wete vom angezeigten speed aktualisieren
 ----------
 # Ideen
