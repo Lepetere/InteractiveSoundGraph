@@ -30,6 +30,9 @@ document.graph = (function startGraph() {
 		.on("mousemove", mousemove)
 		.on("mousedown", mousedown);
 
+	// add keyboard callback
+	d3.select(window).on("keydown", keyDown);	
+		
 	svg.append("rect")
 		.attr("width", width)
 		.attr("height", height);
@@ -120,54 +123,72 @@ document.graph = (function startGraph() {
 		$('#soundName').text(node.name);
 	}
 
-	function nodeHoverOutHandler (node) {
+	function nodeHoverOutHandler(node) {
 		$('#soundNameField').fadeOut();
 	}
 
-	function nodeClickHandler (node) {
+	function nodeClickHandler(node) {
 		curr_node = node;
-		console.log("nodeClickHandler()");
-		keydown();
+		switch (d3.event.keyCode) {
+			case 8: // backspace
+			case 46: { // delete
+				// delete function here
+				console.log("delete key pressed");
+			}
+		}
 		restart();
 	}
 	
-	function linkClickHandler (link) {
+	function linkClickHandler(link) {
 		curr_link = link;
 		console.log("linkClickHandler()");
 		//d3.select(link.d3linkReference).attr("fill", "red");
 		restart();
 	}
 	
-	function keydown() {
-	  if (!curr_node && !curr_link) return;
-	  switch (d3.event.keyCode) {
-		case 8: // backspace
-		case 46: { // delete
-		  if (curr_node) {
-			nodes.splice(nodes.indexOf(curr_node), 1);
-			spliceLinksForNode(curr_node);
-		  }
-		  else if (curr_link) {
-			links.splice(links.indexOf(curr_link), 1);
-		  }
-		  curr_link = null;
-		  curr_node = null;
-		  restart();
-		  break;
+	function spliceLinksForNode(node) {
+	  toSplice = links.filter(
+		function(l) { 
+		  return (l.source === node) || (l.target === node); });
+	  toSplice.map(
+		function(l) {
+		  links.splice(links.indexOf(l), 1); });
+	}
+	
+	function keyDown() {	
+		switch (d3.event.keyCode) {
+			case 8: // backspace
+			case 46: { // delete
+				console.log("delete key pressed");
+				 if (curr_node) {
+					nodes.splice(nodes.indexOf(curr_node), 1);
+					spliceLinksForNode(curr_node);
+				  }
+				  else if (curr_link) {
+					links.splice(links.indexOf(curr_link), 1);
+				  }
+				  curr_link = null;
+				  curr_node = null;
+				  restart();
+			}
 		}
-	  }
-}
+	}
 	
 	function restart() {
 		link = link.data(links);
 		link.enter().insert("line", ".node").attr("class", "link")
 			.on("mousedown", linkClickHandler);
+		link.exit().remove();
 		node = node.data(nodes);
 		node.enter().insert("circle", ".cursor").attr("class", "node").attr("r", 7)
 			.on("mouseover", nodeHoverInHandler)
 			.on("mouseout", nodeHoverOutHandler)
 			.on("mousedown", nodeClickHandler)
 			.call(force.drag);
+		node.exit().transition()
+				.attr("r", 0)
+				.remove();
+		
 		// traverse nodes array and push to each node a reference to the corresponding d3 circle
 		nodes.forEach(function (currentNode, index) {
 			currentNode.d3circleReference = node[0][index];
