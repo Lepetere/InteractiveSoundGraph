@@ -52,13 +52,87 @@ document.graph = (function startGraph() {
 	function mousemove() {
 		cursor.attr("transform", "translate(" + d3.mouse(this) + ")");
 	}
+	module.links = links;
+	//Load and Save Logic
+	function saveGraph() {
+		saved_nodes = [];
+		saved_links = [];
+		nodes.forEach(function(node) {
+			saved_nodes.push( {
+			    index: node.index,
+				x : node.xStart, 
+				y : node.yStart,
+				name: node.name,
+				group_name: node.group_name,
+				color : node.color,
+			});
+		});
+		links.forEach(function(link) {
+			saved_links.push( {
+				source: link.source.index,
+				target: link.target.index,
+				});
+		});
+		localStorage["test"] = JSON.stringify({'nodes': saved_nodes, 'links': saved_links});
+		return saved_nodes;
+	}
+	
+	var load_node = function(node) {
+			console.log(node);
+			new_node = { 
+				index: node.index,
+				x :  node.x,
+				y : node.y,
+				xStart :  node.x,
+				yStart : node.y,
+				name : node.name,
+				group_name : node.group_name,
+				sound : document.Sound.getSoundObject(node.group_name, node.name),
+				color : node.color,
+				previousNode : undefined, 
+				d3circleReference : undefined
+				};
+			addNode(new_node);
+		}
+	
+	function loadGraph() {
+		var jsonData = JSON.parse(localStorage["test"]);
+		var index = 0;
+		
+			loadNextNode();
+
+		function loadNextNode(){
+			console.log("next called");
+			if (index < jsonData['nodes'].length) {
+				load_node( jsonData['nodes'][index]);
+				index++;
+				setTimeout(loadNextNode, 500);	
+			}
+			else {
+				//set links
+				links = [];
+				jsonData['links'].forEach(function(link) {
+					console.log(link.source, link.target);
+					links.push({source : nodes[link.source], 
+									target : nodes[link.target]});
+				});
+			restart();
+			}
+		}
+	}
+	module.save = saveGraph;
+	module.load = loadGraph;
+	
 	var idx = 0;
 	function newNode(point){
 		new_node = { 	
 			index : idx,
 			x : point[0],
 			y : point[1],
+			xStart : point[0],
+			yStart : point[1],
 			name : document.Sound.currentSelection["sampleName"],
+			group_name:  document.Sound.currentSelection["groupName"],
 			sound : document.Sound.getNewSoundObjectForCurrentSound(),
 			color : document.Sound.getFillColorForCurrentSound(),
 			previousNode : undefined,
@@ -71,7 +145,10 @@ document.graph = (function startGraph() {
 	
 	function mousedown() {
 		var point = d3.mouse(this), 
-			node = newNode(point); 		
+			node = newNode(point); 	
+			addNode(node);
+	}
+	function addNode(node){
 			n = nodes.push(node);
 		var isNewNodeConnected = false;
 		
@@ -91,6 +168,7 @@ document.graph = (function startGraph() {
 			if (!module.playLoop) {
 				// when loop is not playing, just push the new node to the nextNodesArray
 				nextNodesArray.push(node);
+				console.log(nextNodesArray);
 			}
 			else {
 				// loop is playing; push the new node to an array that will be appended to nextNodesArray after the next play interval
@@ -162,7 +240,13 @@ document.graph = (function startGraph() {
 				  curr_node = null;
 				  restart();
 			}
-		}
+			case 13 : {
+				curr_node.name = document.Sound.currentSelection["sampleName"];
+				curr_node.sound = document.Sound.getNewSoundObjectForCurrentSound();
+				curr_node.color = document.Sound.getFillColorForCurrentSound();
+				restart();
+			}
+		}	
 	}
 	
 	function restart() {
@@ -334,6 +418,7 @@ document.graph = (function startGraph() {
 			// 
 			module.interval = setInterval(function () {
 				// traverse our graph
+				restart();
 				traverseGraph();
 	
 			}, LOOP_DURATION);
