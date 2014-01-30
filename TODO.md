@@ -41,12 +41,11 @@ Peter:
 
 Ina
 - Kanten  löschbar 
-- nachdem "clear" gedruckt wird, wete vom angezeigten speed aktualisieren
+- nachdem "clear" gedruckt wird, Werte vom angezeigten speed aktualisieren
 ----------
 # Ideen
-* graph auswähbar - bei ausgewähltem Knoten + Key g -> select graph
+* graph auswähbar - bei ausgewähltem Knoten + Key G -> select graph
 * man wählt im Interface aus, welche Notenlänge die nächste einzugebene Note hat; der Wert wird dann durch die Größe der Knoten dargestellt;
 * pause nicht in der Liste mit sounds; 
 * anstatt dropdown Menü, zeige alle sound Gruppen an --> schnellere Auswahl 
 * Graphen sind auswählbar und es kann die Abspieleinheit ausgewählt werden (Viertel, Achtel, 16tel etc.)
-* ODER besser: man wählt im Interface aus, welche Notenlänge die nächste einzugebene Note hat; der Wert wird dann durch die Größe der Knoten dargestellt;
