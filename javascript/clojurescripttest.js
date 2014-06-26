@@ -3791,7 +3791,7 @@ Y.prototype.Ca = function(a, b) {
 };
 var Xa = new Y(null, "dup", "dup"), bb = new Y(null, "default", "default"), Ua = new Y(null, "flush-on-newline", "flush-on-newline"), Ya = new Y(null, "print-length", "print-length"), u = new Y(null, "else", "else"), Va = new Y(null, "readably", "readably"), Wa = new Y(null, "meta", "meta");
 function bd(a) {
-  return "Hello " + w.c(a);
+  return "Hello " + w.c(a) + "!";
 }
 var cd = ["clojurescripttest", "greet"], dd = this;
 cd[0] in dd || !dd.execScript || dd.execScript("var " + cd[0]);
