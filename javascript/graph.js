@@ -7,20 +7,25 @@ document.graph = (function startGraph() {
 
 	// module object; add all methods and properties that should be visible globally
 	var module = {};
+
+	// this does not seem to be used?
 	module.play_flag = false;
 	
-	// all nodes that should be played in the current step
+	// all nodes that will be played in the current step
 	var nextNodesArray = [];
-	// all nodes that should be appended to the above array after the next play interval
+	// all nodes that will be appended to the above array after the next play interval
 	var appendToNextNodesArray = [];
 	
+	// the currently selected (and graphically highlighted) node
 	var curr_node = undefined;
+
+	// dimensions of the svg element
 	var width = window.innerWidth - 20;
 	var height = window.innerHeight - 76;
 
 	var force = d3.layout.force()
 		.size([width, height])
-		//.nodes([{}])// initialize with a single node
+		//.nodes([]) // save-reload method should pass saved nodes here (--> the argument of the startGraph method?)
 		.linkDistance(45).charge(-60).on("tick", tick);
 
 	var svg = d3.select("body")
@@ -36,12 +41,14 @@ document.graph = (function startGraph() {
 		.attr("width", width)
 		.attr("height", height);
 
+	// array which holds ALL nodes
 	var nodes = force.nodes(),
 		startNodes = [],
 		links = force.links(), 
 		node = svg.selectAll(".node"), 
 		link = svg.selectAll(".link");
 	
+	// the 'cursor' --> circle to select the nodes you want to make a connection to
 	var cursor = svg.append("circle")
 		.attr("r", 30)
 		.attr("transform", "translate(-100,-100)")
@@ -52,7 +59,10 @@ document.graph = (function startGraph() {
 	function mousemove() {
 		cursor.attr("transform", "translate(" + d3.mouse(this) + ")");
 	}
+
+	// why make links available globally?
 	module.links = links;
+
 	//Load and Save Logic
 	function saveGraph() {
 		saved_nodes = [];
@@ -123,12 +133,17 @@ document.graph = (function startGraph() {
 	module.save = saveGraph;
 	module.load = loadGraph;
 	
+	// static id counter, is used to generate unique integer ids (called 'index')
 	var idx = 0;
+
+	// creates a new node object at the given point with a unique id
 	function newNode(point){
 		new_node = { 	
 			index : idx,
+			// current node position
 			x : point[0],
 			y : point[1],
+			// the point of insertion
 			xStart : point[0],
 			yStart : point[1],
 			name : document.Sound.currentSelection["sampleName"],
@@ -148,6 +163,8 @@ document.graph = (function startGraph() {
 			node = newNode(point); 	
 			addNode(node);
 	}
+
+	// adds a new node and its connections to all relevant arrays
 	function addNode(node){
 			n = nodes.push(node);
 		var isNewNodeConnected = false;
@@ -194,6 +211,7 @@ document.graph = (function startGraph() {
 		}
 	}
 
+	// show sound name on hover
 	function nodeHoverInHandler (node) {
 		$('#soundNameField').fadeIn();
 		$('#soundNameField').css("color", node.color);
@@ -249,6 +267,8 @@ document.graph = (function startGraph() {
 		}	
 	}
 	
+	// restarts the d3 force layout
+	// is called every time a change to the graph is made (?)
 	function restart() {
 		//link = link.data(links);
 		link = link.data(force.links(), function( d) {
