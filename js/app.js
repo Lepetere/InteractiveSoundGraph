@@ -1,9 +1,6 @@
-$(document).ready(function () {
-	console.log("load modules // graph: " + document.graph + " // sound: " + document.Sound + " // UI: " + document.UI + " // plugins: " + document.Plugins);
-	document.UI.init();
-});;
+var APP = APP || {};
 
-document.graph = (function startGraph() {
+APP.graph = (function startGraph() {
 
 	// "constants"; do not change during following code
 	var LOOP_DURATION = 500;
@@ -93,7 +90,6 @@ document.graph = (function startGraph() {
 	}
 	
 	var load_node = function(node) {
-			console.log(node);
 			new_node = { 
 				index: node.index,
 				x :  node.x,
@@ -102,7 +98,7 @@ document.graph = (function startGraph() {
 				yStart : node.y,
 				name : node.name,
 				group_name : node.group_name,
-				sound : document.Sound.getSoundObject(node.group_name, node.name),
+				sound : APP.Sound.getSoundObject(node.group_name, node.name),
 				color : node.color,
 				previousNode : undefined, 
 				d3circleReference : undefined
@@ -117,7 +113,6 @@ document.graph = (function startGraph() {
 			loadNextNode();
 
 		function loadNextNode(){
-			console.log("next called");
 			if (index < jsonData['nodes'].length) {
 				load_node( jsonData['nodes'][index]);
 				index++;
@@ -127,7 +122,6 @@ document.graph = (function startGraph() {
 				//set links
 				links = [];
 				jsonData['links'].forEach(function(link) {
-					console.log(link.source, link.target);
 					links.push({source : nodes[link.source], 
 									target : nodes[link.target]});
 				});
@@ -151,10 +145,10 @@ document.graph = (function startGraph() {
 			// the point of insertion
 			xStart : point[0],
 			yStart : point[1],
-			name : document.Sound.currentSelection["sampleName"],
-			group_name:  document.Sound.currentSelection["groupName"],
-			sound : document.Sound.getNewSoundObjectForCurrentSound(),
-			color : document.Sound.getFillColorForCurrentSound(),
+			name : APP.Sound.currentSelection["sampleName"],
+			group_name:  APP.Sound.currentSelection["groupName"],
+			sound : APP.Sound.getNewSoundObjectForCurrentSound(),
+			color : APP.Sound.getFillColorForCurrentSound(),
 			previousNode : undefined,
 			d3circleReference : undefined
 		};
@@ -190,7 +184,6 @@ document.graph = (function startGraph() {
 			if (!module.playLoop) {
 				// when loop is not playing, just push the new node to the nextNodesArray
 				nextNodesArray.push(node);
-				console.log(nextNodesArray);
 			}
 			else {
 				// loop is playing; push the new node to an array that will be appended to nextNodesArray after the next play interval
@@ -264,9 +257,9 @@ document.graph = (function startGraph() {
 				  restart();
 			}
 			case 13 : {
-				curr_node.name = document.Sound.currentSelection["sampleName"];
-				curr_node.sound = document.Sound.getNewSoundObjectForCurrentSound();
-				curr_node.color = document.Sound.getFillColorForCurrentSound();
+				curr_node.name = APP.Sound.currentSelection["sampleName"];
+				curr_node.sound = APP.Sound.getNewSoundObjectForCurrentSound();
+				curr_node.color = APP.Sound.getFillColorForCurrentSound();
 				restart();
 			}
 		}	
@@ -330,7 +323,7 @@ document.graph = (function startGraph() {
 		nodes = [];
 		nextNodesArray = [];
 		appendToNextNodesArray = [];
-		document.graph = startGraph();
+		APP.graph = startGraph();
 	}
 	
 	var traverseGraph = function () {
@@ -340,7 +333,7 @@ document.graph = (function startGraph() {
 		nextNodesArray.forEach(function (currentNode, index) {
 
 			// first play sound
-			if (document.Sound.isSoundOn) {
+			if (APP.Sound.isSoundOn) {
 				if (!currentNode.sound.isEnded()) {
 					currentNode.sound.stop();	
 				}
@@ -460,6 +453,12 @@ document.graph = (function startGraph() {
 	return module;
 })();;
 
+$(document).ready(function () {
+	APP.UI.init();
+});;
+
+var APP = APP || {};
+
 /*
  * additional functions
  */
@@ -477,7 +476,7 @@ $.fn.setCoords = function(rebase, x, y){
     });
 };
 
-document.Plugins = (function () {
+APP.Plugins = (function () {
 
 	// module object; add all methods and properties that should be visible globally
 	var module = {};
@@ -522,8 +521,9 @@ document.Plugins = (function () {
 
 ;
 
-// immediate function
-document.Sound = (function () {
+var APP = APP || {};
+
+APP.Sound = (function () {
 
     var BUZZ_NEW_SOUND_OPTIONS = {
         preload: true,
@@ -601,13 +601,13 @@ document.Sound = (function () {
 
     function getNewSoundObjectForCurrentSound () {
         return getSoundObject(
-            document.Sound.currentSelection["groupName"],
-            document.Sound.currentSelection["sampleName"]
+            APP.Sound.currentSelection["groupName"],
+            APP.Sound.currentSelection["sampleName"]
             );
     }
 
     function getFillColorForCurrentSound () {
-        return document.Sound.currentSelection["color"];
+        return APP.Sound.currentSelection["color"];
     }
 
     function toggleSound () {
@@ -626,8 +626,9 @@ document.Sound = (function () {
     return module;
 })();;
 
-// immediate function
-document.UI = (function () {
+var APP = APP || {};
+
+APP.UI = (function () {
 
 	var loopTempo = 120;
 	// module object; add all methods and properties that should be visible globally
@@ -637,11 +638,11 @@ document.UI = (function () {
 
 		$('ul#sound-list').empty();
 		var groupName = $('select#banch-select').find(':selected').attr('value');
-		$(document.Sound.sounds[groupName]).each(function (sampleCounter, sample) {
+		$(APP.Sound.sounds[groupName]).each(function (sampleCounter, sample) {
 			$('ul#sound-list').append('<li value="' + sampleCounter + '" class="sound-item">' + sample["name"] + '</li>');
 		});
 		$('.sound-item').click(soundClickHandler);
-		document.Sound.currentSelection["groupName"] = groupName;
+		APP.Sound.currentSelection["groupName"] = groupName;
 
 		// select and highlight first sound
 		soundClickHandler.call($('.sound-item[value=0]'));
@@ -651,15 +652,15 @@ document.UI = (function () {
 		$('#sound-list').children().each(function (counter, element) {
 			$(element).css("color", "white");
 		});
-		$(elementToHighlight).css("color", document.Sound.getFillColorForCurrentSound());
+		$(elementToHighlight).css("color", APP.Sound.getFillColorForCurrentSound());
 	};
 	
 	var soundClickHandler = function () {
-		var currentGroupName = document.Sound.currentSelection["groupName"];
-		document.Sound.currentSelection["sampleName"] = document.Sound.sounds[currentGroupName][$(this).attr('value')]["name"];
-		document.Sound.currentSelection["color"] = document.Sound.sounds[currentGroupName][$(this).attr('value')]["color"];
-		document.Sound.sounds[currentGroupName][$(this).attr('value')]["buzzObject"].play();
-		var s = document.Sound.sounds[currentGroupName][$(this).attr('value')]["buzzObject"];
+		var currentGroupName = APP.Sound.currentSelection["groupName"];
+		APP.Sound.currentSelection["sampleName"] = APP.Sound.sounds[currentGroupName][$(this).attr('value')]["name"];
+		APP.Sound.currentSelection["color"] = APP.Sound.sounds[currentGroupName][$(this).attr('value')]["color"];
+		APP.Sound.sounds[currentGroupName][$(this).attr('value')]["buzzObject"].play();
+		var s = APP.Sound.sounds[currentGroupName][$(this).attr('value')]["buzzObject"];
 		// who needs the above variable 's'?
 		highlightSelection(this);
 	};
@@ -668,7 +669,7 @@ document.UI = (function () {
 
 		// init interface for sound selection
 		var selected = " selected";
-		$.each(document.Sound.sounds, function (groupName, samples) {
+		$.each(APP.Sound.sounds, function (groupName, samples) {
 			$('select#banch-select').append('<option value="' + groupName + '"' + selected + '>' + groupName + '</option>');
 			selected = ""; // only add selected attribute to first option
 		});
@@ -682,7 +683,7 @@ document.UI = (function () {
 		 *menu click events
 		 */
 		$('#loopToggle').click(function (e) {
-			document.graph.toggleLoop();
+			APP.graph.toggleLoop();
 			$('#loopOn, #loopOff').toggle();
 
 			// deactivate clear button
@@ -691,24 +692,24 @@ document.UI = (function () {
 
 		$('#soundToggle').click(function (e) {
 			$('#soundOn, #soundOff').toggle();
-			document.Sound.toggleSound();
+			APP.Sound.toggleSound();
 		});
 
 		$('#clear').click(function (e) {
 			if (! $(this).hasClass('deactivate')) {
-				document.graph.clear();
+				APP.graph.clear();
 			}
 		});
 
 		// speed up/ down
 		$('#speedUpButton').click(function (e) {
 			loopTempo += 2;
-			document.graph.setLoopDuration(convertBPMtoMilliseconds(loopTempo));
+			APP.graph.setLoopDuration(convertBPMtoMilliseconds(loopTempo));
 			updateTimeDisplay(loopTempo);
 		});
 		$('#speedDownButton').click(function (e) {
 			loopTempo -= 2;
-			document.graph.setLoopDuration(convertBPMtoMilliseconds(loopTempo));
+			APP.graph.setLoopDuration(convertBPMtoMilliseconds(loopTempo));
 			updateTimeDisplay(loopTempo);
 		});
 		
@@ -779,11 +780,11 @@ document.UI = (function () {
 		 * buttons for save/ load graph in the browsers local storage
 		 */
 		$('#saveGraph').click(function (e) {
-			document.graph.save();
+			APP.graph.save();
 		});
 		
 		$('#loadGraph').click(function (e) {
-			document.graph.load();
+			APP.graph.load();
 		});
 		
 	};

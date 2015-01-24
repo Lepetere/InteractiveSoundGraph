@@ -1,3 +1,5 @@
+var APP = APP || {};
+
 /*
  * additional functions
  */
@@ -15,7 +17,7 @@ $.fn.setCoords = function(rebase, x, y){
     });
 };
 
-document.Plugins = (function () {
+APP.Plugins = (function () {
 
 	// module object; add all methods and properties that should be visible globally
 	var module = {};

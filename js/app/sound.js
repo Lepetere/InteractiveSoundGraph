@@ -1,5 +1,6 @@
-// immediate function
-document.Sound = (function () {
+var APP = APP || {};
+
+APP.Sound = (function () {
 
     var BUZZ_NEW_SOUND_OPTIONS = {
         preload: true,
@@ -77,13 +78,13 @@ document.Sound = (function () {
 
     function getNewSoundObjectForCurrentSound () {
         return getSoundObject(
-            document.Sound.currentSelection["groupName"],
-            document.Sound.currentSelection["sampleName"]
+            APP.Sound.currentSelection["groupName"],
+            APP.Sound.currentSelection["sampleName"]
             );
     }
 
     function getFillColorForCurrentSound () {
-        return document.Sound.currentSelection["color"];
+        return APP.Sound.currentSelection["color"];
     }
 
     function toggleSound () {

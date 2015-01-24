@@ -1,5 +1,6 @@
-// immediate function
-document.UI = (function () {
+var APP = APP || {};
+
+APP.UI = (function () {
 
 	var loopTempo = 120;
 	// module object; add all methods and properties that should be visible globally
@@ -9,11 +10,11 @@ document.UI = (function () {
 
 		$('ul#sound-list').empty();
 		var groupName = $('select#banch-select').find(':selected').attr('value');
-		$(document.Sound.sounds[groupName]).each(function (sampleCounter, sample) {
+		$(APP.Sound.sounds[groupName]).each(function (sampleCounter, sample) {
 			$('ul#sound-list').append('<li value="' + sampleCounter + '" class="sound-item">' + sample["name"] + '</li>');
 		});
 		$('.sound-item').click(soundClickHandler);
-		document.Sound.currentSelection["groupName"] = groupName;
+		APP.Sound.currentSelection["groupName"] = groupName;
 
 		// select and highlight first sound
 		soundClickHandler.call($('.sound-item[value=0]'));
@@ -23,15 +24,15 @@ document.UI = (function () {
 		$('#sound-list').children().each(function (counter, element) {
 			$(element).css("color", "white");
 		});
-		$(elementToHighlight).css("color", document.Sound.getFillColorForCurrentSound());
+		$(elementToHighlight).css("color", APP.Sound.getFillColorForCurrentSound());
 	};
 	
 	var soundClickHandler = function () {
-		var currentGroupName = document.Sound.currentSelection["groupName"];
-		document.Sound.currentSelection["sampleName"] = document.Sound.sounds[currentGroupName][$(this).attr('value')]["name"];
-		document.Sound.currentSelection["color"] = document.Sound.sounds[currentGroupName][$(this).attr('value')]["color"];
-		document.Sound.sounds[currentGroupName][$(this).attr('value')]["buzzObject"].play();
-		var s = document.Sound.sounds[currentGroupName][$(this).attr('value')]["buzzObject"];
+		var currentGroupName = APP.Sound.currentSelection["groupName"];
+		APP.Sound.currentSelection["sampleName"] = APP.Sound.sounds[currentGroupName][$(this).attr('value')]["name"];
+		APP.Sound.currentSelection["color"] = APP.Sound.sounds[currentGroupName][$(this).attr('value')]["color"];
+		APP.Sound.sounds[currentGroupName][$(this).attr('value')]["buzzObject"].play();
+		var s = APP.Sound.sounds[currentGroupName][$(this).attr('value')]["buzzObject"];
 		// who needs the above variable 's'?
 		highlightSelection(this);
 	};
@@ -40,7 +41,7 @@ document.UI = (function () {
 
 		// init interface for sound selection
 		var selected = " selected";
-		$.each(document.Sound.sounds, function (groupName, samples) {
+		$.each(APP.Sound.sounds, function (groupName, samples) {
 			$('select#banch-select').append('<option value="' + groupName + '"' + selected + '>' + groupName + '</option>');
 			selected = ""; // only add selected attribute to first option
 		});
@@ -54,7 +55,7 @@ document.UI = (function () {
 		 *menu click events
 		 */
 		$('#loopToggle').click(function (e) {
-			document.graph.toggleLoop();
+			APP.graph.toggleLoop();
 			$('#loopOn, #loopOff').toggle();
 
 			// deactivate clear button
@@ -63,24 +64,24 @@ document.UI = (function () {
 
 		$('#soundToggle').click(function (e) {
 			$('#soundOn, #soundOff').toggle();
-			document.Sound.toggleSound();
+			APP.Sound.toggleSound();
 		});
 
 		$('#clear').click(function (e) {
 			if (! $(this).hasClass('deactivate')) {
-				document.graph.clear();
+				APP.graph.clear();
 			}
 		});
 
 		// speed up/ down
 		$('#speedUpButton').click(function (e) {
 			loopTempo += 2;
-			document.graph.setLoopDuration(convertBPMtoMilliseconds(loopTempo));
+			APP.graph.setLoopDuration(convertBPMtoMilliseconds(loopTempo));
 			updateTimeDisplay(loopTempo);
 		});
 		$('#speedDownButton').click(function (e) {
 			loopTempo -= 2;
-			document.graph.setLoopDuration(convertBPMtoMilliseconds(loopTempo));
+			APP.graph.setLoopDuration(convertBPMtoMilliseconds(loopTempo));
 			updateTimeDisplay(loopTempo);
 		});
 		
@@ -151,11 +152,11 @@ document.UI = (function () {
 		 * buttons for save/ load graph in the browsers local storage
 		 */
 		$('#saveGraph').click(function (e) {
-			document.graph.save();
+			APP.graph.save();
 		});
 		
 		$('#loadGraph').click(function (e) {
-			document.graph.load();
+			APP.graph.load();
 		});
 		
 	};

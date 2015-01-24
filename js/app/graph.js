@@ -1,4 +1,6 @@
-document.graph = (function startGraph() {
+var APP = APP || {};
+
+APP.graph = (function startGraph() {
 
 	// "constants"; do not change during following code
 	var LOOP_DURATION = 500;
@@ -88,7 +90,6 @@ document.graph = (function startGraph() {
 	}
 	
 	var load_node = function(node) {
-			console.log(node);
 			new_node = { 
 				index: node.index,
 				x :  node.x,
@@ -97,7 +98,7 @@ document.graph = (function startGraph() {
 				yStart : node.y,
 				name : node.name,
 				group_name : node.group_name,
-				sound : document.Sound.getSoundObject(node.group_name, node.name),
+				sound : APP.Sound.getSoundObject(node.group_name, node.name),
 				color : node.color,
 				previousNode : undefined, 
 				d3circleReference : undefined
@@ -112,7 +113,6 @@ document.graph = (function startGraph() {
 			loadNextNode();
 
 		function loadNextNode(){
-			console.log("next called");
 			if (index < jsonData['nodes'].length) {
 				load_node( jsonData['nodes'][index]);
 				index++;
@@ -122,7 +122,6 @@ document.graph = (function startGraph() {
 				//set links
 				links = [];
 				jsonData['links'].forEach(function(link) {
-					console.log(link.source, link.target);
 					links.push({source : nodes[link.source], 
 									target : nodes[link.target]});
 				});
@@ -146,10 +145,10 @@ document.graph = (function startGraph() {
 			// the point of insertion
 			xStart : point[0],
 			yStart : point[1],
-			name : document.Sound.currentSelection["sampleName"],
-			group_name:  document.Sound.currentSelection["groupName"],
-			sound : document.Sound.getNewSoundObjectForCurrentSound(),
-			color : document.Sound.getFillColorForCurrentSound(),
+			name : APP.Sound.currentSelection["sampleName"],
+			group_name:  APP.Sound.currentSelection["groupName"],
+			sound : APP.Sound.getNewSoundObjectForCurrentSound(),
+			color : APP.Sound.getFillColorForCurrentSound(),
 			previousNode : undefined,
 			d3circleReference : undefined
 		};
@@ -185,7 +184,6 @@ document.graph = (function startGraph() {
 			if (!module.playLoop) {
 				// when loop is not playing, just push the new node to the nextNodesArray
 				nextNodesArray.push(node);
-				console.log(nextNodesArray);
 			}
 			else {
 				// loop is playing; push the new node to an array that will be appended to nextNodesArray after the next play interval
@@ -259,9 +257,9 @@ document.graph = (function startGraph() {
 				  restart();
 			}
 			case 13 : {
-				curr_node.name = document.Sound.currentSelection["sampleName"];
-				curr_node.sound = document.Sound.getNewSoundObjectForCurrentSound();
-				curr_node.color = document.Sound.getFillColorForCurrentSound();
+				curr_node.name = APP.Sound.currentSelection["sampleName"];
+				curr_node.sound = APP.Sound.getNewSoundObjectForCurrentSound();
+				curr_node.color = APP.Sound.getFillColorForCurrentSound();
 				restart();
 			}
 		}	
@@ -325,7 +323,7 @@ document.graph = (function startGraph() {
 		nodes = [];
 		nextNodesArray = [];
 		appendToNextNodesArray = [];
-		document.graph = startGraph();
+		APP.graph = startGraph();
 	}
 	
 	var traverseGraph = function () {
@@ -335,7 +333,7 @@ document.graph = (function startGraph() {
 		nextNodesArray.forEach(function (currentNode, index) {
 
 			// first play sound
-			if (document.Sound.isSoundOn) {
+			if (APP.Sound.isSoundOn) {
 				if (!currentNode.sound.isEnded()) {
 					currentNode.sound.stop();	
 				}
