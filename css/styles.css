@@ -22,12 +22,13 @@ h1{
 	position: absolute;
 	text-align: right;
 	list-style-type: none;
+	font-size: 16px;
 }
 
 #menu li {
 	float: left;
 	margin-right: 30px;
-	margin-top: 40px;
+	margin-top: 46px;
 	cursor: pointer;	
 }
 
