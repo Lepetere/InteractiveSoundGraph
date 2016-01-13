@@ -15,7 +15,7 @@ You can connect nodes by clicking on the canvas with already existing nodes insi
 
 ## Demo
 
-Check out the live demo [here](http://interactivesoundgraph.peterfessel.com)
+Check out the live demo [here](http://projects.peterfessel.com/InteractiveSoundGraph)
 
 ##
 
